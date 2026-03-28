@@ -1,64 +1,11 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
-from enum import Enum
 import json
 from pathlib import Path
 from typing import Any
 
-
-class NodeType(str, Enum):
-    SERVER = "server"
-    DATABASE = "database"
-    IOT = "iot"
-    ENDPOINT = "endpoint"
-
-
-class CompromisedState(str, Enum):
-    NONE = "none"
-    USER = "user"
-    PRIVILEGED = "privileged"
-
-
-class DetectionState(str, Enum):
-    UNDETECTED = "undetected"
-    SUSPECTED = "suspected"
-    CONFIRMED = "confirmed"
-
-
-@dataclass(frozen=True)
-class NodeConfig:
-    node_id: str
-    node_type: NodeType
-    services: tuple[str, ...]
-    vulnerabilities: tuple[str, ...]
-    security_level: int
-    compromised_state: CompromisedState
-    detection_state: DetectionState
-    isolation_state: bool
-
-
-@dataclass(frozen=True)
-class EdgeConfig:
-    source: str
-    target: str
-
-
-@dataclass(frozen=True)
-class ScenarioMetadata:
-    scenario_id: str
-    version: str
-
-
-@dataclass(frozen=True)
-class ScenarioConfig:
-    metadata: ScenarioMetadata
-    nodes: tuple[NodeConfig, ...]
-    edges: tuple[EdgeConfig, ...]
-
-    @property
-    def node_ids(self) -> tuple[str, ...]:
-        return tuple(node.node_id for node in self.nodes)
+from hart.enums import CompromisedState, DetectionState, NodeType
+from hart.models import EdgeConfig, NodeConfig, ScenarioConfig, ScenarioMetadata
 
 
 _REQUIRED_NODE_FIELDS = {

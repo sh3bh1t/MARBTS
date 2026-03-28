@@ -1,25 +1,7 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
-from typing import Mapping
-
+from hart.models import NodeRuntimeState, SimulationState
 from schemas.scenario import ScenarioConfig
-
-
-@dataclass(frozen=True)
-class NodeRuntimeState:
-    node_id: str
-    security_level: int
-    compromised_state: str
-    detection_state: str
-    isolation_state: bool
-
-
-@dataclass(frozen=True)
-class SimulationState:
-    scenario_id: str
-    timestep: int
-    nodes: Mapping[str, NodeRuntimeState]
 
 
 def initialize_simulation_state(scenario: ScenarioConfig) -> SimulationState:

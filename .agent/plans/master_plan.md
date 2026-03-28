@@ -311,3 +311,4 @@ After each major feature or phase: "Validation complete for this step."
 - 2026-03-28: Testing framework standardized to pytest for contributor scalability and simpler assertion patterns.
 - 2026-03-28: Added Phase 1 closure hardening assets (smoke runner and closure checklist/report path).
 - 2026-03-28: Updated project docs with explicit collaborator test execution instructions and phase status tracking.
+- 2026-03-29: Introduced centralized `src/hart/` type system (enums/models) and refactored Phase 1 modules to consume shared contracts.

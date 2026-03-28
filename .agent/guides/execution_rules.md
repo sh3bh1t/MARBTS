@@ -65,6 +65,15 @@ If any requirement is ambiguous:
 - Keep **all** README files current (root and scope-specific directories). README content must describe current scope status, operational usage, and contribution expectations—not only folder structure.
 - Commands in docs must be repo-root relative and environment-agnostic; do not use machine-specific absolute paths.
 
+## Shared Foundation Module Rules (`src/hart/`)
+- Treat `src/hart/` as the centralized shared foundation layer.
+- Place reusable enums under `src/hart/enums/`.
+- Place reusable data models (dataclasses/contracts) under `src/hart/models/`.
+- Place other reusable, import-safe assets in `hart` when they are cross-module and do not require immediate runtime state (for example: shared constants, typed contracts, protocol definitions, validation helpers, portable serialization helpers).
+- Avoid redefining shared contracts in feature modules; import from `hart` instead.
+- Keep `hart` modules runtime-light and side-effect-free so they can be imported by runtime services, offline tooling, and future hosted/online components.
+- When introducing a new shared contract, add/adjust the relevant `hart` module first, then consume it from implementation modules.
+
 ## Dependency Management Rules
 - Maintain a single root dependency manifest at `requirements.txt`.
 - When introducing a new external Python package, update `requirements.txt` in the same change.

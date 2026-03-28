@@ -1,19 +1,9 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
-from typing import Literal
-
 import networkx as nx
 
-Actor = Literal["red", "blue"]
-
-
-@dataclass(frozen=True)
-class LegalAction:
-    actor: Actor
-    action_type: str
-    targets: tuple[str, ...]
-    rationale_hint: str
+from hart.enums import ActionType, ActorType, parse_actor
+from hart.models import LegalAction
 
 
 def _sorted_edges(graph: nx.Graph) -> list[tuple[str, str]]:
@@ -25,13 +15,15 @@ def _is_compromised(node_attrs: dict) -> bool:
     return node_attrs.get("compromised_state") in {"user", "privileged"}
 
 
-def get_legal_actions(graph: nx.Graph, actor: Actor) -> tuple[LegalAction, ...]:
-    if actor not in {"red", "blue"}:
-        raise ValueError(f"unsupported actor '{actor}'")
+def get_legal_actions(graph: nx.Graph, actor: ActorType | str) -> tuple[LegalAction, ...]:
+    try:
+        normalized_actor = parse_actor(actor)
+    except ValueError as exc:
+        raise ValueError(f"unsupported actor '{actor}'") from exc
 
     actions: list[LegalAction] = []
 
-    if actor == "red":
+    if normalized_actor == ActorType.RED:
         for node_id in sorted(graph.nodes()):
             attrs = graph.nodes[node_id]
             if attrs.get("isolation_state"):
@@ -39,8 +31,8 @@ def get_legal_actions(graph: nx.Graph, actor: Actor) -> tuple[LegalAction, ...]:
 
             actions.append(
                 LegalAction(
-                    actor="red",
-                    action_type="scan",
+                    actor=ActorType.RED,
+                    action_type=ActionType.SCAN,
                     targets=(node_id,),
                     rationale_hint="discover node exposure and service surface",
                 )
@@ -49,8 +41,8 @@ def get_legal_actions(graph: nx.Graph, actor: Actor) -> tuple[LegalAction, ...]:
             if attrs.get("vulnerabilities") and attrs.get("compromised_state") != "privileged":
                 actions.append(
                     LegalAction(
-                        actor="red",
-                        action_type="exploit",
+                        actor=ActorType.RED,
+                        action_type=ActionType.EXPLOIT,
                         targets=(node_id,),
                         rationale_hint="advance compromise level on vulnerable target",
                     )
@@ -59,8 +51,8 @@ def get_legal_actions(graph: nx.Graph, actor: Actor) -> tuple[LegalAction, ...]:
             if attrs.get("compromised_state") == "user":
                 actions.append(
                     LegalAction(
-                        actor="red",
-                        action_type="escalate",
+                        actor=ActorType.RED,
+                        action_type=ActionType.ESCALATE,
                         targets=(node_id,),
                         rationale_hint="escalate local privileges from user to privileged",
                     )
@@ -79,20 +71,20 @@ def get_legal_actions(graph: nx.Graph, actor: Actor) -> tuple[LegalAction, ...]:
                     continue
                 actions.append(
                     LegalAction(
-                        actor="red",
-                        action_type="lateral_move",
+                        actor=ActorType.RED,
+                        action_type=ActionType.LATERAL_MOVE,
                         targets=(source, target),
                         rationale_hint="expand foothold through reachable neighbor",
                     )
                 )
 
-    if actor == "blue":
+    if normalized_actor == ActorType.BLUE:
         for node_id in sorted(graph.nodes()):
             attrs = graph.nodes[node_id]
             actions.append(
                 LegalAction(
-                    actor="blue",
-                    action_type="monitor",
+                    actor=ActorType.BLUE,
+                    action_type=ActionType.MONITOR,
                     targets=(node_id,),
                     rationale_hint="observe node state and detect compromise indicators",
                 )
@@ -102,8 +94,8 @@ def get_legal_actions(graph: nx.Graph, actor: Actor) -> tuple[LegalAction, ...]:
             if patchable:
                 actions.append(
                     LegalAction(
-                        actor="blue",
-                        action_type="patch",
+                        actor=ActorType.BLUE,
+                        action_type=ActionType.PATCH,
                         targets=(node_id,),
                         rationale_hint="reduce vulnerability and compromise exposure",
                     )
@@ -112,8 +104,8 @@ def get_legal_actions(graph: nx.Graph, actor: Actor) -> tuple[LegalAction, ...]:
             if not attrs.get("isolation_state"):
                 actions.append(
                     LegalAction(
-                        actor="blue",
-                        action_type="isolate",
+                        actor=ActorType.BLUE,
+                        action_type=ActionType.ISOLATE,
                         targets=(node_id,),
                         rationale_hint="contain possible lateral movement from/to node",
                     )
@@ -122,8 +114,8 @@ def get_legal_actions(graph: nx.Graph, actor: Actor) -> tuple[LegalAction, ...]:
         for source, target in _sorted_edges(graph):
             actions.append(
                 LegalAction(
-                    actor="blue",
-                    action_type="block",
+                    actor=ActorType.BLUE,
+                    action_type=ActionType.BLOCK,
                     targets=(source, target),
                     rationale_hint="remove network path to reduce attack propagation",
                 )

@@ -98,3 +98,4 @@ Build a deterministic, graph-based simulation environment using `networkx` with 
 - 2026-03-28: Unit test suite migrated from unittest to pytest and validated for deterministic behavior parity.
 - 2026-03-28: Added closure hardening smoke execution script and operations checklist.
 - 2026-03-28: Phase marked completed with evidence-based status summary.
+- 2026-03-29: Refactored enums/models into centralized `src/hart/{enums,models}` modules for reusable type governance.

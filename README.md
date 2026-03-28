@@ -16,6 +16,18 @@ Primary design goals:
 - **Reproducibility**: deterministic seeded execution and run provenance capture
 - **Research utility**: supports baseline comparisons, adaptive-policy experiments, and ablations
 
+## Shared Foundation Layer (`src/hart`)
+
+`src/hart` is the centralized, reusable foundation for cross-cutting contracts and portable shared logic.
+
+- `src/hart/enums/`: canonical enum vocabularies (actors, actions, node states, etc.)
+- `src/hart/models/`: canonical dataclass models/contracts used across schema, environment, and simulation modules
+
+Design intent:
+- prevent duplicate contract definitions,
+- keep imports consistent across modules,
+- make shared logic easier to reuse for future hosted/online services and tooling.
+
 ## Source of Truth and Governance
 Authoritative planning and execution constraints are defined in:
 - `.agent/guides/project_principles.md`
@@ -39,6 +51,9 @@ MARBTS/
 │  ├─ guides/
 │  └─ plans/
 ├─ src/
+│  ├─ hart/
+│  │  ├─ enums/
+│  │  └─ models/
 │  ├─ core/
 │  ├─ environment/
 │  ├─ agents/
@@ -90,7 +105,8 @@ Start here based on your role:
 1. **Architect / Reviewer**
    - Read `.agent/guides/` then `.agent/plans/master_plan.md`
 2. **Environment / Core Simulation Developer**
-   - Work in `src/environment/`, `src/simulation/`, `src/schemas/`
+   - Work in `src/hart/`, `src/environment/`, `src/simulation/`, `src/schemas/`
+   - Prefer defining shared contracts in `src/hart/` before using them in runtime modules
 3. **Agent Developer (Red/Blue/Adaptive)**
    - Work in `src/agents/`
 4. **Observability & Evaluation Engineer**
@@ -118,6 +134,24 @@ Assumption: your Python environment is already activated.
 For reproducible baseline smoke execution:
 - PowerShell: `$env:PYTHONPATH='src'; python scripts/run_phase1_smoke.py`
 - Bash/Zsh: `PYTHONPATH=src python scripts/run_phase1_smoke.py`
+
+## Run Phase 1 Baseline
+
+From repository root:
+
+1. Set up environment (once):
+   - `python -m venv .venv`
+   - PowerShell: `.venv\Scripts\Activate.ps1`
+   - Bash/Zsh: `source .venv/bin/activate`
+   - `python -m pip install -r requirements.txt`
+2. Validate Phase 1 unit tests suite:
+   - `python -m pytest tests/unit -q`
+3. Run Phase 1 smoke path and generate artifacts:
+   - PowerShell: `$env:PYTHONPATH='src'; python scripts/run_phase1_smoke.py`
+   - Bash/Zsh: `PYTHONPATH=src python scripts/run_phase1_smoke.py`
+4. Inspect outputs:
+   - `artifacts/runs/<run_id>/run_metadata.json`
+   - `artifacts/runs/<run_id>/timesteps.jsonl`
 
 
 ## Current Status

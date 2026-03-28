@@ -1,21 +1,18 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
 import copy
 
 import networkx as nx
+from hart.enums import CompromisedState
+from hart.models import TransitionResult
 
 
-_COMPROMISE_LEVELS = ("none", "user", "privileged")
+_COMPROMISE_LEVELS = (
+    CompromisedState.NONE.value,
+    CompromisedState.USER.value,
+    CompromisedState.PRIVILEGED.value,
+)
 _MAX_SECURITY_LEVEL = 10
-
-
-@dataclass(frozen=True)
-class TransitionResult:
-    action: str
-    target: str
-    changed: bool
-    reason: str
 
 
 def _clone_graph(graph: nx.Graph) -> nx.Graph:

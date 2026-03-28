@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
 from datetime import datetime, timezone
 import hashlib
 from typing import Callable
@@ -9,45 +8,10 @@ import networkx as nx
 
 from environment.legal_actions import LegalAction, get_legal_actions
 from environment.transitions import TransitionResult, apply_block, apply_exploit, apply_isolate, apply_patch
+from hart.enums import ActionType
+from hart.models import ActionRecord, RunMetadata, SimulationRunResult, TimestepLogEntry
 from simulation.rng import SeededRNG
 from simulation.state_diff import compute_post_state_diff, snapshot_payload, snapshot_ref
-
-
-@dataclass(frozen=True)
-class RunMetadata:
-    run_id: str
-    seed: int
-    scenario_id: str
-    horizon: int
-    timestamp_utc: str
-
-
-@dataclass(frozen=True)
-class ActionRecord:
-    actor: str
-    action_type: str
-    targets: tuple[str, ...]
-    rationale: str
-    changed: bool
-    reason: str
-
-
-@dataclass(frozen=True)
-class TimestepLogEntry:
-    timestep: int
-    pre_state_ref: str
-    red_action_intent: ActionRecord
-    blue_action_intent: ActionRecord
-    action_outcomes: tuple[ActionRecord, ActionRecord]
-    post_state_diff: dict
-    metric_delta: dict
-
-
-@dataclass(frozen=True)
-class SimulationRunResult:
-    metadata: RunMetadata
-    final_graph: nx.Graph
-    timesteps: tuple[TimestepLogEntry, ...]
 
 
 ActionSelector = Callable[[str, tuple[LegalAction, ...], SeededRNG, int], LegalAction]
@@ -62,13 +26,13 @@ def _count_compromised(graph: nx.Graph) -> int:
 
 
 def _apply_red_action(graph: nx.Graph, action: LegalAction) -> tuple[nx.Graph, TransitionResult]:
-    if action.action_type == "exploit":
+    if action.action_type == ActionType.EXPLOIT:
         return apply_exploit(graph, action.targets[0])
 
-    if action.action_type == "escalate":
+    if action.action_type == ActionType.ESCALATE:
         return apply_exploit(graph, action.targets[0])
 
-    if action.action_type == "lateral_move":
+    if action.action_type == ActionType.LATERAL_MOVE:
         return apply_exploit(graph, action.targets[1])
 
     return graph, TransitionResult(
@@ -80,13 +44,13 @@ def _apply_red_action(graph: nx.Graph, action: LegalAction) -> tuple[nx.Graph, T
 
 
 def _apply_blue_action(graph: nx.Graph, action: LegalAction) -> tuple[nx.Graph, TransitionResult]:
-    if action.action_type == "patch":
+    if action.action_type == ActionType.PATCH:
         return apply_patch(graph, action.targets[0])
 
-    if action.action_type == "isolate":
+    if action.action_type == ActionType.ISOLATE:
         return apply_isolate(graph, action.targets[0])
 
-    if action.action_type == "block":
+    if action.action_type == ActionType.BLOCK:
         return apply_block(graph, action.targets[0], action.targets[1])
 
     return graph, TransitionResult(
@@ -104,7 +68,7 @@ def _default_selector(_actor: str, legal_actions: tuple[LegalAction, ...], rng: 
 def _to_action_record(actor: str, legal_action: LegalAction, transition: TransitionResult) -> ActionRecord:
     return ActionRecord(
         actor=actor,
-        action_type=legal_action.action_type,
+        action_type=legal_action.action_type.value,
         targets=legal_action.targets,
         rationale=legal_action.rationale_hint,
         changed=transition.changed,

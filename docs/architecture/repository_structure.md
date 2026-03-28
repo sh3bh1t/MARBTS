@@ -22,6 +22,7 @@ This document defines the canonical directory layout for MARBTS. It is designed 
 ## Source Package Layout (`src/`)
 
 - `core/` — Shared domain primitives, constants, and base interfaces.
+- `hart/` — Centralized shared foundation layer (enums, models, and other reusable import-safe contracts/utilities).
 - `environment/` — Graph network model, state transitions, legal action generation.
 - `agents/interfaces/` — Stable policy interface contracts.
 - `agents/red/` — Rule-based and adaptive Red policy implementations.
@@ -45,7 +46,7 @@ This document defines the canonical directory layout for MARBTS. It is designed 
 
 ## Ownership Mapping by Phase
 
-- Phase 1: `environment/`, `schemas/`, `simulation/`
+- Phase 1: `hart/`, `environment/`, `schemas/`, `simulation/`
 - Phase 2: `agents/interfaces/`, `agents/red/`, `agents/blue/`
 - Phase 3: `agents/adaptive/`, `experiments/`
 - Phase 4: `logging/`, `metrics/`, `visualization/`
