@@ -81,3 +81,4 @@ Implement deterministic, explainable Red and Blue rule-based policies integrated
 
 ## Plan Revision Log
 - 2026-03-28: Initial phase plan created.
+- 2026-03-28: Confirmed agent policy modules align with canonical `src/marbts/agents/*` structure.

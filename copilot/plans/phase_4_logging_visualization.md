@@ -82,3 +82,4 @@ Implement production-quality observability: complete structured logging, run pro
 
 ## Plan Revision Log
 - 2026-03-28: Initial phase plan created.
+- 2026-03-28: Confirmed observability modules align with `src/marbts/logging`, `src/marbts/metrics`, and `src/marbts/visualization`.

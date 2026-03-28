@@ -84,3 +84,4 @@ Build a deterministic, graph-based simulation environment using `networkx` with 
 
 ## Plan Revision Log
 - 2026-03-28: Initial phase plan created.
+- 2026-03-28: Mapped phase ownership to canonical repository scaffold and source package boundaries.

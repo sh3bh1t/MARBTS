@@ -82,3 +82,4 @@ Introduce adaptive agent policies (LLM reasoning and/or RL) through the same pol
 
 ## Plan Revision Log
 - 2026-03-28: Initial phase plan created.
+- 2026-03-28: Confirmed adaptive policy components align with `src/marbts/agents/adaptive` and experiments layout.

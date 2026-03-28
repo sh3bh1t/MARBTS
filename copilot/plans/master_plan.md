@@ -298,3 +298,4 @@ After each major feature or phase: "Validation complete for this step."
 
 ### 11.3 Plan Revision Log
 - 2026-03-28: Initial master plan created from project directives and guide constraints.
+- 2026-03-28: Added canonical repository scaffolding and directory governance alignment (src/tests/scenarios/configs/docs/artifacts/docker).

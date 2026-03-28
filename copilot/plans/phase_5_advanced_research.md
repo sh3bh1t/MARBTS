@@ -83,3 +83,4 @@ Extend the platform for publication-grade experimentation via richer scenarios, 
 
 ## Plan Revision Log
 - 2026-03-28: Initial phase plan created.
+- 2026-03-28: Confirmed advanced research extensions align with scenarios/experiments/docs/artifacts/docker structure.
