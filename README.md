@@ -143,6 +143,12 @@ For Phase 2 multi-seed aggregate report generation:
 - PowerShell: `$env:PYTHONPATH='src'; python scripts/run_phase2_multi_seed_report.py`
 - Bash/Zsh: `PYTHONPATH=src python scripts/run_phase2_multi_seed_report.py`
 
+Examples:
+- PowerShell (custom seeds and horizon):
+   - `$env:PYTHONPATH='src'; python scripts/run_phase2_multi_seed_report.py --seeds 20260329,20260332,20260333 --horizon 10`
+- Bash/Zsh (custom scenario and output roots):
+   - `PYTHONPATH=src python scripts/run_phase2_multi_seed_report.py --scenario scenarios/baselines/phase2_rule_baseline.json --runs-root artifacts/runs --metrics-root artifacts/metrics --reports-root artifacts/reports`
+
 ## Run Phase 1 Baseline
 
 From repository root:
@@ -167,8 +173,8 @@ From repository root:
 - **Phase 1 (Network Simulation Core): Completed**
    - Schema validation, graph initialization, transition primitives, legal actions, seeded simulation kernel, state diff utilities, and artifact logging scaffold are implemented.
    - Test framework migrated to `pytest`; unit suite passing.
-- **Phase 2 (Rule-Based Agents): In progress**
-   - Policy interface/registry, deterministic red/blue rule-based policies, explainable rationale payloads, policy metrics snapshots, and per-run baseline metrics artifacts are integrated.
+- **Phase 2 (Rule-Based Agents): Completed**
+   - Policy interface/registry, deterministic red/blue rule-based policies, explainable rationale payloads, policy metrics snapshots, baseline metrics artifacts, and multi-seed aggregate reporting are integrated and validated.
 - **Phase 3–5: Planned / Not started yet**
    - See `.agent/plans/` for phase-specific implementation definitions.
 

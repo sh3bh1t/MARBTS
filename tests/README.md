@@ -32,7 +32,7 @@ If you have not set up the environment yet:
 ## Current Status
 
 - Test framework: `pytest`
-- Implemented coverage (Phase 1 + Phase 2 in-progress):
+- Implemented coverage (Phase 1 + Phase 2 completed):
 	- schema validation
 	- graph initialization
 	- transition primitives
@@ -41,6 +41,7 @@ If you have not set up the environment yet:
 	- log artifact writing
 	- deterministic rule-based red/blue policy behavior
 	- phase 2 action-sequence reproducibility and regression signature checks
+	- phase 2 multi-seed aggregate report integration checks
 
 ## Contributor Notes
 

@@ -25,6 +25,11 @@ def test_multi_seed_report_generates_expected_artifacts() -> None:
         assert report_payload["aggregate"]["seed_count"] == 2
         assert report_payload["aggregate"]["scenario_id"] == "phase2-rule-baseline"
         assert report_payload["aggregate"]["horizon"] == 6
+        assert "final_compromised_stddev" in report_payload["aggregate"]
+        assert "blue_containment_stddev" in report_payload["aggregate"]
+        assert "hash_frequency" in report_payload["aggregate"]
+        assert "deterministic_consistency_ratio" in report_payload["aggregate"]
+        assert 0.0 <= report_payload["aggregate"]["deterministic_consistency_ratio"] <= 1.0
         assert len(report_payload["runs"]) == 2
 
         for run in report_payload["runs"]:

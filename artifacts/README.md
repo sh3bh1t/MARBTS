@@ -31,6 +31,10 @@ Generated outputs only (never source-of-truth configs):
 - Generate Phase 2 multi-seed aggregate report:
 	- PowerShell: `$env:PYTHONPATH='src'; python scripts/run_phase2_multi_seed_report.py`
 	- Bash/Zsh: `PYTHONPATH=src python scripts/run_phase2_multi_seed_report.py`
+	- Custom seeds/horizon example:
+		- `python scripts/run_phase2_multi_seed_report.py --seeds 20260329,20260330,20260331 --horizon 10`
+	- Custom scenario/output roots example:
+		- `python scripts/run_phase2_multi_seed_report.py --scenario scenarios/baselines/phase2_rule_baseline.json --runs-root artifacts/runs --metrics-root artifacts/metrics --reports-root artifacts/reports`
 - Generated outputs in `runs/`, `metrics/`, `figures/`, and `reports/` are intended to remain local and are gitignored by default (except tracked `README.md` placeholders).
 - Do not commit large generated artifacts unless explicitly needed for reproducibility evidence.
 - If artifact layout changes, update this README in the same change.
