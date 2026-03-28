@@ -82,6 +82,19 @@ Build a deterministic, graph-based simulation environment using `networkx` with 
 - Logging completeness ratio is 100% for required fields.
 - Unit and integration manual tests above pass.
 
+## Current Status
+
+- Status: Completed
+- Completion date: 2026-03-28
+- Evidence:
+   - pytest unit suite passing (`22 passed`)
+   - smoke runner implemented and validated (`scripts/run_phase1_smoke.py`)
+   - run artifact generation validated (`run_metadata.json`, `timesteps.jsonl`)
+
 ## Plan Revision Log
 - 2026-03-28: Initial phase plan created.
 - 2026-03-28: Mapped phase ownership to canonical repository scaffold and source package boundaries.
+- 2026-03-28: Updated Phase 1 implementation paths and imports to flattened `src/*` layout.
+- 2026-03-28: Unit test suite migrated from unittest to pytest and validated for deterministic behavior parity.
+- 2026-03-28: Added closure hardening smoke execution script and operations checklist.
+- 2026-03-28: Phase marked completed with evidence-based status summary.

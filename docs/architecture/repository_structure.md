@@ -9,7 +9,7 @@ This document defines the canonical directory layout for MARBTS. It is designed 
 
 - `copilot/` — Authoritative guides and phased implementation plans.
 - `idea-core/` — Project definition artifacts.
-- `src/marbts/` — Main Python package.
+- `src/` — Main Python source root.
 - `tests/` — Unit/integration/simulation/reproducibility/regression test suites.
 - `scenarios/` — Versioned scenario schemas and libraries.
 - `configs/` — Base runtime configs, experiment configs, and seed sets.
@@ -19,7 +19,7 @@ This document defines the canonical directory layout for MARBTS. It is designed 
 - `artifacts/` — Generated run outputs, metrics, figures, and reports.
 - `docker/` — Optional containerized execution assets.
 
-## Source Package Layout (`src/marbts/`)
+## Source Package Layout (`src/`)
 
 - `core/` — Shared domain primitives, constants, and base interfaces.
 - `environment/` — Graph network model, state transitions, legal action generation.

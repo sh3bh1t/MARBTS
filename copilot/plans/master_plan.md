@@ -288,6 +288,14 @@ Secondary:
 - Reproducibility package assembled
 - Paper-ready experiment artifacts generated
 
+## 10.1 Current Phase Status
+
+- Phase 1: Completed (core implementation + pytest validation + smoke hardening)
+- Phase 2: Not started
+- Phase 3: Not started
+- Phase 4: Not started
+- Phase 5: Not started
+
 ## 11) Governance and Plan Maintenance
 
 ### 11.1 Mandatory Alignment Statement
@@ -299,3 +307,7 @@ After each major feature or phase: "Validation complete for this step."
 ### 11.3 Plan Revision Log
 - 2026-03-28: Initial master plan created from project directives and guide constraints.
 - 2026-03-28: Added canonical repository scaffolding and directory governance alignment (src/tests/scenarios/configs/docs/artifacts/docker).
+- 2026-03-28: Repository source layout flattened from `src/marbts/*` to `src/*`; imports/docs/plan references updated for compatibility.
+- 2026-03-28: Testing framework standardized to pytest for contributor scalability and simpler assertion patterns.
+- 2026-03-28: Added Phase 1 closure hardening assets (smoke runner and closure checklist/report path).
+- 2026-03-28: Updated project docs with explicit collaborator test execution instructions and phase status tracking.

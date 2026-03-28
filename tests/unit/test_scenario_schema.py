@@ -1,6 +1,6 @@
-import unittest
+import pytest
 
-from marbts.schemas.scenario import load_scenario_file, validate_scenario_dict
+from schemas.scenario import load_scenario_file, validate_scenario_dict
 
 
 def _valid_scenario_dict() -> dict:
@@ -32,31 +32,29 @@ def _valid_scenario_dict() -> dict:
     }
 
 
-class TestScenarioSchema(unittest.TestCase):
-    def test_validate_valid_scenario(self) -> None:
-        scenario = validate_scenario_dict(_valid_scenario_dict())
-        self.assertEqual(scenario.metadata.scenario_id, "baseline-small")
-        self.assertEqual(len(scenario.nodes), 2)
-        self.assertEqual(len(scenario.edges), 1)
-
-    def test_reject_missing_required_node_field(self) -> None:
-        payload = _valid_scenario_dict()
-        del payload["nodes"][0]["security_level"]
-
-        with self.assertRaisesRegex(ValueError, "missing required fields"):
-            validate_scenario_dict(payload)
-
-    def test_reject_edge_with_unknown_node_reference(self) -> None:
-        payload = _valid_scenario_dict()
-        payload["edges"] = [{"source": "srv-1", "target": "ghost-node"}]
-
-        with self.assertRaisesRegex(ValueError, "references undefined node_id"):
-            validate_scenario_dict(payload)
-
-    def test_load_valid_baseline_file(self) -> None:
-        scenario = load_scenario_file("scenarios/baselines/minimal_valid.json")
-        self.assertEqual(scenario.metadata.version, "1.0.0")
+def test_validate_valid_scenario() -> None:
+    scenario = validate_scenario_dict(_valid_scenario_dict())
+    assert scenario.metadata.scenario_id == "baseline-small"
+    assert len(scenario.nodes) == 2
+    assert len(scenario.edges) == 1
 
 
-if __name__ == "__main__":
-    unittest.main()
+def test_reject_missing_required_node_field() -> None:
+    payload = _valid_scenario_dict()
+    del payload["nodes"][0]["security_level"]
+
+    with pytest.raises(ValueError, match="missing required fields"):
+        validate_scenario_dict(payload)
+
+
+def test_reject_edge_with_unknown_node_reference() -> None:
+    payload = _valid_scenario_dict()
+    payload["edges"] = [{"source": "srv-1", "target": "ghost-node"}]
+
+    with pytest.raises(ValueError, match="references undefined node_id"):
+        validate_scenario_dict(payload)
+
+
+def test_load_valid_baseline_file() -> None:
+    scenario = load_scenario_file("scenarios/baselines/minimal_valid.json")
+    assert scenario.metadata.version == "1.0.0"

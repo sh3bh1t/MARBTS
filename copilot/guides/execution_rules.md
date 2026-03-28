@@ -60,6 +60,9 @@ If any requirement is ambiguous:
 - Every design decision must have technical rationale.
 - Every module must define clear ownership, interface, and failure behavior.
 - Every plan update must be traceable and versioned through git history.
+- Documentation is part of delivery: when behavior, architecture, test flow, or contributor workflows change, update relevant docs in the same change.
+- Keep collaborator instructions current in `README.md` and `tests/README.md` (especially run/test commands).
+- Keep **all** README files current (root and scope-specific directories). README content must describe current scope status, operational usage, and contribution expectations—not only folder structure.
 
 ## Dependency Management Rules
 - Maintain a single root dependency manifest at `requirements.txt`.

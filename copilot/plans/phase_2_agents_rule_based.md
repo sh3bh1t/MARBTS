@@ -5,6 +5,11 @@ Conforms to guide files in copilot/guides/
 ## Objective
 Implement deterministic, explainable Red and Blue rule-based policies integrated into the turn-based orchestrator for baseline benchmarking.
 
+## Current Status
+
+- Status: Not started
+- Prerequisite: Phase 1 complete (satisfied)
+
 ## Inputs
 - Phase 1 environment engine and legal action generator
 - Agent interface contract from master plan
@@ -81,4 +86,6 @@ Implement deterministic, explainable Red and Blue rule-based policies integrated
 
 ## Plan Revision Log
 - 2026-03-28: Initial phase plan created.
-- 2026-03-28: Confirmed agent policy modules align with canonical `src/marbts/agents/*` structure.
+- 2026-03-28: Confirmed agent policy modules align with canonical `src/agents/*` structure.
+- 2026-03-28: Updated phase path assumptions to flattened `src/*` source layout.
+- 2026-03-28: Added explicit phase status tracking section.

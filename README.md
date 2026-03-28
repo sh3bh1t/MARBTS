@@ -38,7 +38,7 @@ MARBTS/
 ├─ copilot/
 │  ├─ guides/
 │  └─ plans/
-├─ src/marbts/
+├─ src/
 │  ├─ core/
 │  ├─ environment/
 │  ├─ agents/
@@ -90,15 +90,40 @@ Start here based on your role:
 1. **Architect / Reviewer**
    - Read `copilot/guides/` then `copilot/plans/master_plan.md`
 2. **Environment / Core Simulation Developer**
-   - Work in `src/marbts/environment/`, `src/marbts/simulation/`, `src/marbts/schemas/`
+   - Work in `src/environment/`, `src/simulation/`, `src/schemas/`
 3. **Agent Developer (Red/Blue/Adaptive)**
-   - Work in `src/marbts/agents/`
+   - Work in `src/agents/`
 4. **Observability & Evaluation Engineer**
-   - Work in `src/marbts/logging/`, `src/marbts/metrics/`, `src/marbts/visualization/`
+   - Work in `src/logging/`, `src/metrics/`, `src/visualization/`
 5. **Experimentation / Research Engineer**
-   - Work in `src/marbts/experiments/`, `scenarios/`, `configs/`, `artifacts/`
+   - Work in `src/experiments/`, `scenarios/`, `configs/`, `artifacts/`
 6. **Validation Engineer**
    - Work in `tests/` and ensure seed-based reproducibility checks
+
+## Running Tests
+
+Use `pytest` from the repository root.
+
+- Run full test suite:
+   - `e:/Coding/MARBTS/.venv/Scripts/python.exe -m pytest -q`
+- Run all unit tests only:
+   - `e:/Coding/MARBTS/.venv/Scripts/python.exe -m pytest tests/unit -q`
+- Run one specific test file:
+   - `e:/Coding/MARBTS/.venv/Scripts/python.exe -m pytest tests/unit/test_simulation_kernel.py -q`
+- Run one specific test function:
+   - `e:/Coding/MARBTS/.venv/Scripts/python.exe -m pytest tests/unit/test_simulation_kernel.py::test_seed_reproducibility -q`
+
+For reproducible baseline smoke execution:
+- `$env:PYTHONPATH='src'; e:/Coding/MARBTS/.venv/Scripts/python.exe scripts/run_phase1_smoke.py`
+
+
+## Current Status
+
+- **Phase 1 (Network Simulation Core): Completed**
+   - Schema validation, graph initialization, transition primitives, legal actions, seeded simulation kernel, state diff utilities, and artifact logging scaffold are implemented.
+   - Test framework migrated to `pytest`; unit suite passing.
+- **Phase 2–5: Planned / Not started yet**
+   - See `copilot/plans/` for phase-specific implementation definitions.
 
 
 
@@ -109,6 +134,10 @@ This section will be expanded with:
 - canonical run/test commands,
 - reproducibility workflow,
 - contributor conventions.
+
+Immediate baseline setup commands:
+- `e:/Coding/MARBTS/.venv/Scripts/python.exe -m pip install -r requirements.txt`
+- `e:/Coding/MARBTS/.venv/Scripts/python.exe -m pytest -q`
 
 
 ## Contributing Expectations

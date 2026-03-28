@@ -5,6 +5,11 @@ Conforms to guide files in copilot/guides/
 ## Objective
 Implement production-quality observability: complete structured logging, run provenance, trajectory replay, and research-oriented visual analytics.
 
+## Current Status
+
+- Status: Not started
+- Dependency: Builds on simulation outputs from Phases 1-3
+
 ## Inputs
 - Event contracts and required log fields from master plan + guides
 - Simulation outputs from Phases 1-3
@@ -82,4 +87,6 @@ Implement production-quality observability: complete structured logging, run pro
 
 ## Plan Revision Log
 - 2026-03-28: Initial phase plan created.
-- 2026-03-28: Confirmed observability modules align with `src/marbts/logging`, `src/marbts/metrics`, and `src/marbts/visualization`.
+- 2026-03-28: Confirmed observability modules align with `src/logging`, `src/metrics`, and `src/visualization`.
+- 2026-03-28: Updated phase path assumptions to flattened `src/*` source layout.
+- 2026-03-28: Added explicit phase status tracking section.

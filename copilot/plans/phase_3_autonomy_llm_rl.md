@@ -5,6 +5,11 @@ Conforms to guide files in copilot/guides/
 ## Objective
 Introduce adaptive agent policies (LLM reasoning and/or RL) through the same policy interface while preserving safety, explainability, and reproducibility controls.
 
+## Current Status
+
+- Status: Not started
+- Prerequisite: Phase 2 baseline policies required
+
 ## Inputs
 - Stable rule-based baseline from Phase 2
 - Shared policy interface and logging contracts
@@ -82,4 +87,6 @@ Introduce adaptive agent policies (LLM reasoning and/or RL) through the same pol
 
 ## Plan Revision Log
 - 2026-03-28: Initial phase plan created.
-- 2026-03-28: Confirmed adaptive policy components align with `src/marbts/agents/adaptive` and experiments layout.
+- 2026-03-28: Confirmed adaptive policy components align with `src/agents/adaptive` and experiments layout.
+- 2026-03-28: Updated phase path assumptions to flattened `src/*` source layout.
+- 2026-03-28: Added explicit phase status tracking section.

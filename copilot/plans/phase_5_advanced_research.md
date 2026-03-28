@@ -5,6 +5,11 @@ Conforms to guide files in copilot/guides/
 ## Objective
 Extend the platform for publication-grade experimentation via richer scenarios, decoy/bluff strategy analysis, stress testing, optional containerized execution, and comprehensive ablation studies.
 
+## Current Status
+
+- Status: Not started
+- Dependency: Requires stable outputs from Phases 1-4
+
 ## Inputs
 - Stable platform from Phases 1-4
 - Baseline and adaptive policy outputs
@@ -84,3 +89,5 @@ Extend the platform for publication-grade experimentation via richer scenarios, 
 ## Plan Revision Log
 - 2026-03-28: Initial phase plan created.
 - 2026-03-28: Confirmed advanced research extensions align with scenarios/experiments/docs/artifacts/docker structure.
+- 2026-03-28: Updated phase path assumptions to flattened `src/*` source layout.
+- 2026-03-28: Added explicit phase status tracking section.
