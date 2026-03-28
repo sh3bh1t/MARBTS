@@ -1,0 +1,18 @@
+{
+  "metadata": {
+    "scenario_id": "invalid-missing-security-level",
+    "version": "1.0.0"
+  },
+  "nodes": [
+    {
+      "node_id": "srv-1",
+      "node_type": "server",
+      "services": ["ssh", "http"],
+      "vulnerabilities": ["cve-sim-001"],
+      "compromised_state": "none",
+      "detection_state": "undetected",
+      "isolation_state": false
+    }
+  ],
+  "edges": []
+}

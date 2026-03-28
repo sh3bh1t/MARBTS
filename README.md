@@ -100,13 +100,9 @@ Start here based on your role:
 6. **Validation Engineer**
    - Work in `tests/` and ensure seed-based reproducibility checks
 
-## Current Status
-- Governance guides are established.
-- Master and phase plans are complete.
-- Scalable project scaffold is in place.
-- Full implementation of simulation logic is pending by planned phases.
 
-## Quick Setup for Collaborators (Planned)
+
+## Quick Setup for Collaborators
 This section will be expanded with:
 - environment prerequisites,
 - dependency installation,
@@ -114,8 +110,6 @@ This section will be expanded with:
 - reproducibility workflow,
 - contributor conventions.
 
-Planned follow-up deliverable:
-- a practical setup and first-run checklist for new contributors.
 
 ## Contributing Expectations
 - Follow all constraints in `copilot/guides/`.

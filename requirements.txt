@@ -1,0 +1,5 @@
+# MARBTS runtime dependencies
+# Keep this file updated whenever a new external package is introduced.
+# Pin versions after baseline validation to preserve reproducibility.
+
+networkx>=3.2,<4.0

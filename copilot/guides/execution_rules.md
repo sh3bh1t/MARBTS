@@ -60,3 +60,9 @@ If any requirement is ambiguous:
 - Every design decision must have technical rationale.
 - Every module must define clear ownership, interface, and failure behavior.
 - Every plan update must be traceable and versioned through git history.
+
+## Dependency Management Rules
+- Maintain a single root dependency manifest at `requirements.txt`.
+- When introducing a new external Python package, update `requirements.txt` in the same change.
+- Prefer explicit version ranges and tighten to pinned versions after baseline validation milestones.
+- Do not add unused dependencies; every dependency must map to an implemented component.
