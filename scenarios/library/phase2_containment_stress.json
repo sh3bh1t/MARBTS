@@ -1,0 +1,48 @@
+{
+  "metadata": {
+    "scenario_id": "phase2-containment-stress",
+    "version": "1.0.0"
+  },
+  "nodes": [
+    {
+      "node_id": "edge-1",
+      "node_type": "endpoint",
+      "services": ["rdp"],
+      "vulnerabilities": ["cve-sim-301"],
+      "security_level": 2,
+      "compromised_state": "user",
+      "detection_state": "suspected",
+      "isolation_state": false
+    },
+    {
+      "node_id": "edge-2",
+      "node_type": "endpoint",
+      "services": ["rdp"],
+      "vulnerabilities": ["cve-sim-302"],
+      "security_level": 3,
+      "compromised_state": "none",
+      "detection_state": "undetected",
+      "isolation_state": false
+    },
+    {
+      "node_id": "app-1",
+      "node_type": "server",
+      "services": ["https"],
+      "vulnerabilities": ["cve-sim-303"],
+      "security_level": 4,
+      "compromised_state": "none",
+      "detection_state": "undetected",
+      "isolation_state": false
+    }
+  ],
+  "edges": [
+    {
+      "source": "edge-1",
+      "target": "edge-2"
+    },
+    {
+      "source": "edge-2",
+      "target": "app-1"
+    }
+  ]
+}

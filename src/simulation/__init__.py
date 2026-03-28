@@ -8,6 +8,7 @@ from .kernel import (
 )
 from .state_diff import compute_post_state_diff, snapshot_payload, snapshot_ref
 from .log_writer import write_run_artifacts
+from .policy_trace import action_sequence_hash, summarize_action_counts, summarize_policy_metrics
 
 __all__ = [
     "SeededRNG",
@@ -20,4 +21,7 @@ __all__ = [
     "snapshot_payload",
     "snapshot_ref",
     "write_run_artifacts",
+    "action_sequence_hash",
+    "summarize_action_counts",
+    "summarize_policy_metrics",
 ]

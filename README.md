@@ -135,6 +135,10 @@ For reproducible baseline smoke execution:
 - PowerShell: `$env:PYTHONPATH='src'; python scripts/run_phase1_smoke.py`
 - Bash/Zsh: `PYTHONPATH=src python scripts/run_phase1_smoke.py`
 
+For Phase 2 rule-based smoke execution:
+- PowerShell: `$env:PYTHONPATH='src'; python scripts/run_phase2_smoke.py`
+- Bash/Zsh: `PYTHONPATH=src python scripts/run_phase2_smoke.py`
+
 ## Run Phase 1 Baseline
 
 From repository root:

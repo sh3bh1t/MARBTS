@@ -77,5 +77,12 @@ If any requirement is ambiguous:
 ## Dependency Management Rules
 - Maintain a single root dependency manifest at `requirements.txt`.
 - When introducing a new external Python package, update `requirements.txt` in the same change.
+- Prefer mature external libraries over custom native implementations when they provide meaningful gains in correctness, maintainability, testability, or safety.
+- Before adding a library, justify the benefit briefly in the related plan/doc update and avoid dependency bloat.
 - Prefer explicit version ranges and tighten to pinned versions after baseline validation milestones.
 - Do not add unused dependencies; every dependency must map to an implemented component.
+
+## Scaffold Stub Lifecycle Rules
+- `STUB.md` files are temporary scaffolding markers only.
+- As soon as a directory receives substantive implementation files (code/tests/config/docs), remove that directory's `STUB.md` in the same change.
+- Keep `STUB.md` only in intentionally empty directories that still need to persist in git.

@@ -1,0 +1,62 @@
+{
+  "metadata": {
+    "scenario_id": "phase2-rule-baseline",
+    "version": "1.0.0"
+  },
+  "nodes": [
+    {
+      "node_id": "web-1",
+      "node_type": "server",
+      "services": ["https", "ssh"],
+      "vulnerabilities": ["cve-sim-201"],
+      "security_level": 3,
+      "compromised_state": "none",
+      "detection_state": "undetected",
+      "isolation_state": false
+    },
+    {
+      "node_id": "api-1",
+      "node_type": "server",
+      "services": ["https"],
+      "vulnerabilities": ["cve-sim-202"],
+      "security_level": 4,
+      "compromised_state": "none",
+      "detection_state": "undetected",
+      "isolation_state": false
+    },
+    {
+      "node_id": "db-1",
+      "node_type": "database",
+      "services": ["postgres"],
+      "vulnerabilities": ["cve-sim-203"],
+      "security_level": 5,
+      "compromised_state": "none",
+      "detection_state": "undetected",
+      "isolation_state": false
+    },
+    {
+      "node_id": "iot-1",
+      "node_type": "iot",
+      "services": ["mqtt"],
+      "vulnerabilities": ["cve-sim-204"],
+      "security_level": 2,
+      "compromised_state": "none",
+      "detection_state": "undetected",
+      "isolation_state": false
+    }
+  ],
+  "edges": [
+    {
+      "source": "web-1",
+      "target": "api-1"
+    },
+    {
+      "source": "api-1",
+      "target": "db-1"
+    },
+    {
+      "source": "api-1",
+      "target": "iot-1"
+    }
+  ]
+}

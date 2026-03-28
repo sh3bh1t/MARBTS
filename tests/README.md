@@ -20,6 +20,10 @@ If you have not set up the environment yet:
 	- `python -m pytest -q`
 - Unit tests only:
 	- `python -m pytest tests/unit -q`
+- Reproducibility tests only:
+	- `python -m pytest tests/reproducibility -q`
+- Regression tests only:
+	- `python -m pytest tests/regression -q`
 - Specific test file:
 	- `python -m pytest tests/unit/test_environment_transitions.py -q`
 - Specific test case:
@@ -28,13 +32,15 @@ If you have not set up the environment yet:
 ## Current Status
 
 - Test framework: `pytest`
-- Implemented coverage (Phase 1):
+- Implemented coverage (Phase 1 + Phase 2 in-progress):
 	- schema validation
 	- graph initialization
 	- transition primitives
 	- legal action generation
 	- simulation kernel and reproducibility
 	- log artifact writing
+	- deterministic rule-based red/blue policy behavior
+	- phase 2 action-sequence reproducibility and regression signature checks
 
 ## Contributor Notes
 

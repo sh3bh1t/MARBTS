@@ -90,3 +90,4 @@ Implement deterministic, explainable Red and Blue rule-based policies integrated
 - 2026-03-28: Updated phase path assumptions to flattened `src/*` source layout.
 - 2026-03-28: Added explicit phase status tracking section.
 - 2026-03-28: Implemented policy interface and registry, rule-based red/blue heuristics, deterministic tie-breakers, rationale payload emission, kernel integration, and Phase 2 baseline unit tests.
+- 2026-03-29: Added Phase 2 baseline scenarios, policy trace hashing/summaries, phase2 smoke script, reproducibility/regression tests, and removed replaced scaffold stubs.

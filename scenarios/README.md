@@ -12,9 +12,13 @@ This folder is the source of truth for simulation scenario inputs.
 
 - Phase 1 baseline scenario available:
 	- `baselines/minimal_valid.json`
+- Phase 2 baseline scenario available:
+	- `baselines/phase2_rule_baseline.json`
 - Example invalid scenario for validation testing:
 	- `baselines/invalid_missing_security_level.json`
-- `schemas/` and `library/` are scaffolded and currently contain stubs.
+- Phase 2 library scenario seed added:
+	- `library/phase2_containment_stress.json`
+- `schemas/` remains scaffolded and currently contains a stub.
 
 ## Contributor Notes
 
