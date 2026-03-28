@@ -17,6 +17,7 @@ Generated outputs only (never source-of-truth configs):
 ## Usage Notes
 
 - Generate baseline run artifacts with:
-	- `$env:PYTHONPATH='src'; e:/Coding/MARBTS/.venv/Scripts/python.exe scripts/run_phase1_smoke.py`
+	- PowerShell: `$env:PYTHONPATH='src'; python scripts/run_phase1_smoke.py`
+	- Bash/Zsh: `PYTHONPATH=src python scripts/run_phase1_smoke.py`
 - Do not commit large generated artifacts unless explicitly needed for reproducibility evidence.
 - If artifact layout changes, update this README in the same change.

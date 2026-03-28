@@ -104,17 +104,20 @@ Start here based on your role:
 
 Use `pytest` from the repository root.
 
+Assumption: your Python environment is already activated.
+
 - Run full test suite:
-   - `e:/Coding/MARBTS/.venv/Scripts/python.exe -m pytest -q`
+   - `python -m pytest -q`
 - Run all unit tests only:
-   - `e:/Coding/MARBTS/.venv/Scripts/python.exe -m pytest tests/unit -q`
+   - `python -m pytest tests/unit -q`
 - Run one specific test file:
-   - `e:/Coding/MARBTS/.venv/Scripts/python.exe -m pytest tests/unit/test_simulation_kernel.py -q`
+   - `python -m pytest tests/unit/test_simulation_kernel.py -q`
 - Run one specific test function:
-   - `e:/Coding/MARBTS/.venv/Scripts/python.exe -m pytest tests/unit/test_simulation_kernel.py::test_seed_reproducibility -q`
+   - `python -m pytest tests/unit/test_simulation_kernel.py::test_seed_reproducibility -q`
 
 For reproducible baseline smoke execution:
-- `$env:PYTHONPATH='src'; e:/Coding/MARBTS/.venv/Scripts/python.exe scripts/run_phase1_smoke.py`
+- PowerShell: `$env:PYTHONPATH='src'; python scripts/run_phase1_smoke.py`
+- Bash/Zsh: `PYTHONPATH=src python scripts/run_phase1_smoke.py`
 
 
 ## Current Status
@@ -136,8 +139,13 @@ This section will be expanded with:
 - contributor conventions.
 
 Immediate baseline setup commands:
-- `e:/Coding/MARBTS/.venv/Scripts/python.exe -m pip install -r requirements.txt`
-- `e:/Coding/MARBTS/.venv/Scripts/python.exe -m pytest -q`
+- Create virtual environment (from repo root):
+   - `python -m venv .venv`
+- Activate virtual environment:
+   - PowerShell: `.venv\Scripts\Activate.ps1`
+   - Bash/Zsh: `source .venv/bin/activate`
+- `python -m pip install -r requirements.txt`
+- `python -m pytest -q`
 
 
 ## Contributing Expectations

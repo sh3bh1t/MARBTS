@@ -8,14 +8,22 @@
 
 ## How To Run
 
+Assumption: run from repository root with your Python environment activated.
+
+If you have not set up the environment yet:
+- `python -m venv .venv`
+- PowerShell: `.venv\Scripts\Activate.ps1`
+- Bash/Zsh: `source .venv/bin/activate`
+- `python -m pip install -r requirements.txt`
+
 - Full suite:
-	- `e:/Coding/MARBTS/.venv/Scripts/python.exe -m pytest -q`
+	- `python -m pytest -q`
 - Unit tests only:
-	- `e:/Coding/MARBTS/.venv/Scripts/python.exe -m pytest tests/unit -q`
+	- `python -m pytest tests/unit -q`
 - Specific test file:
-	- `e:/Coding/MARBTS/.venv/Scripts/python.exe -m pytest tests/unit/test_environment_transitions.py -q`
+	- `python -m pytest tests/unit/test_environment_transitions.py -q`
 - Specific test case:
-	- `e:/Coding/MARBTS/.venv/Scripts/python.exe -m pytest tests/unit/test_simulation_kernel.py::test_seed_reproducibility -q`
+	- `python -m pytest tests/unit/test_simulation_kernel.py::test_seed_reproducibility -q`
 
 ## Current Status
 

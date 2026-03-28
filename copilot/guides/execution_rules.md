@@ -63,6 +63,7 @@ If any requirement is ambiguous:
 - Documentation is part of delivery: when behavior, architecture, test flow, or contributor workflows change, update relevant docs in the same change.
 - Keep collaborator instructions current in `README.md` and `tests/README.md` (especially run/test commands).
 - Keep **all** README files current (root and scope-specific directories). README content must describe current scope status, operational usage, and contribution expectations—not only folder structure.
+- Commands in docs must be repo-root relative and environment-agnostic; do not use machine-specific absolute paths.
 
 ## Dependency Management Rules
 - Maintain a single root dependency manifest at `requirements.txt`.

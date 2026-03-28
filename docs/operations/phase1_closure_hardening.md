@@ -33,8 +33,9 @@ This document defines closure hardening checks for Phase 1 implementation.
 
 ## Recommended Closure Commands
 
-- `e:/Coding/MARBTS/.venv/Scripts/python.exe -m pytest -q`
-- `$env:PYTHONPATH='src'; e:/Coding/MARBTS/.venv/Scripts/python.exe scripts/run_phase1_smoke.py`
+- `python -m pytest -q`
+- PowerShell: `$env:PYTHONPATH='src'; python scripts/run_phase1_smoke.py`
+- Bash/Zsh: `PYTHONPATH=src python scripts/run_phase1_smoke.py`
 
 ## Expected Evidence
 
