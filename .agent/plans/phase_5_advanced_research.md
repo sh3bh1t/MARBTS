@@ -1,6 +1,6 @@
 # Phase 5: Advanced Research Extensions
 
-Conforms to guide files in copilot/guides/
+Conforms to guide files in .agent/guides/
 
 ## Objective
 Extend the platform for publication-grade experimentation via richer scenarios, decoy/bluff strategy analysis, stress testing, optional containerized execution, and comprehensive ablation studies.

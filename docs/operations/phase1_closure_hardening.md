@@ -1,6 +1,6 @@
 # Phase 1 Closure Hardening
 
-Conforms to guide files in copilot/guides/
+Conforms to guide files in .agent/guides/
 
 ## Scope
 This document defines closure hardening checks for Phase 1 implementation.

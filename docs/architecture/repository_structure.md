@@ -1,13 +1,13 @@
 # Repository Structure
 
-Conforms to guide files in copilot/guides/
+Conforms to guide files in .agent/guides/
 
 ## Purpose
 This document defines the canonical directory layout for MARBTS. It is designed for modularity, explainability, reproducibility, and research-grade experiment management.
 
 ## Top-Level Layout
 
-- `copilot/` — Authoritative guides and phased implementation plans.
+- `.agent/` — Authoritative guides and phased implementation plans.
 - `idea-core/` — Project definition artifacts.
 - `src/` — Main Python source root.
 - `tests/` — Unit/integration/simulation/reproducibility/regression test suites.

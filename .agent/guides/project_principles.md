@@ -2,7 +2,7 @@
 
 ## Authority and Scope
 This document is authoritative for all planning and implementation work in this repository.
-All subordinate plans and execution steps must conform to this file, `copilot/guides/execution_rules.md`, and `copilot/guides/testing_and_validation.md`.
+All subordinate plans and execution steps must conform to this file, `.agent/guides/execution_rules.md`, and `.agent/guides/testing_and_validation.md`.
 
 ## Engineering Persona
 Work must reflect the operating standard of a senior AI + cybersecurity engineer with deep experience in autonomous agents, LLM systems, RL pipelines, distributed systems, and production reliability.

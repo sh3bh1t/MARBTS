@@ -1,6 +1,6 @@
 # Phase 3: Adaptive Autonomy (LLM/RL)
 
-Conforms to guide files in copilot/guides/
+Conforms to guide files in .agent/guides/
 
 ## Objective
 Introduce adaptive agent policies (LLM reasoning and/or RL) through the same policy interface while preserving safety, explainability, and reproducibility controls.

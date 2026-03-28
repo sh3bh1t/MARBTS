@@ -1,6 +1,6 @@
 # Master Plan: Sandboxed Red vs Blue Autonomous Cyber Defense Simulation
 
-Conforms to guide files in copilot/guides/
+Conforms to guide files in .agent/guides/
 
 ## 1) Problem Definition
 

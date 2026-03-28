@@ -1,6 +1,6 @@
 # Phase 4: Logging and Visualization
 
-Conforms to guide files in copilot/guides/
+Conforms to guide files in .agent/guides/
 
 ## Objective
 Implement production-quality observability: complete structured logging, run provenance, trajectory replay, and research-oriented visual analytics.

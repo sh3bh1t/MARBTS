@@ -1,6 +1,6 @@
 # Phase 2: Rule-Based Agents
 
-Conforms to guide files in copilot/guides/
+Conforms to guide files in .agent/guides/
 
 ## Objective
 Implement deterministic, explainable Red and Blue rule-based policies integrated into the turn-based orchestrator for baseline benchmarking.

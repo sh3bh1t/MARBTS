@@ -18,24 +18,24 @@ Primary design goals:
 
 ## Source of Truth and Governance
 Authoritative planning and execution constraints are defined in:
-- `copilot/guides/project_principles.md`
-- `copilot/guides/execution_rules.md`
-- `copilot/guides/testing_and_validation.md`
+- `.agent/guides/project_principles.md`
+- `.agent/guides/execution_rules.md`
+- `.agent/guides/testing_and_validation.md`
 
 Implementation roadmap and phase plans are defined in:
-- `copilot/plans/master_plan.md`
-- `copilot/plans/phase_1_network_simulation.md`
-- `copilot/plans/phase_2_agents_rule_based.md`
-- `copilot/plans/phase_3_autonomy_llm_rl.md`
-- `copilot/plans/phase_4_logging_visualization.md`
-- `copilot/plans/phase_5_advanced_research.md`
+- `.agent/plans/master_plan.md`
+- `.agent/plans/phase_1_network_simulation.md`
+- `.agent/plans/phase_2_agents_rule_based.md`
+- `.agent/plans/phase_3_autonomy_llm_rl.md`
+- `.agent/plans/phase_4_logging_visualization.md`
+- `.agent/plans/phase_5_advanced_research.md`
 
 ## Repository Structure
 
 ```text
 MARBTS/
 ├─ README.md
-├─ copilot/
+├─ .agent/
 │  ├─ guides/
 │  └─ plans/
 ├─ src/
@@ -88,7 +88,7 @@ See detailed structure guidance in `docs/architecture/repository_structure.md`.
 Start here based on your role:
 
 1. **Architect / Reviewer**
-   - Read `copilot/guides/` then `copilot/plans/master_plan.md`
+   - Read `.agent/guides/` then `.agent/plans/master_plan.md`
 2. **Environment / Core Simulation Developer**
    - Work in `src/environment/`, `src/simulation/`, `src/schemas/`
 3. **Agent Developer (Red/Blue/Adaptive)**
@@ -126,7 +126,7 @@ For reproducible baseline smoke execution:
    - Schema validation, graph initialization, transition primitives, legal actions, seeded simulation kernel, state diff utilities, and artifact logging scaffold are implemented.
    - Test framework migrated to `pytest`; unit suite passing.
 - **Phase 2–5: Planned / Not started yet**
-   - See `copilot/plans/` for phase-specific implementation definitions.
+   - See `.agent/plans/` for phase-specific implementation definitions.
 
 
 
@@ -149,7 +149,7 @@ Immediate baseline setup commands:
 
 
 ## Contributing Expectations
-- Follow all constraints in `copilot/guides/`.
+- Follow all constraints in `.agent/guides/`.
 - Do not bypass phase plans without revision-log updates.
 - Keep all behavior sandboxed and abstract.
 - Ensure every change remains measurable, logged, and reproducible.

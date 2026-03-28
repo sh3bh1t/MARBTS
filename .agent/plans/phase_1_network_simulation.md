@@ -1,12 +1,12 @@
 # Phase 1: Network Simulation Core
 
-Conforms to guide files in copilot/guides/
+Conforms to guide files in .agent/guides/
 
 ## Objective
 Build a deterministic, graph-based simulation environment using `networkx` with strict state transition rules and complete per-timestep observability scaffolding.
 
 ## Inputs
-- Master architecture and data-contract requirements from `copilot/plans/master_plan.md`
+- Master architecture and data-contract requirements from `.agent/plans/master_plan.md`
 - Scenario definitions (initial JSON/YAML schema for node/edge topology)
 - Fixed seed policy for deterministic execution
 

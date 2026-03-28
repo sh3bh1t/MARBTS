@@ -6,8 +6,8 @@ This file is authoritative. All implementation and planning steps must comply.
 ## Plan Adherence
 - No deviation from approved plan unless technically unavoidable.
 - Before implementing any feature, re-read:
-  - all files in `copilot/guides/`
-  - the relevant phase plan in `copilot/plans/`
+  - all files in `.agent/guides/`
+  - the relevant phase plan in `.agent/plans/`
 - Explicitly confirm during execution:
   - "This step aligns with the master plan and guide constraints."
 
@@ -16,7 +16,7 @@ When unexpected behavior, architectural constraints, implementation difficulty, 
 1. Pause implementation.
 2. Analyze deviation against the current plan.
 3. Update:
-   - `copilot/plans/master_plan.md`
+  - `.agent/plans/master_plan.md`
    - all affected phase plan files
 4. Append entry under `Plan Revision Log` in impacted plan files.
 5. Resume only after plan synchronization.
