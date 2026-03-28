@@ -159,7 +159,9 @@ From repository root:
 - **Phase 1 (Network Simulation Core): Completed**
    - Schema validation, graph initialization, transition primitives, legal actions, seeded simulation kernel, state diff utilities, and artifact logging scaffold are implemented.
    - Test framework migrated to `pytest`; unit suite passing.
-- **Phase 2–5: Planned / Not started yet**
+- **Phase 2 (Rule-Based Agents): In progress**
+   - Policy interface/registry, deterministic red/blue rule-based policies, explainable rationale payloads, and policy metrics snapshots are integrated into the simulation kernel.
+- **Phase 3–5: Planned / Not started yet**
    - See `.agent/plans/` for phase-specific implementation definitions.
 
 

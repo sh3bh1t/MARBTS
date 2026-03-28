@@ -7,7 +7,7 @@ Implement deterministic, explainable Red and Blue rule-based policies integrated
 
 ## Current Status
 
-- Status: Not started
+- Status: In progress
 - Prerequisite: Phase 1 complete (satisfied)
 
 ## Inputs
@@ -89,3 +89,4 @@ Implement deterministic, explainable Red and Blue rule-based policies integrated
 - 2026-03-28: Confirmed agent policy modules align with canonical `src/agents/*` structure.
 - 2026-03-28: Updated phase path assumptions to flattened `src/*` source layout.
 - 2026-03-28: Added explicit phase status tracking section.
+- 2026-03-28: Implemented policy interface and registry, rule-based red/blue heuristics, deterministic tie-breakers, rationale payload emission, kernel integration, and Phase 2 baseline unit tests.

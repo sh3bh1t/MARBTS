@@ -20,6 +20,7 @@ class ActionRecord:
     action_type: str
     targets: tuple[str, ...]
     rationale: str
+    rationale_payload: dict
     changed: bool
     reason: str
 
