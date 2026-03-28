@@ -27,3 +27,16 @@
 **/.DS_Store
 **/Thumbs.db
 **/.vscode/.history/
+
+# Generated research artifacts (keep docs only)
+artifacts/runs/**
+!artifacts/runs/README.md
+
+artifacts/metrics/**
+!artifacts/metrics/README.md
+
+artifacts/figures/**
+!artifacts/figures/README.md
+
+artifacts/reports/**
+!artifacts/reports/README.md

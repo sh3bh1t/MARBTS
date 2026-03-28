@@ -86,3 +86,8 @@ If any requirement is ambiguous:
 - `STUB.md` files are temporary scaffolding markers only.
 - As soon as a directory receives substantive implementation files (code/tests/config/docs), remove that directory's `STUB.md` in the same change.
 - Keep `STUB.md` only in intentionally empty directories that still need to persist in git.
+
+## Generated Artifact Version-Control Rules
+- Generated runtime/research outputs must not pollute the repository history.
+- For artifact-heavy directories (for example under `artifacts/runs`, `artifacts/metrics`, `artifacts/figures`, `artifacts/reports`), keep only a tracked `README.md` and ignore generated files by default via `.gitignore`.
+- If a generated artifact must be shared for reproducibility evidence, include it only through an explicit, intentional change and document why.

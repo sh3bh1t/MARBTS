@@ -139,6 +139,10 @@ For Phase 2 rule-based smoke execution:
 - PowerShell: `$env:PYTHONPATH='src'; python scripts/run_phase2_smoke.py`
 - Bash/Zsh: `PYTHONPATH=src python scripts/run_phase2_smoke.py`
 
+For Phase 2 multi-seed aggregate report generation:
+- PowerShell: `$env:PYTHONPATH='src'; python scripts/run_phase2_multi_seed_report.py`
+- Bash/Zsh: `PYTHONPATH=src python scripts/run_phase2_multi_seed_report.py`
+
 ## Run Phase 1 Baseline
 
 From repository root:
@@ -164,7 +168,7 @@ From repository root:
    - Schema validation, graph initialization, transition primitives, legal actions, seeded simulation kernel, state diff utilities, and artifact logging scaffold are implemented.
    - Test framework migrated to `pytest`; unit suite passing.
 - **Phase 2 (Rule-Based Agents): In progress**
-   - Policy interface/registry, deterministic red/blue rule-based policies, explainable rationale payloads, and policy metrics snapshots are integrated into the simulation kernel.
+   - Policy interface/registry, deterministic red/blue rule-based policies, explainable rationale payloads, policy metrics snapshots, and per-run baseline metrics artifacts are integrated.
 - **Phase 3–5: Planned / Not started yet**
    - See `.agent/plans/` for phase-specific implementation definitions.
 

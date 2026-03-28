@@ -91,3 +91,6 @@ Implement deterministic, explainable Red and Blue rule-based policies integrated
 - 2026-03-28: Added explicit phase status tracking section.
 - 2026-03-28: Implemented policy interface and registry, rule-based red/blue heuristics, deterministic tie-breakers, rationale payload emission, kernel integration, and Phase 2 baseline unit tests.
 - 2026-03-29: Added Phase 2 baseline scenarios, policy trace hashing/summaries, phase2 smoke script, reproducibility/regression tests, and removed replaced scaffold stubs.
+- 2026-03-29: Added dedicated policy metrics artifact emission (`runs/<run_id>/policy_metrics.json`) and simulation-level validation tests.
+- 2026-03-29: Added baseline metrics module (`src/metrics`), per-run metrics artifact emission (`artifacts/metrics/<run_id>.json`), and corresponding unit coverage.
+- 2026-03-29: Added multi-seed Phase 2 comparison runner (`src/experiments` + script), integration coverage, and report artifacts (`artifacts/reports/phase2_multi_seed_report_<scenario_id>.json`).

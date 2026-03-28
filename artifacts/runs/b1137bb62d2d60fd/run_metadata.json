@@ -1,9 +1,0 @@
-{
-  "final_state_ref": "14298ca9527a46a58050410e2a4352c914dee70a7e391a64c84e941d51690606",
-  "horizon": 5,
-  "run_id": "b1137bb62d2d60fd",
-  "scenario_id": "baseline-small",
-  "seed": 20260328,
-  "timestamp_utc": "2026-03-28T20:22:30.520744+00:00",
-  "timesteps_count": 5
-}

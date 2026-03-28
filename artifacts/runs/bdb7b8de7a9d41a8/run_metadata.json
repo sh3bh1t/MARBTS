@@ -1,9 +1,0 @@
-{
-  "final_state_ref": "6c6bb39cc38db1c944538f8d612e05e1a30910cb23f725e505a8954003aa3f77",
-  "horizon": 8,
-  "run_id": "bdb7b8de7a9d41a8",
-  "scenario_id": "phase2-rule-baseline",
-  "seed": 20260329,
-  "timestamp_utc": "2026-03-28T20:37:40.090066+00:00",
-  "timesteps_count": 8
-}

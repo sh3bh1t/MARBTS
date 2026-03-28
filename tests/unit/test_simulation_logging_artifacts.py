@@ -79,9 +79,11 @@ def test_run_artifacts_writer_outputs_metadata_and_jsonl() -> None:
         paths = write_run_artifacts(result, temp_dir)
         metadata_path = Path(paths["metadata_file"])
         timesteps_path = Path(paths["timesteps_file"])
+        policy_metrics_path = Path(paths["policy_metrics_file"])
 
         assert metadata_path.exists()
         assert timesteps_path.exists()
+        assert policy_metrics_path.exists()
 
         metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
         assert metadata["seed"] == 42
@@ -97,3 +99,8 @@ def test_run_artifacts_writer_outputs_metadata_and_jsonl() -> None:
         assert "blue_action_intent" in first_line
         assert "post_state_diff" in first_line
         assert "metric_delta" in first_line
+
+        policy_metrics = json.loads(policy_metrics_path.read_text(encoding="utf-8"))
+        assert "sequence_hash" in policy_metrics
+        assert "action_counts" in policy_metrics
+        assert "policy_metrics" in policy_metrics
