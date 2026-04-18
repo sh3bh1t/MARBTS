@@ -30,6 +30,7 @@ class ActionRecord:
     rationale_payload: dict
     changed: bool
     reason: str
+    transition_details: Mapping[str, object] = field(default_factory=dict)
     predicted_effect: str = ""
     confidence: float = 0.0
     utility_estimate: float = 0.0

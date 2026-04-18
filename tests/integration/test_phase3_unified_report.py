@@ -62,9 +62,13 @@ def test_phase3_unified_report_contains_ablation_conditions() -> None:
         report = output["report"]
         assert Path(output["report_file"]).exists()
         assert any(item["condition_id"] == "rule_vs_planner_blue_no_planning" for item in report["aggregates"])
+        assert any(item["condition_id"] == "rule_vs_rl_blue" for item in report["aggregates"])
+        assert any(item["condition_id"] == "rule_vs_rl_blue_reduced_observability" for item in report["aggregates"])
         assert any(item["condition_id"] == "rule_vs_llm_blue_reduced_observability" for item in report["aggregates"])
+        assert report["rl_config"]["backend"] == "rl"
 
         summary_path = write_phase3_markdown_summary(report, Path(temp_dir) / "reports" / "phase3-unified.md")
         summary_text = Path(summary_path).read_text(encoding="utf-8")
         assert "rule_vs_planner_blue_no_planning" in summary_text
+        assert "rule_vs_rl_blue" in summary_text
         assert "rule_vs_llm_blue_reduced_observability" in summary_text

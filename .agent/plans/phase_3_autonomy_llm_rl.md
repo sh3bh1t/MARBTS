@@ -7,7 +7,7 @@ Introduce adaptive agent policies (LLM reasoning and/or RL) through the same pol
 
 ## Current Status
 
-- Status: In progress
+- Status: Completed
 - Prerequisite: Phase 2 baseline policies required
 
 ## Inputs
@@ -95,3 +95,4 @@ Introduce adaptive agent policies (LLM reasoning and/or RL) through the same pol
 - 2026-04-18: Added an OpenAI Responses API-backed adaptive policy adapter with structured-output parsing, strict legal-action validation, and fallback to local sandbox-safe policies when live inference is unavailable or invalid.
 - 2026-04-18: Added a dedicated LLM comparison runner and demo script so live-model experiments can be exercised without changing the deterministic Phase 3 baseline path.
 - 2026-04-18: Added shared ablation controls for `no_planning` and `reduced_observability`, and introduced a unified Phase 3 comparison runner/report spanning rule-based, planner, and OpenAI-backed conditions.
+- 2026-04-18: Completed Phase 3 by adding a deterministic RL-style value-policy adapter, extending the unified comparison matrix to rule/planner/RL/LLM conditions, and documenting the resulting adaptive experiment workflow.

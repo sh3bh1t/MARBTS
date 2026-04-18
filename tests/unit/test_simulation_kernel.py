@@ -82,6 +82,7 @@ def test_logging_completeness_fields_present() -> None:
     assert entry.blue_action_intent.rationale
     assert "changed_nodes" in entry.post_state_diff
     assert "compromised_nodes_delta" in entry.metric_delta
+    assert "deception_events" in entry.metric_delta
 
 
 def test_seed_reproducibility() -> None:
@@ -123,3 +124,32 @@ def test_seed_reproducibility() -> None:
     ]
 
     assert first_trace == second_trace
+
+
+def test_feint_deployment_is_logged_as_deception_event() -> None:
+    scenario = validate_scenario_dict(_scenario_dict())
+    graph = build_graph_from_scenario(scenario)
+
+    def selector(actor, legal_actions, _rng, timestep):
+        ranked = sorted(legal_actions, key=lambda action: (action.action_type, action.targets))
+        if actor == "red":
+            for action in ranked:
+                if timestep == 1 and action.action_type == "exploit" and action.targets == ("srv-1",):
+                    return action
+                if action.action_type == "scan":
+                    return action
+        for action in ranked:
+            if timestep == 0 and actor == "blue" and action.action_type == "feint":
+                return action
+        return ranked[0]
+
+    result = run_turn_based_simulation(
+        graph,
+        seed=55,
+        horizon=2,
+        scenario_id="kernel-small",
+        selector=selector,
+    )
+
+    assert result.timesteps[0].metric_delta["deception_events"]
+    assert result.timesteps[0].metric_delta["deception_events"][0]["details"]["feint_deployed"] is True

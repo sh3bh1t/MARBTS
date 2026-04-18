@@ -63,6 +63,7 @@ def _to_action_record(
         rationale_payload=rationale_payload,
         changed=transition.changed,
         reason=transition.reason,
+        transition_details=dict(transition.details),
         predicted_effect=predicted_effect,
         confidence=confidence,
         utility_estimate=utility_estimate,
@@ -186,6 +187,26 @@ def run_turn_based_simulation(
             policy_metrics_payload["red"] = asdict(red_decision.metrics_snapshot)
         if blue_decision is not None:
             policy_metrics_payload["blue"] = asdict(blue_decision.metrics_snapshot)
+        deception_events = []
+        for action_record in (red_record, blue_record):
+            if action_record.transition_details.get("deception_triggered"):
+                deception_events.append(
+                    {
+                        "actor": action_record.actor,
+                        "action_type": action_record.action_type,
+                        "targets": list(action_record.targets),
+                        "details": dict(action_record.transition_details),
+                    }
+                )
+            elif action_record.transition_details.get("decoy_deployed") or action_record.transition_details.get("feint_deployed"):
+                deception_events.append(
+                    {
+                        "actor": action_record.actor,
+                        "action_type": action_record.action_type,
+                        "targets": list(action_record.targets),
+                        "details": dict(action_record.transition_details),
+                    }
+                )
 
         log_entry = TimestepLogEntry(
             timestep=timestep,
@@ -200,6 +221,7 @@ def run_turn_based_simulation(
                 "compromised_nodes_after": post_compromised,
                 "compromised_nodes_delta": post_compromised - pre_compromised,
                 "policy_metrics": policy_metrics_payload,
+                "deception_events": deception_events,
             },
         )
         timestep_logs.append(log_entry)

@@ -18,6 +18,8 @@ def build_graph_from_scenario(scenario: ScenarioConfig) -> nx.Graph:
             compromised_state=node.compromised_state.value,
             detection_state=node.detection_state.value,
             isolation_state=node.isolation_state,
+            decoy_state=False,
+            feint_state=False,
         )
 
     for edge in scenario.edges:

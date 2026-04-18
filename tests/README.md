@@ -30,6 +30,8 @@ If you have not set up the environment yet:
 	- `python -m pytest tests/unit/test_simulation_kernel.py::test_seed_reproducibility -q`
 - Adaptive policy tests:
 	- `python -m pytest tests/unit/test_agents_adaptive.py -q`
+- RL-backed adaptive demo/report coverage:
+	- `python -m pytest tests/unit/test_agents_adaptive.py tests/integration/test_phase3_unified_report.py -q`
 - LLM integration tests:
 	- `python -m pytest tests/integration/test_phase3_llm_report.py -q`
 - Unified Phase 3 matrix tests:
@@ -38,6 +40,12 @@ If you have not set up the environment yet:
 	- `python -m pytest tests/unit/test_phase4_artifact_loader.py tests/integration/test_phase4_demo_reports.py -q`
 - Phase 4 strict validation/report reuse tests:
 	- `python -m pytest tests/unit/test_phase4_validation_failures.py tests/integration/test_phase4_report_from_artifacts.py -q`
+- Phase 5 catalog/stress tests:
+	- `python -m pytest tests/unit/test_phase5_scenario_catalog.py tests/integration/test_phase5_stress_runner.py -q`
+- Phase 5 decoy-efficacy tests:
+	- `python -m pytest tests/integration/test_phase5_decoy_efficacy.py -q`
+- Phase 5 ablation/container tests:
+	- `python -m pytest tests/integration/test_phase5_ablation_suite.py tests/unit/test_phase5_container_profile.py -q`
 - Replay and event schema tests:
 	- `python -m pytest tests/unit/test_simulation_replay_and_events.py -q`
 
@@ -55,11 +63,17 @@ If you have not set up the environment yet:
 	- phase 2 action-sequence reproducibility and regression signature checks
 	- phase 2 multi-seed aggregate report integration checks
 	- adaptive planner legality and deterministic rollout behavior
+	- deterministic RL-style adaptive value-policy legality and determinism
 	- OpenAI-backed adaptive policy legality checks and fallback handling
 	- no-planning and reduced-observability ablations
 	- run artifact validation, replay reconstruction, and richer HTML/Markdown reporting
 	- explicit failure on event/provenance mismatch and report reuse from existing artifacts
 	- event envelope validation and replay fidelity
+	- scenario catalog consistency and multi-scenario stress-suite execution
+	- decoy deployment, deception-trigger transitions, and deception metrics
+	- decoy efficacy comparison reporting
+	- feint/bluff deception primitives and container profile rendering
+	- Phase 5 ablation bundle generation with publication-table and manifest outputs
 
 ## Contributor Notes
 

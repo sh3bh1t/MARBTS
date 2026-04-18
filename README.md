@@ -153,10 +153,15 @@ For the Phase 3 OpenAI-backed LLM comparison demo:
 - Bash/Zsh: `OPENAI_API_KEY=... PYTHONPATH=src python scripts/run_phase3_llm_demo.py`
 
 For the unified Phase 3 experiment matrix demo:
-- Runs planner, LLM, and ablation conditions in one report
+- Runs planner, RL, LLM, and ablation conditions in one report
 - If `OPENAI_API_KEY` is unset, LLM conditions fall back to sandbox-safe local policies unless strict live-LLM mode is enabled
 - PowerShell: `$env:PYTHONPATH='src'; python scripts/run_phase3_unified_demo.py`
 - Bash/Zsh: `PYTHONPATH=src python scripts/run_phase3_unified_demo.py`
+
+For the Phase 3 RL-backed adaptive demo:
+- Reuses the unified Phase 3 matrix but explicitly exercises the deterministic RL-style value policy path
+- PowerShell: `$env:PYTHONPATH='src'; python scripts/run_phase3_rl_demo.py`
+- Bash/Zsh: `PYTHONPATH=src python scripts/run_phase3_rl_demo.py`
 
 For the Phase 4 replay/dashboard demo:
 - Builds a unified comparison report, validates one run artifact package, reconstructs replay frames, and writes operator-facing HTML/Markdown outputs
@@ -168,6 +173,28 @@ For generating Phase 4 reports from existing artifacts:
 - Reuses an existing run directory and comparison report to emit replay/dashboard/comparison HTML outputs
 - PowerShell: `$env:PYTHONPATH='src'; python scripts/run_phase4_report_from_artifacts.py --run-dir artifacts/runs/<run_id> --report-file artifacts/reports/phase3_unified_comparison_<scenario_id>.json`
 - Bash/Zsh: `PYTHONPATH=src python scripts/run_phase4_report_from_artifacts.py --run-dir artifacts/runs/<run_id> --report-file artifacts/reports/phase3_unified_comparison_<scenario_id>.json`
+
+For the initial Phase 5 stress suite:
+- Validates the scenario catalog and runs a multi-scenario stress batch with complete report outputs
+- PowerShell: `$env:PYTHONPATH='src'; python scripts/run_phase5_stress_smoke.py`
+- Bash/Zsh: `PYTHONPATH=src python scripts/run_phase5_stress_smoke.py`
+
+For the Phase 5 decoy-efficacy experiment:
+- Compares Blue behavior with decoys enabled versus disabled and emits deception-focused metrics
+- Uses a dedicated aggressive Red attacker profile so deception opportunities are actually exercised
+- PowerShell: `$env:PYTHONPATH='src'; python scripts/run_phase5_decoy_efficacy_smoke.py`
+- Bash/Zsh: `PYTHONPATH=src python scripts/run_phase5_decoy_efficacy_smoke.py`
+
+For the Phase 5 deception ablation suite:
+- Runs a standardized deception/planning ablation matrix with decoy, feint, reduced-observability, and no-planning conditions
+- Emits a report bundle, a compact publication table, and a research manifest
+- PowerShell: `$env:PYTHONPATH='src'; python scripts/run_phase5_ablation_smoke.py`
+- Bash/Zsh: `PYTHONPATH=src python scripts/run_phase5_ablation_smoke.py`
+
+For the optional Phase 5 containerized reproduction path:
+- Prints the canonical `docker run` command derived from checked-in container config
+- PowerShell: `$env:PYTHONPATH='src'; python scripts/run_phase5_container_command.py`
+- Bash/Zsh: `PYTHONPATH=src python scripts/run_phase5_container_command.py`
 
 Examples:
 - PowerShell (custom seeds and horizon):
@@ -201,16 +228,17 @@ From repository root:
    - Test framework migrated to `pytest`; unit suite passing.
 - **Phase 2 (Rule-Based Agents): Completed**
    - Policy interface/registry, deterministic red/blue rule-based policies, explainable rationale payloads, policy metrics snapshots, baseline metrics artifacts, and multi-seed aggregate reporting are integrated and validated.
-- **Phase 3 (Adaptive Autonomy): In progress**
+- **Phase 3 (Adaptive Autonomy): Completed**
    - Initial deterministic adaptive planner baseline is implemented behind the shared policy interface, including bounded rollout planning, experiment comparison reporting, and planning-depth ablation support.
    - An OpenAI-backed adaptive policy path is also available behind the same interface, with structured-output parsing, legal-action validation, and guarded fallback behavior.
-   - A unified Phase 3 comparison runner now covers planner/LLM baselines plus `no_planning` and `reduced_observability` ablations.
-- **Phase 4 (Logging and Visualization): In progress**
+   - A deterministic RL-style value-policy path is also available behind the shared interface, and the unified Phase 3 comparison runner now covers planner/RL/LLM baselines plus `no_planning` and `reduced_observability` ablations.
+- **Phase 4 (Logging and Visualization): Completed**
    - Provenance-rich run metadata, schema-validated event envelopes, replay-ready state artifacts, and Phase 3 markdown summary generation are implemented.
    - A Phase 4 demo path now generates replay summaries and a richer HTML dashboard with trend, action-mix, and replay-timeline views from validated run artifacts.
    - Existing artifact packages can now be reloaded, strictly validated, and rendered into replay/dashboard/comparison outputs without regenerating the underlying simulation.
-- **Phase 5: Planned**
-   - See `.agent/plans/` for remaining advanced research extension scope.
+- **Phase 5 (Advanced Research Extensions): Completed**
+   - Scenario cataloging, seeded stress execution, and decoy-efficacy comparison are implemented.
+   - Bluff/feint deception, a standardized ablation matrix, paper-oriented report bundling, and an optional containerized reproduction path are now implemented and documented.
 
 
 

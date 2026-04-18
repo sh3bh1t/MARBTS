@@ -17,6 +17,8 @@ class ActionType(str, Enum):
     PATCH = "patch"
     BLOCK = "block"
     ISOLATE = "isolate"
+    DECOY = "decoy"
+    FEINT = "feint"
 
 
 def parse_actor(actor: str | ActorType) -> ActorType:

@@ -1,0 +1,16 @@
+{
+  "config_id": "phase5-initial-stress",
+  "scenario_ids": [
+    "phase2-containment-stress",
+    "phase5-large-mesh",
+    "phase5-branching-observability"
+  ],
+  "seeds": [20260329, 20260330],
+  "horizon": 6,
+  "planner_depth": 3,
+  "include_llm_conditions": true,
+  "feature_flags": {
+    "reduced_observability": false,
+    "no_planning": false
+  }
+}

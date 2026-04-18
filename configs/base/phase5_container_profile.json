@@ -1,0 +1,6 @@
+{
+  "image_name": "marbts-phase5:latest",
+  "workdir": "/workspace",
+  "entrypoint": "/bin/sh -lc",
+  "requirements_file": "requirements.txt"
+}

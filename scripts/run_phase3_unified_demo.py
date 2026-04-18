@@ -13,6 +13,7 @@ def main() -> None:
         seeds=[20260329],
         horizon=6,
         planner_config=AdaptivePolicyConfig(backend="planning", planning_depth=3),
+        rl_config=AdaptivePolicyConfig(backend="rl", model_name="value_q_v1"),
         llm_config=AdaptivePolicyConfig(backend="openai", model_name="gpt-5-mini", reasoning_effort="low"),
     )
     markdown_path = write_phase3_markdown_summary(

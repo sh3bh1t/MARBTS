@@ -18,6 +18,8 @@ def snapshot_payload(graph: nx.Graph) -> dict:
             "compromised_state": attrs.get("compromised_state"),
             "detection_state": attrs.get("detection_state"),
             "isolation_state": attrs.get("isolation_state"),
+            "decoy_state": attrs.get("decoy_state", False),
+            "feint_state": attrs.get("feint_state", False),
         }
 
     edges = [tuple(sorted((source, target))) for source, target in graph.edges()]

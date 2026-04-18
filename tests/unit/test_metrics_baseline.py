@@ -43,3 +43,37 @@ def test_write_baseline_metrics_artifact_outputs_json() -> None:
         assert payload["run_id"] == result.metadata.run_id
         assert payload["policy_performance"]["red_offensive_actions"] >= 0
         assert payload["policy_performance"]["blue_containment_actions"] >= 0
+
+
+def test_baseline_metrics_capture_deception_counts() -> None:
+    scenario = load_scenario_file("scenarios/baselines/phase2_rule_baseline.json")
+    graph = build_graph_from_scenario(scenario)
+
+    def selector(actor, legal_actions, _rng, timestep):
+        ranked = sorted(legal_actions, key=lambda action: (action.action_type, action.targets))
+        if actor == "red":
+            for action in ranked:
+                if timestep == 1 and action.action_type == "exploit" and action.targets == ("api-1",):
+                    return action
+                if action.action_type == "scan":
+                    return action
+        else:
+            for action in ranked:
+                if timestep == 0 and action.action_type == "decoy" and action.targets == ("api-1",):
+                    return action
+                if action.action_type == "monitor":
+                    return action
+        return ranked[0]
+
+    result = run_turn_based_simulation(
+        graph,
+        seed=20260329,
+        horizon=2,
+        scenario_id=scenario.metadata.scenario_id,
+        selector=selector,
+    )
+    payload = compute_baseline_metrics(result)
+
+    assert payload["policy_performance"]["blue_deception_actions"] == 1
+    assert payload["policy_performance"]["blue_decoy_actions"] == 1
+    assert payload["policy_performance"]["deception_trigger_events"] == 1
