@@ -1,0 +1,31 @@
+{
+  "entries": [
+    {
+      "scenario_id": "phase2-containment-stress",
+      "version": "1.0.0",
+      "path": "phase2_containment_stress.json",
+      "tags": ["baseline", "containment", "stress"],
+      "topology_complexity": "medium",
+      "vulnerability_density": "medium",
+      "defense_posture": "balanced"
+    },
+    {
+      "scenario_id": "phase5-large-mesh",
+      "version": "1.0.0",
+      "path": "phase5_large_mesh_v1.json",
+      "tags": ["phase5", "mesh", "scale"],
+      "topology_complexity": "high",
+      "vulnerability_density": "high",
+      "defense_posture": "mixed"
+    },
+    {
+      "scenario_id": "phase5-branching-observability",
+      "version": "1.0.0",
+      "path": "phase5_branching_observability_v1.json",
+      "tags": ["phase5", "branching", "observability"],
+      "topology_complexity": "medium",
+      "vulnerability_density": "medium",
+      "defense_posture": "resilience-focused"
+    }
+  ]
+}

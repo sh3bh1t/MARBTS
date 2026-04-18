@@ -12,7 +12,7 @@ This document defines the canonical directory layout for MARBTS. It is designed 
 - `src/` — Main Python source root.
 - `tests/` — Unit/integration/simulation/reproducibility/regression test suites.
 - `scenarios/` — Versioned scenario schemas and libraries.
-- `configs/` — Base runtime configs, experiment configs, and seed sets.
+- `configs/` — Base runtime configs, experiment configs, seed sets, and optional container profiles.
 - `scripts/` — Reproducible CLI entry scripts for simulation and experiments.
 - `docs/` — Architecture, operations, and research documentation.
 - `notebooks/` — Exploratory analysis notebooks (non-authoritative).
@@ -50,4 +50,4 @@ This document defines the canonical directory layout for MARBTS. It is designed 
 - Phase 2: `agents/interfaces/`, `agents/red/`, `agents/blue/`
 - Phase 3: `agents/adaptive/`, `experiments/`
 - Phase 4: `logging/`, `metrics/`, `visualization/`
-- Phase 5: `scenarios/library/`, `experiments/`, `docker/`, `docs/research/`
+- Phase 5: `scenarios/library/`, `experiments/`, `docker/`, `docs/research/`, `configs/base/`

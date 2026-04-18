@@ -44,6 +44,36 @@ def apply_exploit(graph: nx.Graph, node_id: str) -> tuple[nx.Graph, TransitionRe
             reason="node is isolated",
         )
 
+    if next_graph.nodes[node_id].get("decoy_state") is True:
+        next_graph.nodes[node_id]["detection_state"] = "confirmed"
+        next_graph.nodes[node_id]["decoy_state"] = False
+        return next_graph, TransitionResult(
+            action="exploit",
+            target=node_id,
+            changed=True,
+            reason="decoy absorbed exploit attempt and triggered defender visibility",
+            details={
+                "deception_triggered": True,
+                "deception_type": "decoy",
+                "detection_state": "confirmed",
+            },
+        )
+
+    if next_graph.nodes[node_id].get("feint_state") is True:
+        next_graph.nodes[node_id]["detection_state"] = "suspected"
+        next_graph.nodes[node_id]["feint_state"] = False
+        return next_graph, TransitionResult(
+            action="exploit",
+            target=node_id,
+            changed=True,
+            reason="feint diverted exploit attempt and generated partial defender visibility",
+            details={
+                "deception_triggered": True,
+                "deception_type": "feint",
+                "detection_state": "suspected",
+            },
+        )
+
     current_state = next_graph.nodes[node_id]["compromised_state"]
     current_idx = _COMPROMISE_LEVELS.index(current_state)
     if current_idx == len(_COMPROMISE_LEVELS) - 1:
@@ -138,4 +168,50 @@ def apply_block(graph: nx.Graph, source: str, target: str) -> tuple[nx.Graph, Tr
         target=f"{source}->{target}",
         changed=True,
         reason="edge removed",
+    )
+
+
+def apply_deploy_decoy(graph: nx.Graph, node_id: str) -> tuple[nx.Graph, TransitionResult]:
+    _ensure_node_exists(graph, node_id, "decoy")
+    next_graph = _clone_graph(graph)
+
+    if next_graph.nodes[node_id].get("decoy_state") is True:
+        return next_graph, TransitionResult(
+            action="decoy",
+            target=node_id,
+            changed=False,
+            reason="decoy already active",
+            details={"decoy_deployed": False},
+        )
+
+    next_graph.nodes[node_id]["decoy_state"] = True
+    return next_graph, TransitionResult(
+        action="decoy",
+        target=node_id,
+        changed=True,
+        reason="decoy deployed on node",
+        details={"decoy_deployed": True, "deception_type": "decoy"},
+    )
+
+
+def apply_feint(graph: nx.Graph, node_id: str) -> tuple[nx.Graph, TransitionResult]:
+    _ensure_node_exists(graph, node_id, "feint")
+    next_graph = _clone_graph(graph)
+
+    if next_graph.nodes[node_id].get("feint_state") is True:
+        return next_graph, TransitionResult(
+            action="feint",
+            target=node_id,
+            changed=False,
+            reason="feint already active",
+            details={"feint_deployed": False},
+        )
+
+    next_graph.nodes[node_id]["feint_state"] = True
+    return next_graph, TransitionResult(
+        action="feint",
+        target=node_id,
+        changed=True,
+        reason="feint signal deployed on node",
+        details={"feint_deployed": True, "deception_type": "feint"},
     )

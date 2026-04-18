@@ -3,7 +3,15 @@ from __future__ import annotations
 import networkx as nx
 
 from environment.legal_actions import LegalAction
-from environment.transitions import TransitionResult, apply_block, apply_exploit, apply_isolate, apply_patch
+from environment.transitions import (
+    TransitionResult,
+    apply_block,
+    apply_deploy_decoy,
+    apply_exploit,
+    apply_feint,
+    apply_isolate,
+    apply_patch,
+)
 from hart.enums import ActionType, ActorType, parse_actor
 
 
@@ -36,6 +44,10 @@ def apply_actor_action(
             return apply_isolate(graph, action.targets[0])
         if action.action_type == ActionType.BLOCK:
             return apply_block(graph, action.targets[0], action.targets[1])
+        if action.action_type == ActionType.DECOY:
+            return apply_deploy_decoy(graph, action.targets[0])
+        if action.action_type == ActionType.FEINT:
+            return apply_feint(graph, action.targets[0])
 
     return graph.copy(), TransitionResult(
         action=action.action_type.value,

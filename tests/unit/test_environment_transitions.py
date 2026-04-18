@@ -1,7 +1,7 @@
 import pytest
 
 from environment.graph_builder import build_graph_from_scenario
-from environment.transitions import apply_block, apply_exploit, apply_isolate, apply_patch
+from environment.transitions import apply_block, apply_deploy_decoy, apply_exploit, apply_feint, apply_isolate, apply_patch
 from schemas.scenario import validate_scenario_dict
 
 
@@ -84,3 +84,33 @@ def test_block_removes_edge(graph) -> None:
 def test_unknown_node_rejected(graph) -> None:
     with pytest.raises(ValueError, match="unknown node"):
         apply_patch(graph, "ghost-node")
+
+
+def test_decoy_deployment_and_triggered_exploit_updates_detection(graph) -> None:
+    decoy_graph, decoy_result = apply_deploy_decoy(graph, "srv-1")
+
+    assert decoy_result.changed
+    assert decoy_graph.nodes["srv-1"]["decoy_state"] is True
+    assert decoy_result.details["decoy_deployed"] is True
+
+    exploited_graph, exploit_result = apply_exploit(decoy_graph, "srv-1")
+    assert exploit_result.changed
+    assert exploited_graph.nodes["srv-1"]["compromised_state"] == "none"
+    assert exploited_graph.nodes["srv-1"]["detection_state"] == "confirmed"
+    assert exploited_graph.nodes["srv-1"]["decoy_state"] is False
+    assert exploit_result.details["deception_triggered"] is True
+
+
+def test_feint_deployment_and_triggered_exploit_updates_partial_detection(graph) -> None:
+    feint_graph, feint_result = apply_feint(graph, "srv-1")
+
+    assert feint_result.changed
+    assert feint_graph.nodes["srv-1"]["feint_state"] is True
+    assert feint_result.details["feint_deployed"] is True
+
+    exploited_graph, exploit_result = apply_exploit(feint_graph, "srv-1")
+    assert exploit_result.changed
+    assert exploited_graph.nodes["srv-1"]["compromised_state"] == "none"
+    assert exploited_graph.nodes["srv-1"]["detection_state"] == "suspected"
+    assert exploited_graph.nodes["srv-1"]["feint_state"] is False
+    assert exploit_result.details["deception_triggered"] is True

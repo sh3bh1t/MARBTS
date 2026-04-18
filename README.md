@@ -169,6 +169,28 @@ For generating Phase 4 reports from existing artifacts:
 - PowerShell: `$env:PYTHONPATH='src'; python scripts/run_phase4_report_from_artifacts.py --run-dir artifacts/runs/<run_id> --report-file artifacts/reports/phase3_unified_comparison_<scenario_id>.json`
 - Bash/Zsh: `PYTHONPATH=src python scripts/run_phase4_report_from_artifacts.py --run-dir artifacts/runs/<run_id> --report-file artifacts/reports/phase3_unified_comparison_<scenario_id>.json`
 
+For the initial Phase 5 stress suite:
+- Validates the scenario catalog and runs a multi-scenario stress batch with complete report outputs
+- PowerShell: `$env:PYTHONPATH='src'; python scripts/run_phase5_stress_smoke.py`
+- Bash/Zsh: `PYTHONPATH=src python scripts/run_phase5_stress_smoke.py`
+
+For the Phase 5 decoy-efficacy experiment:
+- Compares Blue behavior with decoys enabled versus disabled and emits deception-focused metrics
+- Uses a dedicated aggressive Red attacker profile so deception opportunities are actually exercised
+- PowerShell: `$env:PYTHONPATH='src'; python scripts/run_phase5_decoy_efficacy_smoke.py`
+- Bash/Zsh: `PYTHONPATH=src python scripts/run_phase5_decoy_efficacy_smoke.py`
+
+For the Phase 5 deception ablation suite:
+- Runs a standardized deception/planning ablation matrix with decoy, feint, reduced-observability, and no-planning conditions
+- Emits a report bundle, a compact publication table, and a research manifest
+- PowerShell: `$env:PYTHONPATH='src'; python scripts/run_phase5_ablation_smoke.py`
+- Bash/Zsh: `PYTHONPATH=src python scripts/run_phase5_ablation_smoke.py`
+
+For the optional Phase 5 containerized reproduction path:
+- Prints the canonical `docker run` command derived from checked-in container config
+- PowerShell: `$env:PYTHONPATH='src'; python scripts/run_phase5_container_command.py`
+- Bash/Zsh: `PYTHONPATH=src python scripts/run_phase5_container_command.py`
+
 Examples:
 - PowerShell (custom seeds and horizon):
    - `$env:PYTHONPATH='src'; python scripts/run_phase2_multi_seed_report.py --seeds 20260329,20260332,20260333 --horizon 10`
@@ -205,12 +227,13 @@ From repository root:
    - Initial deterministic adaptive planner baseline is implemented behind the shared policy interface, including bounded rollout planning, experiment comparison reporting, and planning-depth ablation support.
    - An OpenAI-backed adaptive policy path is also available behind the same interface, with structured-output parsing, legal-action validation, and guarded fallback behavior.
    - A unified Phase 3 comparison runner now covers planner/LLM baselines plus `no_planning` and `reduced_observability` ablations.
-- **Phase 4 (Logging and Visualization): In progress**
+- **Phase 4 (Logging and Visualization): Completed**
    - Provenance-rich run metadata, schema-validated event envelopes, replay-ready state artifacts, and Phase 3 markdown summary generation are implemented.
    - A Phase 4 demo path now generates replay summaries and a richer HTML dashboard with trend, action-mix, and replay-timeline views from validated run artifacts.
    - Existing artifact packages can now be reloaded, strictly validated, and rendered into replay/dashboard/comparison outputs without regenerating the underlying simulation.
-- **Phase 5: Planned**
-   - See `.agent/plans/` for remaining advanced research extension scope.
+- **Phase 5 (Advanced Research Extensions): Completed**
+   - Scenario cataloging, seeded stress execution, and decoy-efficacy comparison are implemented.
+   - Bluff/feint deception, a standardized ablation matrix, paper-oriented report bundling, and an optional containerized reproduction path are now implemented and documented.
 
 
 

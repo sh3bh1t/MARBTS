@@ -56,9 +56,11 @@ class AdaptivePlanningPolicy:
         compromised = 0
         privileged = 0
         isolated = 0
+        decoy_degree_total = 0
+        feint_degree_total = 0
         security_total = 0
 
-        for _, attrs in graph.nodes(data=True):
+        for node_id, attrs in graph.nodes(data=True):
             state = attrs.get("compromised_state")
             if state in {"user", "privileged"}:
                 compromised += 1
@@ -66,6 +68,10 @@ class AdaptivePlanningPolicy:
                 privileged += 1
             if attrs.get("isolation_state"):
                 isolated += 1
+            if attrs.get("decoy_state"):
+                decoy_degree_total += graph.degree(node_id)
+            if attrs.get("feint_state"):
+                feint_degree_total += graph.degree(node_id)
             security_total += int(attrs.get("security_level", 0))
 
         edge_count = graph.number_of_edges()
@@ -74,7 +80,13 @@ class AdaptivePlanningPolicy:
             return round((compromised * 12.0) + (privileged * 8.0) + (edge_count * 0.5) - (isolated * 5.0), 3)
 
         return round(
-            (security_total * 0.4) + (isolated * 4.0) - (compromised * 12.0) - (privileged * 9.0) - (edge_count * 0.25),
+            (security_total * 0.4)
+            + (isolated * 4.0)
+            + (decoy_degree_total * (3.0 if self.config.feature_flags.get("prefer_decoy", False) else 0.75))
+            + (feint_degree_total * (2.5 if self.config.feature_flags.get("prefer_feint", False) else 0.6))
+            - (compromised * 12.0)
+            - (privileged * 9.0)
+            - (edge_count * 0.25),
             3,
         )
 
@@ -154,6 +166,13 @@ class AdaptivePlanningPolicy:
         if not context.state_snapshot:
             raise ValueError("adaptive planning requires PolicyContext.state_snapshot")
 
+        if self.config.feature_flags.get("no_decoy", False):
+            legal_actions = tuple(action for action in legal_actions if action.action_type.value != "decoy")
+        if self.config.feature_flags.get("no_feint", False):
+            legal_actions = tuple(action for action in legal_actions if action.action_type.value != "feint")
+        if not legal_actions:
+            raise ValueError("legal_actions cannot be empty after feature-flag filtering")
+
         visible_snapshot = apply_observability_filter(context.state_snapshot, self.config)
         current_graph = graph_from_snapshot_payload(visible_snapshot)
         baseline_utility = self._state_utility(current_graph)
@@ -197,6 +216,9 @@ class AdaptivePlanningPolicy:
                 f"opponent_policy={self.config.opponent_policy_name}",
                 f"reduced_observability={self.config.feature_flags.get('reduced_observability', False)}",
                 f"no_planning={self.config.feature_flags.get('no_planning', False)}",
+                f"prefer_decoy={self.config.feature_flags.get('prefer_decoy', False)}",
+                f"prefer_feint={self.config.feature_flags.get('prefer_feint', False)}",
+                f"no_feint={self.config.feature_flags.get('no_feint', False)}",
                 "deterministic rollout uses sandboxed legal action space only",
             ),
         )

@@ -71,6 +71,7 @@ class AblationConfig:
     no_planning: bool = False
     reduced_observability: bool = False
     no_decoy: bool = True
+    no_feint: bool = False
 
 
 @dataclass(frozen=True)

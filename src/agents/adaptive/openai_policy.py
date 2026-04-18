@@ -161,6 +161,12 @@ class OpenAIAdaptivePolicy:
     def select_action(self, context: PolicyContext, legal_actions: tuple[LegalAction, ...]) -> PolicyDecision:
         if not legal_actions:
             raise ValueError("legal_actions cannot be empty")
+        if self.config.feature_flags.get("no_decoy", False):
+            legal_actions = tuple(action for action in legal_actions if action.action_type.value != "decoy")
+        if self.config.feature_flags.get("no_feint", False):
+            legal_actions = tuple(action for action in legal_actions if action.action_type.value != "feint")
+        if not legal_actions:
+            raise ValueError("legal_actions cannot be empty after feature-flag filtering")
 
         try:
             client = self._get_client()

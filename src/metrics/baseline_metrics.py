@@ -31,10 +31,31 @@ def compute_baseline_metrics(result: SimulationRunResult) -> dict:
         for entry in result.timesteps
         if entry.blue_action_intent.action_type in {"block", "isolate"}
     )
+    blue_deception_actions = sum(
+        1
+        for entry in result.timesteps
+        if entry.blue_action_intent.action_type in {"decoy", "feint"}
+    )
+    blue_decoy_actions = sum(
+        1
+        for entry in result.timesteps
+        if entry.blue_action_intent.action_type == "decoy"
+    )
+    blue_feint_actions = sum(
+        1
+        for entry in result.timesteps
+        if entry.blue_action_intent.action_type == "feint"
+    )
     red_offensive_actions = sum(
         1
         for entry in result.timesteps
         if entry.red_action_intent.action_type in {"scan", "exploit", "lateral_move", "escalate"}
+    )
+    deception_trigger_events = sum(
+        1
+        for entry in result.timesteps
+        for outcome in entry.action_outcomes
+        if bool(outcome.transition_details.get("deception_triggered", False))
     )
 
     first_containment_timestep = -1
@@ -68,6 +89,10 @@ def compute_baseline_metrics(result: SimulationRunResult) -> dict:
             "blue_action_change_rate": round(blue_changed / timesteps_count, 3) if timesteps_count else 0.0,
             "red_offensive_actions": red_offensive_actions,
             "blue_containment_actions": blue_containment_actions,
+            "blue_deception_actions": blue_deception_actions,
+            "blue_decoy_actions": blue_decoy_actions,
+            "blue_feint_actions": blue_feint_actions,
+            "deception_trigger_events": deception_trigger_events,
             "first_containment_timestep": first_containment_timestep,
         },
     }

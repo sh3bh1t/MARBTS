@@ -1,0 +1,76 @@
+{
+  "matrix_id": "phase5-deception-ablation",
+  "scenario_id": "phase5-branching-observability",
+  "seeds": [20260329, 20260330],
+  "horizon": 5,
+  "planner_depth": 3,
+  "conditions": [
+    {
+      "condition_id": "adaptive_blue_baseline",
+      "red_mode": "aggressive",
+      "blue_mode": "adaptive",
+      "feature_flags": {
+        "no_decoy": false,
+        "no_feint": false
+      }
+    },
+    {
+      "condition_id": "adaptive_blue_prefer_decoy",
+      "red_mode": "aggressive",
+      "blue_mode": "adaptive",
+      "feature_flags": {
+        "no_decoy": false,
+        "no_feint": false,
+        "prefer_decoy": true
+      }
+    },
+    {
+      "condition_id": "adaptive_blue_prefer_feint",
+      "red_mode": "aggressive",
+      "blue_mode": "adaptive",
+      "feature_flags": {
+        "no_decoy": false,
+        "no_feint": false,
+        "prefer_feint": true
+      }
+    },
+    {
+      "condition_id": "adaptive_blue_no_decoy",
+      "red_mode": "aggressive",
+      "blue_mode": "adaptive",
+      "feature_flags": {
+        "no_decoy": true,
+        "no_feint": false
+      }
+    },
+    {
+      "condition_id": "adaptive_blue_no_feint",
+      "red_mode": "aggressive",
+      "blue_mode": "adaptive",
+      "feature_flags": {
+        "no_decoy": false,
+        "no_feint": true
+      }
+    },
+    {
+      "condition_id": "adaptive_blue_reduced_observability",
+      "red_mode": "aggressive",
+      "blue_mode": "adaptive",
+      "feature_flags": {
+        "no_decoy": false,
+        "no_feint": false,
+        "reduced_observability": true
+      }
+    },
+    {
+      "condition_id": "adaptive_blue_no_planning",
+      "red_mode": "aggressive",
+      "blue_mode": "adaptive",
+      "feature_flags": {
+        "no_decoy": false,
+        "no_feint": false,
+        "no_planning": true
+      }
+    }
+  ]
+}

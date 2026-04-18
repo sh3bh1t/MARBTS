@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 from hart.enums import CompromisedState, DetectionState, NodeType
 
@@ -38,3 +38,25 @@ class ScenarioConfig:
     @property
     def node_ids(self) -> tuple[str, ...]:
         return tuple(node.node_id for node in self.nodes)
+
+
+@dataclass(frozen=True)
+class ScenarioCatalogEntry:
+    scenario_id: str
+    version: str
+    path: str
+    tags: tuple[str, ...] = ()
+    topology_complexity: str = "unknown"
+    vulnerability_density: str = "unknown"
+    defense_posture: str = "unknown"
+
+
+@dataclass(frozen=True)
+class StressTestConfig:
+    config_id: str
+    scenario_ids: tuple[str, ...]
+    seeds: tuple[int, ...]
+    horizon: int
+    planner_depth: int = 3
+    include_llm_conditions: bool = True
+    feature_flags: dict[str, bool] = field(default_factory=dict)

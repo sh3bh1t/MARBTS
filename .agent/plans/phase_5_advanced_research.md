@@ -7,7 +7,7 @@ Extend the platform for publication-grade experimentation via richer scenarios, 
 
 ## Current Status
 
-- Status: Not started
+- Status: Completed
 - Dependency: Requires stable outputs from Phases 1-4
 
 ## Inputs
@@ -91,3 +91,8 @@ Extend the platform for publication-grade experimentation via richer scenarios, 
 - 2026-03-28: Confirmed advanced research extensions align with scenarios/experiments/docs/artifacts/docker structure.
 - 2026-03-28: Updated phase path assumptions to flattened `src/*` source layout.
 - 2026-03-28: Added explicit phase status tracking section.
+- 2026-04-18: Began Phase 5 by adding a versioned scenario catalog, additional library scenarios, experiment/seed configs, and an initial multi-scenario stress-suite runner with summary artifacts.
+- 2026-04-18: Added initial decoy/deception support through a Blue-team `decoy` action, decoy-triggered exploit outcomes, deception-aware logging, and baseline metric coverage.
+- 2026-04-18: Added a dedicated decoy-efficacy experiment runner/report that isolates decoy-enabled versus decoy-disabled Blue behavior over seeded runs and records deception-focused efficacy deltas.
+- 2026-04-18: Added a dedicated aggressive Red experiment policy and decoy-biased Blue planning mode for the decoy-efficacy path so deception scenarios produce measurable activity without altering the Phase 2 baseline.
+- 2026-04-18: Completed Phase 5 by adding bluff/feint deception mechanics, a standardized deception ablation matrix with publication-ready bundle outputs, and an optional containerized reproduction path driven by checked-in config.

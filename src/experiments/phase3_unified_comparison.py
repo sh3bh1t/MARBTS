@@ -24,6 +24,7 @@ def _merge_feature_flags(config: AdaptivePolicyConfig, ablation: AblationConfig)
     feature_flags["no_planning"] = ablation.no_planning
     feature_flags["reduced_observability"] = ablation.reduced_observability
     feature_flags["no_decoy"] = ablation.no_decoy
+    feature_flags["no_feint"] = ablation.no_feint
     return AdaptivePolicyConfig(
         planning_depth=config.planning_depth,
         planning_mode=config.planning_mode,

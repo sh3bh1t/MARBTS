@@ -1,0 +1,64 @@
+{
+  "metadata": {
+    "scenario_id": "phase5-branching-observability",
+    "version": "1.0.0"
+  },
+  "nodes": [
+    {
+      "node_id": "edge-1",
+      "node_type": "server",
+      "services": ["http"],
+      "vulnerabilities": ["cve-sim-201"],
+      "security_level": 2,
+      "compromised_state": "none",
+      "detection_state": "undetected",
+      "isolation_state": false
+    },
+    {
+      "node_id": "edge-2",
+      "node_type": "server",
+      "services": ["http", "ssh"],
+      "vulnerabilities": ["cve-sim-202"],
+      "security_level": 3,
+      "compromised_state": "none",
+      "detection_state": "undetected",
+      "isolation_state": false
+    },
+    {
+      "node_id": "core-api",
+      "node_type": "server",
+      "services": ["grpc"],
+      "vulnerabilities": ["cve-sim-203", "cve-sim-204"],
+      "security_level": 4,
+      "compromised_state": "none",
+      "detection_state": "undetected",
+      "isolation_state": false
+    },
+    {
+      "node_id": "analytics-db",
+      "node_type": "database",
+      "services": ["postgres"],
+      "vulnerabilities": ["cve-sim-205"],
+      "security_level": 5,
+      "compromised_state": "none",
+      "detection_state": "undetected",
+      "isolation_state": false
+    },
+    {
+      "node_id": "ops-endpoint",
+      "node_type": "endpoint",
+      "services": ["rdp", "ssh"],
+      "vulnerabilities": ["cve-sim-206"],
+      "security_level": 2,
+      "compromised_state": "none",
+      "detection_state": "undetected",
+      "isolation_state": false
+    }
+  ],
+  "edges": [
+    {"source": "edge-1", "target": "core-api"},
+    {"source": "edge-2", "target": "core-api"},
+    {"source": "core-api", "target": "analytics-db"},
+    {"source": "core-api", "target": "ops-endpoint"}
+  ]
+}

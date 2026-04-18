@@ -70,13 +70,15 @@ def test_red_actions_skip_isolated_targets(graph) -> None:
     assert isolated_actions == []
 
 
-def test_blue_actions_include_monitor_patch_isolate_block(graph) -> None:
+def test_blue_actions_include_monitor_patch_isolate_block_and_decoy(graph) -> None:
     actions = get_legal_actions(graph, "blue")
     tuples = {(action.action_type, action.targets) for action in actions}
 
     assert ("monitor", ("srv-1",)) in tuples
     assert ("patch", ("srv-1",)) in tuples
     assert ("isolate", ("srv-1",)) in tuples
+    assert ("decoy", ("srv-1",)) in tuples
+    assert ("feint", ("srv-1",)) in tuples
     assert ("block", ("db-1", "iot-1")) in tuples
 
 

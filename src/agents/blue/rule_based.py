@@ -22,6 +22,8 @@ class RuleBasedBluePolicy:
             ActionType.PATCH: 70.0,
             ActionType.BLOCK: 60.0,
             ActionType.ISOLATE: 50.0,
+            ActionType.DECOY: 65.0,
+            ActionType.FEINT: 63.0,
         }
         return priorities.get(action.action_type, 0.0)
 
@@ -35,6 +37,7 @@ class RuleBasedBluePolicy:
             "threat_pressure": threat_pressure * 1.2,
             "emergency_containment": 0.0,
             "monitoring_penalty": 0.0,
+            "deception_value": 0.0,
         }
 
         if action.action_type == ActionType.MONITOR:
@@ -54,6 +57,14 @@ class RuleBasedBluePolicy:
             components["threat_suppression"] = 7.0 + threat_pressure * 1.2
             components["resilience_impact"] = 2.0
             components["emergency_containment"] = threat_pressure * 13.0
+        elif action.action_type == ActionType.DECOY:
+            components["threat_suppression"] = 5.0 + threat_pressure * 0.8
+            components["resilience_impact"] = 4.0
+            components["deception_value"] = 9.0 + threat_pressure * 1.5
+        elif action.action_type == ActionType.FEINT:
+            components["threat_suppression"] = 4.0 + threat_pressure * 0.6
+            components["resilience_impact"] = 3.0
+            components["deception_value"] = 8.0 + threat_pressure * 1.7
 
         return components
 
@@ -66,6 +77,10 @@ class RuleBasedBluePolicy:
             return "disrupt attack path connectivity between nodes"
         if action.action_type == ActionType.ISOLATE:
             return "contain suspected compromise blast radius"
+        if action.action_type == ActionType.DECOY:
+            return "deploy deception asset to attract and expose hostile activity"
+        if action.action_type == ActionType.FEINT:
+            return "broadcast misleading signal to divert hostile attention with lighter defender cost"
         return "maintain defensive posture"
 
     def _confidence(self, total_score: float) -> float:

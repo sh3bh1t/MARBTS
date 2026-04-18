@@ -81,6 +81,44 @@ def test_blue_policy_prioritizes_containment_under_threat() -> None:
     assert decision.action.action_type in {ActionType.BLOCK, ActionType.ISOLATE}
 
 
+def test_blue_policy_can_select_decoy_over_isolate_when_threat_is_low() -> None:
+    policy = RuleBasedBluePolicy()
+    legal_actions = (
+        LegalAction(actor=ActorType.BLUE, action_type=ActionType.DECOY, targets=("srv-1",), rationale_hint="deploy decoy"),
+        LegalAction(actor=ActorType.BLUE, action_type=ActionType.ISOLATE, targets=("srv-1",), rationale_hint="contain node"),
+    )
+    context = PolicyContext(
+        actor=ActorType.BLUE,
+        timestep=0,
+        scenario_id="blue-decoy",
+        seed=42,
+        compromised_nodes=0,
+        policy_metrics={},
+    )
+
+    decision = policy.select_action(context, legal_actions)
+    assert decision.action.action_type == ActionType.DECOY
+
+
+def test_blue_policy_can_select_feint_when_only_deception_options_remain() -> None:
+    policy = RuleBasedBluePolicy()
+    legal_actions = (
+        LegalAction(actor=ActorType.BLUE, action_type=ActionType.FEINT, targets=("srv-1",), rationale_hint="deploy feint"),
+        LegalAction(actor=ActorType.BLUE, action_type=ActionType.MONITOR, targets=("srv-1",), rationale_hint="monitor"),
+    )
+    context = PolicyContext(
+        actor=ActorType.BLUE,
+        timestep=0,
+        scenario_id="blue-feint",
+        seed=42,
+        compromised_nodes=1,
+        policy_metrics={},
+    )
+
+    decision = policy.select_action(context, legal_actions)
+    assert decision.action.action_type == ActionType.FEINT
+
+
 def test_tie_breaker_prefers_lexicographic_targets() -> None:
     policy = RuleBasedBluePolicy()
     legal_actions = (

@@ -14,7 +14,15 @@ from .policy_models import (
     PolicyScoreBreakdown,
     ValueEstimate,
 )
-from .scenario_models import EdgeConfig, NodeConfig, ScenarioConfig, ScenarioMetadata
+from .research_models import (
+    AblationMatrix,
+    AblationMatrixCondition,
+    ContainerExecutionConfig,
+    DeceptionEvent,
+    PublicationMetricTable,
+    ResearchArtifactManifest,
+)
+from .scenario_models import EdgeConfig, NodeConfig, ScenarioCatalogEntry, ScenarioConfig, ScenarioMetadata, StressTestConfig
 from .simulation_models import ActionRecord, RunMetadata, SimulationRunResult, TimestepLogEntry
 
 __all__ = [
@@ -37,10 +45,18 @@ __all__ = [
     "EventEnvelope",
     "ReplayFrame",
     "RunProvenance",
+    "DeceptionEvent",
+    "AblationMatrix",
+    "AblationMatrixCondition",
+    "ContainerExecutionConfig",
+    "PublicationMetricTable",
+    "ResearchArtifactManifest",
     "EdgeConfig",
     "NodeConfig",
+    "ScenarioCatalogEntry",
     "ScenarioConfig",
     "ScenarioMetadata",
+    "StressTestConfig",
     "ActionRecord",
     "RunMetadata",
     "SimulationRunResult",

@@ -111,6 +111,26 @@ def get_legal_actions(graph: nx.Graph, actor: ActorType | str) -> tuple[LegalAct
                     )
                 )
 
+            if not attrs.get("decoy_state", False):
+                actions.append(
+                    LegalAction(
+                        actor=ActorType.BLUE,
+                        action_type=ActionType.DECOY,
+                        targets=(node_id,),
+                        rationale_hint="deploy deception asset to misdirect hostile actions toward this node",
+                    )
+                )
+
+            if not attrs.get("feint_state", False):
+                actions.append(
+                    LegalAction(
+                        actor=ActorType.BLUE,
+                        action_type=ActionType.FEINT,
+                        targets=(node_id,),
+                        rationale_hint="project a misleading high-value signal to divert hostile focus toward this node",
+                    )
+                )
+
         for source, target in _sorted_edges(graph):
             actions.append(
                 LegalAction(
