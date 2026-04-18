@@ -11,11 +11,13 @@ from agents.blue.rule_based import RuleBasedBluePolicy
 from agents.interfaces.policy import PolicyDecision, PolicyRegistry
 from agents.red.rule_based import RuleBasedRedPolicy
 from environment.legal_actions import LegalAction, get_legal_actions
-from environment.transitions import TransitionResult, apply_block, apply_exploit, apply_isolate, apply_patch
-from hart.enums import ActionType, ActorType
+from environment.transitions import TransitionResult
+from hart.enums import ActorType
 from hart.models import ActionRecord, PolicyContext, PolicyMetricsSnapshot, RunMetadata, SimulationRunResult, TimestepLogEntry
+from simulation.provenance import compute_config_hash, detect_git_commit_hash
 from simulation.rng import SeededRNG
 from simulation.state_diff import compute_post_state_diff, snapshot_payload, snapshot_ref
+from simulation.turn_resolution import apply_actor_action, count_compromised_nodes
 
 
 ActionSelector = Callable[[str, tuple[LegalAction, ...], SeededRNG, int], LegalAction]
@@ -26,50 +28,6 @@ def _build_default_policy_registry() -> PolicyRegistry:
     registry.register(RuleBasedRedPolicy())
     registry.register(RuleBasedBluePolicy())
     return registry
-
-
-def _count_compromised(graph: nx.Graph) -> int:
-    total = 0
-    for _, attrs in graph.nodes(data=True):
-        if attrs.get("compromised_state") in {"user", "privileged"}:
-            total += 1
-    return total
-
-
-def _apply_red_action(graph: nx.Graph, action: LegalAction) -> tuple[nx.Graph, TransitionResult]:
-    if action.action_type == ActionType.EXPLOIT:
-        return apply_exploit(graph, action.targets[0])
-
-    if action.action_type == ActionType.ESCALATE:
-        return apply_exploit(graph, action.targets[0])
-
-    if action.action_type == ActionType.LATERAL_MOVE:
-        return apply_exploit(graph, action.targets[1])
-
-    return graph, TransitionResult(
-        action=action.action_type,
-        target=":".join(action.targets),
-        changed=False,
-        reason="no state mutation for informational action",
-    )
-
-
-def _apply_blue_action(graph: nx.Graph, action: LegalAction) -> tuple[nx.Graph, TransitionResult]:
-    if action.action_type == ActionType.PATCH:
-        return apply_patch(graph, action.targets[0])
-
-    if action.action_type == ActionType.ISOLATE:
-        return apply_isolate(graph, action.targets[0])
-
-    if action.action_type == ActionType.BLOCK:
-        return apply_block(graph, action.targets[0], action.targets[1])
-
-    return graph, TransitionResult(
-        action=action.action_type,
-        target=":".join(action.targets),
-        changed=False,
-        reason="no state mutation for informational action",
-    )
 
 
 def _default_selector(_actor: str, legal_actions: tuple[LegalAction, ...], rng: SeededRNG, _timestep: int) -> LegalAction:
@@ -84,10 +42,18 @@ def _to_action_record(
 ) -> ActionRecord:
     rationale = legal_action.rationale_hint
     rationale_payload: dict = {"source": "legal_action_hint"}
+    predicted_effect = ""
+    confidence = 0.0
+    utility_estimate = 0.0
+    decision_trace: dict = {}
 
     if policy_decision is not None:
         rationale = policy_decision.rationale.summary
         rationale_payload = asdict(policy_decision.rationale)
+        predicted_effect = policy_decision.rationale.predicted_effect
+        confidence = policy_decision.rationale.confidence
+        utility_estimate = policy_decision.rationale.utility_estimate
+        decision_trace = dict(policy_decision.rationale.trace)
 
     return ActionRecord(
         actor=actor,
@@ -97,6 +63,10 @@ def _to_action_record(
         rationale_payload=rationale_payload,
         changed=transition.changed,
         reason=transition.reason,
+        predicted_effect=predicted_effect,
+        confidence=confidence,
+        utility_estimate=utility_estimate,
+        decision_trace=decision_trace,
     )
 
 
@@ -118,8 +88,9 @@ def _build_policy_context(
         timestep=timestep,
         scenario_id=scenario_id,
         seed=seed,
-        compromised_nodes=_count_compromised(graph),
+        compromised_nodes=count_compromised_nodes(graph),
         policy_metrics=policy_metrics,
+        state_snapshot=snapshot_payload(graph),
     )
 
 
@@ -129,6 +100,9 @@ def run_turn_based_simulation(
     seed: int,
     horizon: int,
     scenario_id: str,
+    scenario_version: str = "unknown",
+    config_payload: dict | None = None,
+    commit_hash: str | None = None,
     selector: ActionSelector | None = None,
     policy_registry: PolicyRegistry | None = None,
 ) -> SimulationRunResult:
@@ -141,9 +115,12 @@ def run_turn_based_simulation(
 
     current_graph = initial_graph.copy()
     timestep_logs: list[TimestepLogEntry] = []
+    initial_state_ref = snapshot_ref(current_graph)
 
-    run_id_input = f"{scenario_id}:{seed}:{horizon}:{snapshot_ref(current_graph)}"
+    run_id_input = f"{scenario_id}:{seed}:{horizon}:{initial_state_ref}"
     run_id = hashlib.sha256(run_id_input.encode("utf-8")).hexdigest()[:16]
+    resolved_commit_hash = commit_hash or detect_git_commit_hash()
+    resolved_config_hash = compute_config_hash(config_payload or snapshot_payload(current_graph))
 
     red_metrics: PolicyMetricsSnapshot | None = None
     blue_metrics: PolicyMetricsSnapshot | None = None
@@ -151,11 +128,11 @@ def run_turn_based_simulation(
     for timestep in range(horizon):
         pre_payload = snapshot_payload(current_graph)
         pre_ref = snapshot_ref(current_graph)
-        pre_compromised = _count_compromised(current_graph)
+        pre_compromised = count_compromised_nodes(current_graph)
 
         red_legal_actions = get_legal_actions(current_graph, "red")
         if not red_legal_actions:
-            raise RuntimeError("no legal actions available for red actor")
+            break
 
         red_decision: PolicyDecision | None = None
         if selector is None and runtime_policy_registry.has(ActorType.RED):
@@ -173,11 +150,11 @@ def run_turn_based_simulation(
         else:
             red_action = policy_selector("red", red_legal_actions, rng, timestep)
 
-        after_red_graph, red_result = _apply_red_action(current_graph, red_action)
+        after_red_graph, red_result = apply_actor_action(current_graph, ActorType.RED, red_action)
 
         blue_legal_actions = get_legal_actions(after_red_graph, "blue")
         if not blue_legal_actions:
-            raise RuntimeError("no legal actions available for blue actor")
+            break
 
         blue_decision: PolicyDecision | None = None
         if selector is None and runtime_policy_registry.has(ActorType.BLUE):
@@ -195,10 +172,11 @@ def run_turn_based_simulation(
         else:
             blue_action = policy_selector("blue", blue_legal_actions, rng, timestep)
 
-        after_blue_graph, blue_result = _apply_blue_action(after_red_graph, blue_action)
+        after_blue_graph, blue_result = apply_actor_action(after_red_graph, ActorType.BLUE, blue_action)
 
         post_payload = snapshot_payload(after_blue_graph)
-        post_compromised = _count_compromised(after_blue_graph)
+        post_ref = snapshot_ref(after_blue_graph)
+        post_compromised = count_compromised_nodes(after_blue_graph)
 
         red_record = _to_action_record("red", red_action, red_result, red_decision)
         blue_record = _to_action_record("blue", blue_action, blue_result, blue_decision)
@@ -212,6 +190,7 @@ def run_turn_based_simulation(
         log_entry = TimestepLogEntry(
             timestep=timestep,
             pre_state_ref=pre_ref,
+            post_state_ref=post_ref,
             red_action_intent=red_record,
             blue_action_intent=blue_record,
             action_outcomes=(red_record, blue_record),
@@ -230,12 +209,19 @@ def run_turn_based_simulation(
         run_id=run_id,
         seed=seed,
         scenario_id=scenario_id,
+        scenario_version=scenario_version,
         horizon=horizon,
+        config_hash=resolved_config_hash,
+        commit_hash=resolved_commit_hash,
+        code_version="workspace",
         timestamp_utc=datetime.now(timezone.utc).isoformat(),
+        initial_state_ref=initial_state_ref,
+        final_state_ref=snapshot_ref(current_graph),
     )
 
     return SimulationRunResult(
         metadata=metadata,
+        initial_graph=initial_graph.copy(),
         final_graph=current_graph,
         timesteps=tuple(timestep_logs),
     )

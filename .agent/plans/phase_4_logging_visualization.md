@@ -7,7 +7,7 @@ Implement production-quality observability: complete structured logging, run pro
 
 ## Current Status
 
-- Status: Not started
+- Status: Completed
 - Dependency: Builds on simulation outputs from Phases 1-3
 
 ## Inputs
@@ -90,3 +90,8 @@ Implement production-quality observability: complete structured logging, run pro
 - 2026-03-28: Confirmed observability modules align with `src/logging`, `src/metrics`, and `src/visualization`.
 - 2026-03-28: Updated phase path assumptions to flattened `src/*` source layout.
 - 2026-03-28: Added explicit phase status tracking section.
+- 2026-04-18: Began Phase 4 by adding provenance-rich run metadata, schema-validated timestep event envelopes, replay-ready state artifacts, and markdown experiment summaries.
+- 2026-04-18: Logged namespace deviation: runtime observability modules remain under `src/simulation/*` rather than `src/logging/*` to avoid conflicts with Python's standard-library `logging` package.
+- 2026-04-18: Added artifact loading/validation helpers, replay-summary generation, and a lightweight HTML dashboard demo path for operator-facing inspection of run trajectories and comparison outputs.
+- 2026-04-18: Enriched the Phase 4 dashboard with comparison-trend visuals, replay timeline tables, action-mix summaries, and stronger artifact validation payloads for operator debugging and demo readiness.
+- 2026-04-18: Added strict event/provenance consistency validation, reusable Phase 4 report generation from existing artifacts, and comparative HTML reporting; phase marked completed after validation evidence.

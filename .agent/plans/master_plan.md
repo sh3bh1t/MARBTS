@@ -123,7 +123,7 @@ Policy requirements:
 
 ### 4.3 Policy Evolution Path
 - Phase 2: deterministic rule-based policies
-- Phase 3: adaptive policies (LLM reasoning and/or RL)
+- Phase 3: adaptive policies, beginning with deterministic bounded planning and extending to LLM reasoning and/or RL
 - Strict compatibility with common policy interface to support baseline comparisons
 
 ## 5) Simulation Loop Design
@@ -164,7 +164,7 @@ Per timestep t:
 - Validate predictable tactical dynamics
 
 ### Phase 3: Adaptive Autonomy (LLM/RL)
-- Add LLM-reasoning or RL policies behind same interface
+- Add adaptive policies behind same interface, beginning with deterministic bounded-planning baselines and extending to LLM-reasoning or RL policies
 - Add multi-step planning and utility shaping
 - Compare against rule-based baselines
 
@@ -257,6 +257,13 @@ Secondary:
 - Prefer deterministic defaults over maximum realism
 - Prefer modular interfaces over tightly coupled optimized code in early phases
 - Prefer explicit failure over silent coercion in data ingestion
+
+## 10) Plan Revision Log
+
+- 2026-04-18: Sequenced Phase 3 execution to begin with deterministic bounded-planning adaptive baselines before optional LLM/RL backends, preserving sandbox safety and reproducibility requirements.
+- 2026-04-18: Recorded observability/provenance implementation under `src/simulation/*` and reporting under `src/visualization/*` to avoid collisions with Python's standard-library `logging` package namespace.
+- 2026-04-18: Added an OpenAI Responses API-backed adaptive policy path using structured outputs with legal-action validation and guarded fallback to sandbox-safe local policies.
+- 2026-04-18: Added a unified Phase 3 experiment matrix covering planner and OpenAI-backed policies plus `no_planning` and `reduced_observability` ablations behind shared adaptive configuration flags.
 
 ### 9.3 Mitigations
 - Scenario diversity and holdout sets

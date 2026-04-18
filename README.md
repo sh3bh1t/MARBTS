@@ -143,6 +143,32 @@ For Phase 2 multi-seed aggregate report generation:
 - PowerShell: `$env:PYTHONPATH='src'; python scripts/run_phase2_multi_seed_report.py`
 - Bash/Zsh: `PYTHONPATH=src python scripts/run_phase2_multi_seed_report.py`
 
+For Phase 3 adaptive comparison smoke execution:
+- PowerShell: `$env:PYTHONPATH='src'; python scripts/run_phase3_adaptive_smoke.py`
+- Bash/Zsh: `PYTHONPATH=src python scripts/run_phase3_adaptive_smoke.py`
+
+For the Phase 3 OpenAI-backed LLM comparison demo:
+- Requires `OPENAI_API_KEY` in the environment
+- PowerShell: `$env:OPENAI_API_KEY='...'; $env:PYTHONPATH='src'; python scripts/run_phase3_llm_demo.py`
+- Bash/Zsh: `OPENAI_API_KEY=... PYTHONPATH=src python scripts/run_phase3_llm_demo.py`
+
+For the unified Phase 3 experiment matrix demo:
+- Runs planner, LLM, and ablation conditions in one report
+- If `OPENAI_API_KEY` is unset, LLM conditions fall back to sandbox-safe local policies unless strict live-LLM mode is enabled
+- PowerShell: `$env:PYTHONPATH='src'; python scripts/run_phase3_unified_demo.py`
+- Bash/Zsh: `PYTHONPATH=src python scripts/run_phase3_unified_demo.py`
+
+For the Phase 4 replay/dashboard demo:
+- Builds a unified comparison report, validates one run artifact package, reconstructs replay frames, and writes operator-facing HTML/Markdown outputs
+- Includes comparison trend visuals, replay timeline tables, and action-mix summaries
+- PowerShell: `$env:PYTHONPATH='src'; python scripts/run_phase4_demo.py`
+- Bash/Zsh: `PYTHONPATH=src python scripts/run_phase4_demo.py`
+
+For generating Phase 4 reports from existing artifacts:
+- Reuses an existing run directory and comparison report to emit replay/dashboard/comparison HTML outputs
+- PowerShell: `$env:PYTHONPATH='src'; python scripts/run_phase4_report_from_artifacts.py --run-dir artifacts/runs/<run_id> --report-file artifacts/reports/phase3_unified_comparison_<scenario_id>.json`
+- Bash/Zsh: `PYTHONPATH=src python scripts/run_phase4_report_from_artifacts.py --run-dir artifacts/runs/<run_id> --report-file artifacts/reports/phase3_unified_comparison_<scenario_id>.json`
+
 Examples:
 - PowerShell (custom seeds and horizon):
    - `$env:PYTHONPATH='src'; python scripts/run_phase2_multi_seed_report.py --seeds 20260329,20260332,20260333 --horizon 10`
@@ -175,8 +201,16 @@ From repository root:
    - Test framework migrated to `pytest`; unit suite passing.
 - **Phase 2 (Rule-Based Agents): Completed**
    - Policy interface/registry, deterministic red/blue rule-based policies, explainable rationale payloads, policy metrics snapshots, baseline metrics artifacts, and multi-seed aggregate reporting are integrated and validated.
-- **Phase 3–5: Planned / Not started yet**
-   - See `.agent/plans/` for phase-specific implementation definitions.
+- **Phase 3 (Adaptive Autonomy): In progress**
+   - Initial deterministic adaptive planner baseline is implemented behind the shared policy interface, including bounded rollout planning, experiment comparison reporting, and planning-depth ablation support.
+   - An OpenAI-backed adaptive policy path is also available behind the same interface, with structured-output parsing, legal-action validation, and guarded fallback behavior.
+   - A unified Phase 3 comparison runner now covers planner/LLM baselines plus `no_planning` and `reduced_observability` ablations.
+- **Phase 4 (Logging and Visualization): In progress**
+   - Provenance-rich run metadata, schema-validated event envelopes, replay-ready state artifacts, and Phase 3 markdown summary generation are implemented.
+   - A Phase 4 demo path now generates replay summaries and a richer HTML dashboard with trend, action-mix, and replay-timeline views from validated run artifacts.
+   - Existing artifact packages can now be reloaded, strictly validated, and rendered into replay/dashboard/comparison outputs without regenerating the underlying simulation.
+- **Phase 5: Planned**
+   - See `.agent/plans/` for remaining advanced research extension scope.
 
 
 

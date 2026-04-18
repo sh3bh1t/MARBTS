@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from dataclasses import asdict
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -21,6 +22,8 @@ def main() -> None:
         seed=seed,
         horizon=horizon,
         scenario_id=scenario.metadata.scenario_id,
+        scenario_version=scenario.metadata.version,
+        config_payload=asdict(scenario),
     )
 
     artifacts_root = Path("artifacts/runs")
