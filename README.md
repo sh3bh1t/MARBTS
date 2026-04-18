@@ -153,10 +153,15 @@ For the Phase 3 OpenAI-backed LLM comparison demo:
 - Bash/Zsh: `OPENAI_API_KEY=... PYTHONPATH=src python scripts/run_phase3_llm_demo.py`
 
 For the unified Phase 3 experiment matrix demo:
-- Runs planner, LLM, and ablation conditions in one report
+- Runs planner, RL, LLM, and ablation conditions in one report
 - If `OPENAI_API_KEY` is unset, LLM conditions fall back to sandbox-safe local policies unless strict live-LLM mode is enabled
 - PowerShell: `$env:PYTHONPATH='src'; python scripts/run_phase3_unified_demo.py`
 - Bash/Zsh: `PYTHONPATH=src python scripts/run_phase3_unified_demo.py`
+
+For the Phase 3 RL-backed adaptive demo:
+- Reuses the unified Phase 3 matrix but explicitly exercises the deterministic RL-style value policy path
+- PowerShell: `$env:PYTHONPATH='src'; python scripts/run_phase3_rl_demo.py`
+- Bash/Zsh: `PYTHONPATH=src python scripts/run_phase3_rl_demo.py`
 
 For the Phase 4 replay/dashboard demo:
 - Builds a unified comparison report, validates one run artifact package, reconstructs replay frames, and writes operator-facing HTML/Markdown outputs
@@ -223,10 +228,10 @@ From repository root:
    - Test framework migrated to `pytest`; unit suite passing.
 - **Phase 2 (Rule-Based Agents): Completed**
    - Policy interface/registry, deterministic red/blue rule-based policies, explainable rationale payloads, policy metrics snapshots, baseline metrics artifacts, and multi-seed aggregate reporting are integrated and validated.
-- **Phase 3 (Adaptive Autonomy): In progress**
+- **Phase 3 (Adaptive Autonomy): Completed**
    - Initial deterministic adaptive planner baseline is implemented behind the shared policy interface, including bounded rollout planning, experiment comparison reporting, and planning-depth ablation support.
    - An OpenAI-backed adaptive policy path is also available behind the same interface, with structured-output parsing, legal-action validation, and guarded fallback behavior.
-   - A unified Phase 3 comparison runner now covers planner/LLM baselines plus `no_planning` and `reduced_observability` ablations.
+   - A deterministic RL-style value-policy path is also available behind the shared interface, and the unified Phase 3 comparison runner now covers planner/RL/LLM baselines plus `no_planning` and `reduced_observability` ablations.
 - **Phase 4 (Logging and Visualization): Completed**
    - Provenance-rich run metadata, schema-validated event envelopes, replay-ready state artifacts, and Phase 3 markdown summary generation are implemented.
    - A Phase 4 demo path now generates replay summaries and a richer HTML dashboard with trend, action-mix, and replay-timeline views from validated run artifacts.

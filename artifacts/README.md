@@ -18,6 +18,10 @@ Generated outputs only (never source-of-truth configs):
 	- `metrics/<run_id>.json`
 - Phase 2 multi-seed comparison report is generated under:
 	- `reports/phase2_multi_seed_report_<scenario_id>.json`
+- Phase 3 unified adaptive comparison reports are generated under:
+	- `reports/phase3_unified_comparison_<scenario_id>.json`
+- Optional Phase 3 RL markdown summaries are generated under:
+	- `reports/phase3_rl_comparison_summary.md`
 - Phase 5 stress summary artifact is generated under:
 	- `reports/phase5_stress_summary_<config_id>.json`
 - Phase 5 decoy efficacy report is generated under:

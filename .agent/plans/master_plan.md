@@ -264,6 +264,7 @@ Secondary:
 - 2026-04-18: Recorded observability/provenance implementation under `src/simulation/*` and reporting under `src/visualization/*` to avoid collisions with Python's standard-library `logging` package namespace.
 - 2026-04-18: Added an OpenAI Responses API-backed adaptive policy path using structured outputs with legal-action validation and guarded fallback to sandbox-safe local policies.
 - 2026-04-18: Added a unified Phase 3 experiment matrix covering planner and OpenAI-backed policies plus `no_planning` and `reduced_observability` ablations behind shared adaptive configuration flags.
+- 2026-04-18: Completed Phase 3 by adding a deterministic RL-style adaptive policy path and extending the unified comparison harness/report to cover rule, planner, RL, and OpenAI-backed conditions.
 - 2026-04-18: Began Phase 5 with a versioned scenario catalog and initial stress-suite runner to extend experimentation breadth before deception and containerization work.
 - 2026-04-18: Added initial Phase 5 deception primitives via Blue decoy deployment, deception-trigger outcomes, and deception-aware metrics/logging.
 - 2026-04-18: Added a dedicated Phase 5 decoy-efficacy experiment runner to compare decoy-enabled versus decoy-disabled Blue policies with deception-focused outcome metrics.
@@ -303,7 +304,7 @@ Secondary:
 
 - Phase 1: Completed (core implementation + pytest validation + smoke hardening)
 - Phase 2: Completed (deterministic rule-based agents + metrics/reporting)
-- Phase 3: In progress (planner and OpenAI-backed adaptive paths + comparison/ablation harness)
+- Phase 3: Completed (planner, RL-style value policy, and OpenAI-backed adaptive paths + comparison/ablation harness)
 - Phase 4: Completed (validated event pipeline, replay, dashboards, and report reuse)
 - Phase 5: Completed (scenario catalog, stress suite, decoy/feint deception, ablation bundle, optional container profile)
 

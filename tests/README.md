@@ -30,6 +30,8 @@ If you have not set up the environment yet:
 	- `python -m pytest tests/unit/test_simulation_kernel.py::test_seed_reproducibility -q`
 - Adaptive policy tests:
 	- `python -m pytest tests/unit/test_agents_adaptive.py -q`
+- RL-backed adaptive demo/report coverage:
+	- `python -m pytest tests/unit/test_agents_adaptive.py tests/integration/test_phase3_unified_report.py -q`
 - LLM integration tests:
 	- `python -m pytest tests/integration/test_phase3_llm_report.py -q`
 - Unified Phase 3 matrix tests:
@@ -61,6 +63,7 @@ If you have not set up the environment yet:
 	- phase 2 action-sequence reproducibility and regression signature checks
 	- phase 2 multi-seed aggregate report integration checks
 	- adaptive planner legality and deterministic rollout behavior
+	- deterministic RL-style adaptive value-policy legality and determinism
 	- OpenAI-backed adaptive policy legality checks and fallback handling
 	- no-planning and reduced-observability ablations
 	- run artifact validation, replay reconstruction, and richer HTML/Markdown reporting

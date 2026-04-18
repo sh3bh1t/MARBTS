@@ -18,7 +18,7 @@ def main() -> None:
     )
     markdown_path = write_phase3_markdown_summary(
         result["report"],
-        "artifacts/reports/phase3_unified_comparison_summary.md",
+        "artifacts/reports/phase3_rl_comparison_summary.md",
     )
     print(json.dumps({"report_file": result["report_file"], "markdown_summary_file": markdown_path}, indent=2, sort_keys=True))
 

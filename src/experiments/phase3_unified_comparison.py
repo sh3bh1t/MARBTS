@@ -6,7 +6,7 @@ from datetime import datetime, timezone
 import json
 from pathlib import Path
 
-from agents.adaptive import AdaptivePlanningPolicy, OpenAIAdaptivePolicy
+from agents.adaptive import AdaptivePlanningPolicy, OpenAIAdaptivePolicy, RLBaselinePolicy
 from agents.blue.rule_based import RuleBasedBluePolicy
 from agents.interfaces.policy import PolicyRegistry
 from agents.red.rule_based import RuleBasedRedPolicy
@@ -50,6 +50,8 @@ def _instantiate_policy(
         return RuleBasedRedPolicy() if actor == ActorType.RED else RuleBasedBluePolicy()
     if policy_name == "planning":
         return AdaptivePlanningPolicy(actor, adaptive_config)
+    if policy_name == "rl":
+        return RLBaselinePolicy(actor, adaptive_config)
     if policy_name == "openai":
         return OpenAIAdaptivePolicy(actor, adaptive_config, client=client_factory() if client_factory else None)
     raise ValueError(f"unsupported policy_name '{policy_name}'")
@@ -75,6 +77,7 @@ def run_phase3_unified_comparison(
     seeds: list[int],
     horizon: int,
     planner_config: AdaptivePolicyConfig | None = None,
+    rl_config: AdaptivePolicyConfig | None = None,
     llm_config: AdaptivePolicyConfig | None = None,
     runs_root: str | Path = "artifacts/runs",
     reports_root: str | Path = "artifacts/reports",
@@ -85,12 +88,15 @@ def run_phase3_unified_comparison(
 
     scenario = load_scenario_file(scenario_path)
     resolved_planner = planner_config or AdaptivePolicyConfig(backend="planning", planning_depth=3)
+    resolved_rl = rl_config or AdaptivePolicyConfig(backend="rl", model_name="value_q_v1")
     resolved_llm = llm_config or AdaptivePolicyConfig(backend="openai", model_name="gpt-5-mini")
 
     conditions = [
         ExperimentCondition("rule_vs_rule", "rule_based", "rule_based"),
         ExperimentCondition("rule_vs_planner_blue", "rule_based", "planning", resolved_planner),
         ExperimentCondition("planner_red_vs_rule", "planning", "rule_based", resolved_planner),
+        ExperimentCondition("rule_vs_rl_blue", "rule_based", "rl", resolved_rl),
+        ExperimentCondition("rl_red_vs_rule", "rl", "rule_based", resolved_rl),
         ExperimentCondition("rule_vs_llm_blue", "rule_based", "openai", resolved_llm),
         ExperimentCondition("llm_red_vs_rule", "openai", "rule_based", resolved_llm),
         ExperimentCondition(
@@ -105,6 +111,13 @@ def run_phase3_unified_comparison(
             "rule_based",
             "planning",
             resolved_planner,
+            AblationConfig(reduced_observability=True),
+        ),
+        ExperimentCondition(
+            "rule_vs_rl_blue_reduced_observability",
+            "rule_based",
+            "rl",
+            resolved_rl,
             AblationConfig(reduced_observability=True),
         ),
         ExperimentCondition(
@@ -188,6 +201,7 @@ def run_phase3_unified_comparison(
         "seed_count": len(seeds),
         "seeds": seeds,
         "planner_config": asdict(resolved_planner),
+        "rl_config": asdict(resolved_rl),
         "llm_config": asdict(resolved_llm),
         "aggregates": aggregates,
         "runs": per_run,

@@ -1,4 +1,5 @@
 from agents.adaptive import AdaptivePlanningPolicy
+from agents.adaptive.rl_policy import RLBaselinePolicy
 from agents.adaptive.ablation import apply_observability_filter
 from agents.adaptive.openai_policy import OpenAIAdaptivePolicy
 from environment.graph_builder import build_graph_from_scenario
@@ -230,6 +231,52 @@ def test_no_feint_flag_filters_feint_actions_from_planner() -> None:
     policy = AdaptivePlanningPolicy(
         ActorType.BLUE,
         AdaptivePolicyConfig(planning_depth=2, feature_flags={"no_feint": True, "no_decoy": False}),
+    )
+    decision = policy.select_action(context, legal_actions)
+
+    assert decision.action.action_type.value != "feint"
+
+
+def test_rl_policy_selects_legal_action_deterministically() -> None:
+    scenario = validate_scenario_dict(_scenario_dict())
+    graph = build_graph_from_scenario(scenario)
+    legal_actions = get_legal_actions(graph, ActorType.BLUE)
+    context = PolicyContext(
+        actor=ActorType.BLUE,
+        timestep=0,
+        scenario_id=scenario.metadata.scenario_id,
+        seed=7,
+        compromised_nodes=0,
+        policy_metrics={},
+        state_snapshot=snapshot_payload(graph),
+    )
+
+    first = RLBaselinePolicy(ActorType.BLUE, AdaptivePolicyConfig(backend="rl")).select_action(context, legal_actions)
+    second = RLBaselinePolicy(ActorType.BLUE, AdaptivePolicyConfig(backend="rl")).select_action(context, legal_actions)
+
+    assert first.action in legal_actions
+    assert first.action == second.action
+    assert first.rationale.tie_breaker == "(-q_value, action_type, targets)"
+    assert first.rationale.trace["planning_depth"] == 0
+
+
+def test_no_feint_flag_filters_feint_actions_from_rl_policy() -> None:
+    scenario = validate_scenario_dict(_scenario_dict())
+    graph = build_graph_from_scenario(scenario)
+    legal_actions = get_legal_actions(graph, ActorType.BLUE)
+    context = PolicyContext(
+        actor=ActorType.BLUE,
+        timestep=0,
+        scenario_id=scenario.metadata.scenario_id,
+        seed=7,
+        compromised_nodes=0,
+        policy_metrics={},
+        state_snapshot=snapshot_payload(graph),
+    )
+
+    policy = RLBaselinePolicy(
+        ActorType.BLUE,
+        AdaptivePolicyConfig(backend="rl", feature_flags={"no_feint": True, "no_decoy": False}),
     )
     decision = policy.select_action(context, legal_actions)
 
