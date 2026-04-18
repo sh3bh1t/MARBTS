@@ -5,8 +5,9 @@ import json
 from pathlib import Path
 
 from simulation.kernel import SimulationRunResult
+from simulation.event_schema import build_timestep_event, validate_event_envelope
 from simulation.policy_trace import action_sequence_hash, summarize_action_counts, summarize_policy_metrics
-from simulation.state_diff import snapshot_ref
+from simulation.state_diff import snapshot_payload, snapshot_ref
 
 
 def write_run_artifacts(result: SimulationRunResult, output_root: str | Path) -> dict[str, str]:
@@ -15,7 +16,10 @@ def write_run_artifacts(result: SimulationRunResult, output_root: str | Path) ->
     run_dir.mkdir(parents=True, exist_ok=True)
 
     metadata_path = run_dir / "run_metadata.json"
+    initial_state_path = run_dir / "initial_state.json"
+    final_state_path = run_dir / "final_state.json"
     timesteps_path = run_dir / "timesteps.jsonl"
+    events_path = run_dir / "events.jsonl"
     policy_metrics_path = run_dir / "policy_metrics.json"
 
     metadata_payload = asdict(result.metadata)
@@ -25,10 +29,26 @@ def write_run_artifacts(result: SimulationRunResult, output_root: str | Path) ->
     with metadata_path.open("w", encoding="utf-8") as metadata_file:
         json.dump(metadata_payload, metadata_file, indent=2, sort_keys=True)
 
+    initial_state_path.write_text(
+        json.dumps(snapshot_payload(result.initial_graph), indent=2, sort_keys=True),
+        encoding="utf-8",
+    )
+    final_state_path.write_text(
+        json.dumps(snapshot_payload(result.final_graph), indent=2, sort_keys=True),
+        encoding="utf-8",
+    )
+
     with timesteps_path.open("w", encoding="utf-8") as timesteps_file:
         for timestep in result.timesteps:
             timesteps_file.write(json.dumps(asdict(timestep), sort_keys=True))
             timesteps_file.write("\n")
+
+    with events_path.open("w", encoding="utf-8") as events_file:
+        for timestep in result.timesteps:
+            event_payload = asdict(build_timestep_event(result.metadata, timestep))
+            validate_event_envelope(event_payload)
+            events_file.write(json.dumps(event_payload, sort_keys=True))
+            events_file.write("\n")
 
     policy_metrics_payload = {
         "run_id": result.metadata.run_id,
@@ -45,6 +65,9 @@ def write_run_artifacts(result: SimulationRunResult, output_root: str | Path) ->
     return {
         "run_dir": str(run_dir),
         "metadata_file": str(metadata_path),
+        "initial_state_file": str(initial_state_path),
+        "final_state_file": str(final_state_path),
         "timesteps_file": str(timesteps_path),
+        "events_file": str(events_path),
         "policy_metrics_file": str(policy_metrics_path),
     }

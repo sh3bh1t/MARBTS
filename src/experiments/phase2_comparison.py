@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from dataclasses import asdict
 from datetime import datetime, timezone
 import json
 from pathlib import Path
@@ -46,6 +47,8 @@ def run_phase2_multi_seed_report(
             seed=seed,
             horizon=horizon,
             scenario_id=scenario.metadata.scenario_id,
+            scenario_version=scenario.metadata.version,
+            config_payload=asdict(scenario),
         )
 
         run_artifacts = write_run_artifacts(result, runs_root)
