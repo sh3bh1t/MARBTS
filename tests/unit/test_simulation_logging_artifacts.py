@@ -90,10 +90,17 @@ def test_run_artifacts_writer_outputs_metadata_and_jsonl() -> None:
         assert metadata["scenario_id"] == "artifacts-small"
         assert metadata["timesteps_count"] == 2
         assert "final_state_ref" in metadata
+        assert metadata["schema_version"] == "2026-04-23.observability.v1"
+        assert metadata["event_type"] == "run_metadata"
+        assert metadata["provenance"]["commit_hash"]
+        assert metadata["provenance"]["config_hash"]
 
         lines = timesteps_path.read_text(encoding="utf-8").strip().splitlines()
         assert len(lines) == 2
         first_line = json.loads(lines[0])
+        assert first_line["schema_version"] == "2026-04-23.observability.v1"
+        assert first_line["event_type"] == "timestep"
+        assert first_line["provenance"]["run_id"] == metadata["run_id"]
         assert "pre_state_ref" in first_line
         assert "red_action_intent" in first_line
         assert "blue_action_intent" in first_line
@@ -104,3 +111,6 @@ def test_run_artifacts_writer_outputs_metadata_and_jsonl() -> None:
         assert "sequence_hash" in policy_metrics
         assert "action_counts" in policy_metrics
         assert "policy_metrics" in policy_metrics
+        assert policy_metrics["schema_version"] == "2026-04-23.observability.v1"
+        assert policy_metrics["event_type"] == "policy_metrics"
+        assert policy_metrics["provenance"]["scenario_id"] == "artifacts-small"

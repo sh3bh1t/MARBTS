@@ -7,8 +7,13 @@ Implement production-quality observability: complete structured logging, run pro
 
 ## Current Status
 
-- Status: Not started
+- Status: In progress
 - Dependency: Builds on simulation outputs from Phases 1-3
+
+### Increment Progress
+
+- Increment 1 (in progress): shared observability contracts, schema validation, provenance capture, and structured run artifact envelopes.
+- Increment 2 (next): replay utilities and comparative report packaging.
 
 ## Inputs
 - Event contracts and required log fields from master plan + guides
@@ -23,7 +28,7 @@ Implement production-quality observability: complete structured logging, run pro
 
 ## Components to Build
 1. Event schema validator and serializer
-2. Logging backend abstraction (file/DB)
+2. Observability backend abstraction (file/DB)
 3. State diff and action rationale recorder
 4. Run metadata/provenance recorder
 5. Replay engine from event stream
@@ -87,6 +92,7 @@ Implement production-quality observability: complete structured logging, run pro
 
 ## Plan Revision Log
 - 2026-03-28: Initial phase plan created.
-- 2026-03-28: Confirmed observability modules align with `src/logging`, `src/metrics`, and `src/visualization`.
+- 2026-03-28: Confirmed observability modules align with `src/observability`, `src/metrics`, and `src/visualization`.
 - 2026-03-28: Updated phase path assumptions to flattened `src/*` source layout.
 - 2026-03-28: Added explicit phase status tracking section.
+- 2026-04-23: Began phase 4 with shared observability contracts under `src/observability`, schema validation, provenance capture, and structured run artifact envelopes.

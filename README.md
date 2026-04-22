@@ -63,7 +63,7 @@ MARBTS/
 │  │  └─ adaptive/
 │  ├─ simulation/
 │  ├─ schemas/
-│  ├─ logging/
+│  ├─ observability/
 │  ├─ metrics/
 │  ├─ experiments/
 │  ├─ visualization/
@@ -110,7 +110,7 @@ Start here based on your role:
 3. **Agent Developer (Red/Blue/Adaptive)**
    - Work in `src/agents/`
 4. **Observability & Evaluation Engineer**
-   - Work in `src/logging/`, `src/metrics/`, `src/visualization/`
+   - Work in `src/observability/`, `src/metrics/`, `src/visualization/`
 5. **Experimentation / Research Engineer**
    - Work in `src/experiments/`, `scenarios/`, `configs/`, `artifacts/`
 6. **Validation Engineer**
@@ -193,12 +193,13 @@ From repository root:
    - Test framework migrated to `pytest`; unit suite passing.
 - **Rule-Based Agents: Completed**
    - Policy interface/registry, deterministic red/blue rule-based policies, explainable rationale payloads, policy metrics snapshots, baseline metrics artifacts, and multi-seed aggregate reporting are integrated and validated.
-- **Adaptive Autonomy: In progress**
+- **Adaptive Autonomy: Completed**
    - Increment 1 complete: adaptive planning policy scaffold, safety-filtered legal action selection, planning/value trace payloads, and adaptive planning smoke execution.
    - Increment 2 complete: adaptive-vs-rule matrix runner, ablation toggles (`no_planning`, `reduced_observability`), condition-level aggregates, and baseline-relative deltas.
    - Increment 3 complete: expanded adaptive-blue and mixed-observability conditions, summary ranking views, and optional scenario-batch matrix execution.
-- **Observability / Advanced Research: Planned / Not started yet**
-   - See `.agent/plans/` for phase-specific implementation definitions.
+- **Observability & Visualization: In progress**
+   - Increment 1 complete: shared observability contracts, schema validation, provenance capture, and structured run artifact envelopes.
+   - Increment 2 next: replay utilities and comparative report packaging.
 
 
 

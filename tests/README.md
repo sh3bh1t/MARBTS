@@ -34,22 +34,25 @@ If you have not set up the environment yet:
 	- `python -m pytest tests/integration/test_policy_experiment_matrix.py -q`
 - Phase 3 matrix batch integration coverage:
 	- `python -m pytest tests/integration/test_policy_experiment_matrix_batch.py -q`
+- Observability serialization and validation coverage:
+	- `python -m pytest tests/unit/test_simulation_logging_artifacts.py tests/unit/test_observability_validation.py -q`
 
 ## Current Status
 
 - Test framework: `pytest`
-- Implemented coverage (Phase 1 + Phase 2 completed, Phase 3 increments 1-2 in progress):
+- Implemented coverage (Phase 1 + Phase 2 completed, Phase 3 completed, Phase 4 increment 1 in progress):
 	- schema validation
 	- graph initialization
 	- transition primitives
 	- legal action generation
 	- simulation kernel and reproducibility
-	- log artifact writing
+	- log artifact writing with provenance envelopes
 	- deterministic rule-based red/blue policy behavior
 	- phase 2 action-sequence reproducibility and regression signature checks
 	- phase 2 multi-seed aggregate report integration checks
 	- adaptive planning policy determinism, safety-filter rejection, and rationale trace payload emission
-	- phase 3 experiment matrix generation with adaptive-vs-rule conditions and ablation-labeled outputs
+	- phase 3 experiment matrix generation with adaptive-vs-rule conditions, ablation-labeled outputs, and batch scenario ranking views
+	- observability schema validation and provenance capture
 
 ## Contributor Notes
 

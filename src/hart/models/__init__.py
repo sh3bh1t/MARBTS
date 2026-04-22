@@ -13,6 +13,19 @@ from .policy_models import (
     PolicyScoreBreakdown,
     ValueEstimate,
 )
+from .observability_models import (
+    ActionDecisionRecord,
+    EventEnvelope,
+    ExperimentSummary,
+    MetricDeltaRecord,
+    OBSERVABILITY_SCHEMA_VERSION,
+    POLICY_METRICS_EVENT_TYPE,
+    RUN_METADATA_EVENT_TYPE,
+    ReplayFrame,
+    RunProvenance,
+    StateDiffRecord,
+    TIMESTEP_EVENT_TYPE,
+)
 from .scenario_models import EdgeConfig, NodeConfig, ScenarioConfig, ScenarioMetadata
 from .simulation_models import ActionRecord, RunMetadata, SimulationRunResult, TimestepLogEntry
 
@@ -33,6 +46,17 @@ __all__ = [
     "PolicyMetricsSnapshot",
     "PolicyScoreBreakdown",
     "ValueEstimate",
+    "ActionDecisionRecord",
+    "EventEnvelope",
+    "ExperimentSummary",
+    "MetricDeltaRecord",
+    "OBSERVABILITY_SCHEMA_VERSION",
+    "POLICY_METRICS_EVENT_TYPE",
+    "RUN_METADATA_EVENT_TYPE",
+    "ReplayFrame",
+    "RunProvenance",
+    "StateDiffRecord",
+    "TIMESTEP_EVENT_TYPE",
     "EdgeConfig",
     "NodeConfig",
     "ScenarioConfig",

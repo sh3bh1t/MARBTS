@@ -30,7 +30,7 @@ This document defines the canonical directory layout for MARBTS. It is designed 
 - `agents/adaptive/` — Common adaptive policy components (LLM/RL adapters/planners).
 - `simulation/` — Turn-based orchestrator and timestep lifecycle.
 - `schemas/` — Strict schema definitions and validators.
-- `logging/` — Structured event pipeline and run provenance.
+- `observability/` — Structured event pipeline and run provenance.
 - `metrics/` — Online and post-hoc metric computation.
 - `experiments/` — Experiment matrix, baselines, and ablation orchestration.
 - `visualization/` — Replay and reporting visual outputs.
@@ -49,5 +49,5 @@ This document defines the canonical directory layout for MARBTS. It is designed 
 - Phase 1: `hart/`, `environment/`, `schemas/`, `simulation/`
 - Phase 2: `agents/interfaces/`, `agents/red/`, `agents/blue/`
 - Phase 3: `agents/adaptive/`, `experiments/`
-- Phase 4: `logging/`, `metrics/`, `visualization/`
+- Phase 4: `observability/`, `metrics/`, `visualization/`
 - Phase 5: `scenarios/library/`, `experiments/`, `docker/`, `docs/research/`
