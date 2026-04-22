@@ -12,6 +12,10 @@ Current output:
 - `policy_experiment_matrix_<scenario_id>.json`
 - `policy_experiment_matrix_batch_<scenario_ids>.json`
 - `comparative_report_<run_id_a>_vs_<run_id_b>.json`
+- `comparative_report_<run_id_a>_vs_<run_id_b>.md`
+- `../figures/comparative_report_<run_id_a>_vs_<run_id_b>_compromise_trend.svg`
+- `../figures/comparative_report_<run_id_a>_vs_<run_id_b>_defense_efficiency.svg`
+- `../figures/comparative_report_<run_id_a>_vs_<run_id_b>_response_latency.svg`
 
 The report includes:
 - aggregate statistics across seed runs
@@ -21,3 +25,4 @@ The report includes:
 - condition-level comparisons for adaptive-vs-rule experiment matrices
 - summary ranking views for lowest compromise, highest blue containment, and most deterministic conditions
 - pairwise replay summaries for run-to-run comparisons
+- markdown summaries with table views for compromise trend, defense efficiency, and response latency

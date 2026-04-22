@@ -58,15 +58,28 @@ def test_generate_comparative_report_writes_pairwise_summary() -> None:
             left_run_dir=run_one_paths["run_dir"],
             right_run_dir=run_two_paths["run_dir"],
             reports_root=root / "reports",
+            figures_root=root / "figures",
         )
 
         report_file = Path(output["report_file"])
+        summary_file = Path(output["summary_file"])
         report = output["report"]
 
         assert report_file.exists()
+        assert summary_file.exists()
         assert report["report_summary"]["scenario_id"] == "comparison-small__vs__comparison-small"
         assert report["left_run"]["sequence_hash_matches"] is True
         assert report["right_run"]["sequence_hash_matches"] is True
         assert "final_compromised_nodes_delta" in report["comparisons"]
         assert "sequence_hash_match" in report["comparisons"]
         assert report["comparisons"]["sequence_hash_integrity"] is True
+        assert "response_latency_delta" in report["comparisons"]
+        assert "analysis" in report
+        assert report["analysis"]["left_run"]["response_latency"] >= -1
+        assert report["analysis"]["right_run"]["response_latency"] >= -1
+
+        for figure_path in output["figure_files"].values():
+            assert Path(figure_path).exists()
+
+        assert "defense_efficiency" in report["visualizations"]
+        assert "response_latency" in report["visualizations"]

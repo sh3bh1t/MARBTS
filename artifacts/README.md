@@ -24,7 +24,9 @@ Generated outputs only (never source-of-truth configs):
 	- `reports/policy_experiment_matrix_batch_<scenario_ids>.json`
 - Pairwise comparative replay report is generated under:
 	- `reports/comparative_report_<run_id_a>_vs_<run_id_b>.json`
-- `figures/` remains scaffolded and currently contains a stub.
+	- `reports/comparative_report_<run_id_a>_vs_<run_id_b>.md`
+	- `figures/comparative_report_<run_id_a>_vs_<run_id_b>_*.svg`
+	- `figures/` now stores the comparison plots for compromise trend, defense efficiency, and response latency.
 
 ## Usage Notes
 

@@ -1,13 +1,12 @@
 from __future__ import annotations
 
-from dataclasses import asdict
-from datetime import datetime, timezone
 import json
 from pathlib import Path
 from typing import Any
 
-from hart.models import ExperimentSummary
 from observability.replay import load_run_artifact_bundle
+
+from .report_artifacts import build_report_payload
 
 
 def _default_report_file(left_summary: dict[str, Any], right_summary: dict[str, Any], reports_root: str | Path) -> Path:
@@ -32,6 +31,7 @@ def generate_comparative_report(
     left_run_dir: str | Path,
     right_run_dir: str | Path,
     reports_root: str | Path = "artifacts/reports",
+    figures_root: str | Path = "artifacts/figures",
     output_path: str | Path | None = None,
 ) -> dict[str, Any]:
     left_bundle = load_run_artifact_bundle(left_run_dir)
@@ -41,30 +41,24 @@ def generate_comparative_report(
 
     report_file = Path(output_path) if output_path is not None else _default_report_file(left_summary, right_summary, reports_root)
     report_file.parent.mkdir(parents=True, exist_ok=True)
-
-    report_summary = ExperimentSummary(
-        scenario_id=f"{left_summary['scenario_id']}__vs__{right_summary['scenario_id']}",
-        report_file=str(report_file),
-        generated_at_utc=datetime.now(timezone.utc).isoformat(),
-        metric_names=(
-            "timesteps_count",
-            "final_compromised_nodes",
-            "blue_containment_actions",
-            "first_containment_timestep",
-            "sequence_hash_match",
-        ),
+    report_payload, figure_files, markdown_report = build_report_payload(
+        report_file=report_file,
+        figures_root=figures_root,
+        left_summary=left_summary,
+        right_summary=right_summary,
+        left_bundle=left_bundle,
+        right_bundle=right_bundle,
+        comparisons=_build_comparisons(left_summary, right_summary),
     )
-
-    report_payload = {
-        "report_summary": asdict(report_summary),
-        "left_run": left_summary,
-        "right_run": right_summary,
-        "comparisons": _build_comparisons(left_summary, right_summary),
-    }
 
     report_file.write_text(json.dumps(report_payload, indent=2, sort_keys=True), encoding="utf-8")
 
+    markdown_file = report_file.with_suffix(".md")
+    markdown_file.write_text(markdown_report, encoding="utf-8")
+
     return {
         "report_file": str(report_file),
+        "summary_file": str(markdown_file),
+        "figure_files": figure_files,
         "report": report_payload,
     }

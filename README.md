@@ -158,6 +158,7 @@ For batch matrix execution across multiple scenarios:
 For comparative report packaging from two run directories:
 - PowerShell: `$env:PYTHONPATH='src'; python scripts/run_comparative_report.py --left-run-dir artifacts/runs/<run_id_a> --right-run-dir artifacts/runs/<run_id_b>`
 - Bash/Zsh: `PYTHONPATH=src python scripts/run_comparative_report.py --left-run-dir artifacts/runs/<run_id_a> --right-run-dir artifacts/runs/<run_id_b>`
+   - Outputs: `reports/comparative_report_<run_id_a>_vs_<run_id_b>.json`, matching `.md` summary, and SVG figures in `artifacts/figures/`.
 
 Examples:
 - PowerShell (custom seeds and horizon):
@@ -201,10 +202,10 @@ From repository root:
    - Increment 1 complete: adaptive planning policy scaffold, safety-filtered legal action selection, planning/value trace payloads, and adaptive planning smoke execution.
    - Increment 2 complete: adaptive-vs-rule matrix runner, ablation toggles (`no_planning`, `reduced_observability`), condition-level aggregates, and baseline-relative deltas.
    - Increment 3 complete: expanded adaptive-blue and mixed-observability conditions, summary ranking views, and optional scenario-batch matrix execution.
-- **Observability & Visualization: In progress**
+- **Observability & Visualization: Completed**
    - Increment 1 complete: shared observability contracts, schema validation, provenance capture, and structured run artifact envelopes.
    - Increment 2 complete: replay utilities and comparative report packaging.
-   - Increment 3 next: plots/tables for compromise trend, defense efficiency, and response latency.
+   - Increment 3 complete: compromise-trend plots, defense-efficiency summaries, response-latency reports, and markdown/SVG comparative packaging.
 
 
 

@@ -38,11 +38,12 @@ If you have not set up the environment yet:
 	- `python -m pytest tests/unit/test_simulation_logging_artifacts.py tests/unit/test_observability_validation.py -q`
 - Observability replay and comparative report coverage:
 	- `python -m pytest tests/unit/test_observability_replay.py tests/unit/test_visualization_comparative_report.py -q`
+	- Covers replay reconstruction, comparative summary packaging, markdown report generation, and SVG figure outputs.
 
 ## Current Status
 
 - Test framework: `pytest`
-- Implemented coverage (Phase 1 + Phase 2 completed, Phase 3 completed, Phase 4 increments 1-2 completed):
+- Implemented coverage (Phase 1 + Phase 2 completed, Phase 3 completed, Phase 4 completed):
 	- schema validation
 	- graph initialization
 	- transition primitives
@@ -56,6 +57,7 @@ If you have not set up the environment yet:
 	- phase 3 experiment matrix generation with adaptive-vs-rule conditions, ablation-labeled outputs, and batch scenario ranking views
 	- observability schema validation and provenance capture
 	- replay bundle loading and comparative report packaging
+	- comparative trend plots, defense-efficiency summaries, and response-latency visualizations
 
 ## Contributor Notes
 
