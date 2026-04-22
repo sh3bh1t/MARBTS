@@ -82,6 +82,11 @@ If any requirement is ambiguous:
 - Prefer explicit version ranges and tighten to pinned versions after baseline validation milestones.
 - Do not add unused dependencies; every dependency must map to an implemented component.
 
+## Visualization Library Guidance
+- For plots, charts, comparison figures, and other report visuals, prefer a mature plotting library such as `matplotlib` over hand-built SVG or bespoke drawing code when the artifact is expected to evolve or need customization.
+- Use custom rendering only when a library cannot produce the required format, the dependency cost is not justified, or the output is intentionally minimal and stable.
+- When switching a visualization path to a library, update `requirements.txt`, related docs, and any impacted plan revision log entries in the same change.
+
 ## Scaffold Stub Lifecycle Rules
 - `STUB.md` files are temporary scaffolding markers only.
 - As soon as a directory receives substantive implementation files (code/tests/config/docs), remove that directory's `STUB.md` in the same change.

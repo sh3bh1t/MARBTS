@@ -6,23 +6,10 @@ import math
 import re
 from pathlib import Path
 from typing import Any
-from xml.sax.saxutils import escape
 
 from hart.models import ExperimentSummary
 
-
-_FIGURE_WIDTH = 1080
-_FIGURE_HEIGHT = 420
-_MARGIN_LEFT = 72
-_MARGIN_RIGHT = 28
-_MARGIN_TOP = 68
-_MARGIN_BOTTOM = 72
-_PALETTE = (
-    "#1d4ed8",
-    "#dc2626",
-    "#0f766e",
-    "#7c3aed",
-)
+from .chart_rendering import render_compromise_trend_figure, render_comparison_bar_figure
 
 
 def _sanitize_label(value: str) -> str:
@@ -136,167 +123,6 @@ def _build_comparison_rows(left_analysis: dict[str, Any], right_analysis: dict[s
     ]
 
 
-def _svg_header(title: str, subtitle: str) -> list[str]:
-    return [
-        f'<svg xmlns="http://www.w3.org/2000/svg" width="{_FIGURE_WIDTH}" height="{_FIGURE_HEIGHT}" viewBox="0 0 {_FIGURE_WIDTH} {_FIGURE_HEIGHT}">',
-        '<rect width="100%" height="100%" fill="#ffffff" />',
-        f'<text x="{_MARGIN_LEFT}" y="28" font-size="22" font-weight="700" fill="#111827">{escape(title)}</text>',
-        f'<text x="{_MARGIN_LEFT}" y="48" font-size="12" fill="#4b5563">{escape(subtitle)}</text>',
-    ]
-
-
-def _svg_footer() -> list[str]:
-    return ["</svg>"]
-
-
-def _render_svg_line_chart(
-    *,
-    title: str,
-    subtitle: str,
-    x_values: list[int],
-    series: list[tuple[str, list[float | int], str]],
-    y_label: str,
-    x_label: str,
-) -> str:
-    chart_width = _FIGURE_WIDTH - _MARGIN_LEFT - _MARGIN_RIGHT
-    chart_height = _FIGURE_HEIGHT - _MARGIN_TOP - _MARGIN_BOTTOM
-    chart_left = _MARGIN_LEFT
-    chart_top = _MARGIN_TOP
-    chart_bottom = chart_top + chart_height
-    chart_right = chart_left + chart_width
-    max_x = max(x_values) if x_values else 0
-    max_y = max((max(values) if values else 0 for _, values, _ in series), default=0)
-    max_y = max(1, max_y)
-    y_ticks = 4
-    x_span = max(1, max_x)
-
-    svg = _svg_header(title, subtitle)
-    svg.append(
-        f'<line x1="{chart_left}" y1="{chart_top}" x2="{chart_left}" y2="{chart_bottom}" stroke="#9ca3af" stroke-width="1.5" />'
-    )
-    svg.append(
-        f'<line x1="{chart_left}" y1="{chart_bottom}" x2="{chart_right}" y2="{chart_bottom}" stroke="#9ca3af" stroke-width="1.5" />'
-    )
-
-    for index in range(y_ticks + 1):
-        value = max_y * index / y_ticks
-        y = chart_bottom - (value / max_y) * chart_height
-        svg.append(f'<line x1="{chart_left}" y1="{y:.2f}" x2="{chart_right}" y2="{y:.2f}" stroke="#e5e7eb" stroke-width="1" />')
-        svg.append(
-            f'<text x="{chart_left - 10}" y="{y + 4:.2f}" text-anchor="end" font-size="11" fill="#4b5563">{_format_number(value)}</text>'
-        )
-
-    for x_value in x_values:
-        x = chart_left + (x_value / x_span) * chart_width if x_span else chart_left
-        svg.append(f'<line x1="{x:.2f}" y1="{chart_bottom}" x2="{x:.2f}" y2="{chart_bottom + 6}" stroke="#9ca3af" stroke-width="1" />')
-        svg.append(
-            f'<text x="{x:.2f}" y="{chart_bottom + 22}" text-anchor="middle" font-size="11" fill="#4b5563">{x_value}</text>'
-        )
-
-    svg.append(
-        f'<text x="{chart_left - 46}" y="{chart_top + chart_height / 2:.2f}" transform="rotate(-90 {chart_left - 46},{chart_top + chart_height / 2:.2f})" font-size="12" fill="#374151">{escape(y_label)}</text>'
-    )
-    svg.append(
-        f'<text x="{chart_left + chart_width / 2:.2f}" y="{_FIGURE_HEIGHT - 22}" text-anchor="middle" font-size="12" fill="#374151">{escape(x_label)}</text>'
-    )
-
-    legend_x = chart_left + 12
-    legend_y = 56
-    for label_index, (label, values, color) in enumerate(series):
-        points = []
-        for x_value, value in zip(x_values, values, strict=False):
-            x = chart_left + (x_value / x_span) * chart_width if x_span else chart_left
-            y = chart_bottom - (float(value) / max_y) * chart_height
-            points.append(f"{x:.2f},{y:.2f}")
-
-        if points:
-            svg.append(
-                f'<polyline fill="none" stroke="{color}" stroke-width="3" points="{" ".join(points)}" />'
-            )
-        for x_value, value in zip(x_values, values, strict=False):
-            x = chart_left + (x_value / x_span) * chart_width if x_span else chart_left
-            y = chart_bottom - (float(value) / max_y) * chart_height
-            svg.append(f'<circle cx="{x:.2f}" cy="{y:.2f}" r="3.5" fill="{color}" />')
-
-        legend_offset = legend_y + (label_index * 18)
-        svg.append(f'<rect x="{legend_x}" y="{legend_offset - 10}" width="12" height="12" fill="{color}" />')
-        svg.append(
-            f'<text x="{legend_x + 18}" y="{legend_offset}" font-size="12" fill="#374151">{escape(label)}</text>'
-        )
-
-    svg.extend(_svg_footer())
-    return "\n".join(svg)
-
-
-def _render_svg_bar_chart(
-    *,
-    title: str,
-    subtitle: str,
-    categories: list[str],
-    values: list[float | int],
-    y_label: str,
-    value_suffix: str = "",
-) -> str:
-    chart_width = _FIGURE_WIDTH - _MARGIN_LEFT - _MARGIN_RIGHT
-    chart_height = _FIGURE_HEIGHT - _MARGIN_TOP - _MARGIN_BOTTOM
-    chart_left = _MARGIN_LEFT
-    chart_top = _MARGIN_TOP
-    chart_bottom = chart_top + chart_height
-    chart_right = chart_left + chart_width
-    max_value = max((float(value) for value in values if value >= 0), default=0.0)
-    max_value = max(1.0, max_value)
-    bar_width = chart_width / max(1, len(categories) * 1.4)
-    gap = bar_width * 0.4
-
-    svg = _svg_header(title, subtitle)
-    svg.append(
-        f'<line x1="{chart_left}" y1="{chart_top}" x2="{chart_left}" y2="{chart_bottom}" stroke="#9ca3af" stroke-width="1.5" />'
-    )
-    svg.append(
-        f'<line x1="{chart_left}" y1="{chart_bottom}" x2="{chart_right}" y2="{chart_bottom}" stroke="#9ca3af" stroke-width="1.5" />'
-    )
-
-    y_ticks = 4
-    for index in range(y_ticks + 1):
-        value = max_value * index / y_ticks
-        y = chart_bottom - (value / max_value) * chart_height
-        svg.append(f'<line x1="{chart_left}" y1="{y:.2f}" x2="{chart_right}" y2="{y:.2f}" stroke="#e5e7eb" stroke-width="1" />')
-        svg.append(
-            f'<text x="{chart_left - 10}" y="{y + 4:.2f}" text-anchor="end" font-size="11" fill="#4b5563">{_format_number(value)}</text>'
-        )
-
-    svg.append(
-        f'<text x="{chart_left - 46}" y="{chart_top + chart_height / 2:.2f}" transform="rotate(-90 {chart_left - 46},{chart_top + chart_height / 2:.2f})" font-size="12" fill="#374151">{escape(y_label)}</text>'
-    )
-
-    for index, (category, value) in enumerate(zip(categories, values, strict=False)):
-        x = chart_left + index * (bar_width + gap) + gap / 2
-        if value >= 0:
-            bar_height = (float(value) / max_value) * chart_height
-            bar_y = chart_bottom - bar_height
-            svg.append(f'<rect x="{x:.2f}" y="{bar_y:.2f}" width="{bar_width:.2f}" height="{bar_height:.2f}" rx="6" fill="{_PALETTE[index % len(_PALETTE)]}" />')
-            svg.append(
-                f'<text x="{x + bar_width / 2:.2f}" y="{bar_y - 8:.2f}" text-anchor="middle" font-size="12" fill="#111827">{_format_number(value)}{escape(value_suffix)}</text>'
-            )
-        else:
-            svg.append(
-                f'<rect x="{x:.2f}" y="{chart_bottom - 2:.2f}" width="{bar_width:.2f}" height="2" rx="1" fill="#9ca3af" />'
-            )
-            svg.append(
-                f'<text x="{x + bar_width / 2:.2f}" y="{chart_bottom - 8:.2f}" text-anchor="middle" font-size="12" fill="#6b7280">N/A</text>'
-            )
-
-        svg.append(
-            f'<text x="{x + bar_width / 2:.2f}" y="{chart_bottom + 20}" text-anchor="middle" font-size="11" fill="#374151">{escape(category)}</text>'
-        )
-
-    svg.append(
-        f'<text x="{chart_left + chart_width / 2:.2f}" y="{_FIGURE_HEIGHT - 22}" text-anchor="middle" font-size="12" fill="#374151">Run</text>'
-    )
-    svg.extend(_svg_footer())
-    return "\n".join(svg)
-
-
 def _build_comparison_rows(left_analysis: dict[str, Any], right_analysis: dict[str, Any], comparisons: dict[str, Any]) -> list[tuple[str, str, str, str]]:
     return [
         (
@@ -362,40 +188,36 @@ def build_report_payload(
     max_timestep = max(len(left_compromise_values), len(right_compromise_values))
     x_values = list(range(max_timestep))
 
-    compromise_svg = _render_svg_line_chart(
+    render_compromise_trend_figure(
+        output_path=compromise_trend_file,
+        left_label=left_summary["run_id"],
+        left_values=left_compromise_values,
+        right_label=right_summary["run_id"],
+        right_values=right_compromise_values,
         title="Compromise Trend",
         subtitle=f"{left_summary['run_id']} vs {right_summary['run_id']}",
-        x_values=x_values,
-        series=[
-            (left_summary["run_id"], left_compromise_values, _PALETTE[0]),
-            (right_summary["run_id"], right_compromise_values, _PALETTE[1]),
-        ],
-        y_label="Compromised nodes",
-        x_label="Timestep",
     )
-    compromise_trend_file.write_text(compromise_svg, encoding="utf-8")
 
-    defense_efficiency_svg = _render_svg_bar_chart(
-        title="Defense Efficiency",
-        subtitle="Containment-to-compromise ratio by run",
-        categories=[left_summary["run_id"], right_summary["run_id"]],
+    render_comparison_bar_figure(
+        output_path=defense_efficiency_file,
+        labels=[left_summary["run_id"], right_summary["run_id"]],
         values=[
             left_analysis["defense_efficiency"]["containment_to_compromise_ratio"],
             right_analysis["defense_efficiency"]["containment_to_compromise_ratio"],
         ],
+        title="Defense Efficiency",
+        subtitle="Containment-to-compromise ratio by run",
         y_label="Containment / compromise ratio",
     )
-    defense_efficiency_file.write_text(defense_efficiency_svg, encoding="utf-8")
 
-    response_latency_svg = _render_svg_bar_chart(
+    render_comparison_bar_figure(
+        output_path=response_latency_file,
+        labels=[left_summary["run_id"], right_summary["run_id"]],
+        values=[left_analysis["response_latency"], right_analysis["response_latency"]],
         title="Response Latency",
         subtitle="Gap between first compromise and first containment",
-        categories=[left_summary["run_id"], right_summary["run_id"]],
-        values=[left_analysis["response_latency"], right_analysis["response_latency"]],
         y_label="Timestep gap",
-        value_suffix="t",
     )
-    response_latency_file.write_text(response_latency_svg, encoding="utf-8")
 
     report_summary = ExperimentSummary(
         scenario_id=f"{left_summary['scenario_id']}__vs__{right_summary['scenario_id']}",

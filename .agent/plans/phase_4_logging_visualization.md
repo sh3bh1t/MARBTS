@@ -99,3 +99,4 @@ Implement production-quality observability: complete structured logging, run pro
 - 2026-04-23: Began phase 4 with shared observability contracts under `src/observability`, schema validation, provenance capture, and structured run artifact envelopes.
 - 2026-04-23: Completed phase 4 increment 2 with replay utilities, comparative report packaging, and CLI support for pairwise run comparisons.
 - 2026-04-23: Completed phase 4 increment 3 with compromise-trend SVGs, defense-efficiency visual summaries, response-latency tables, and markdown report packaging.
+- 2026-04-23: Switched comparative report chart generation to a matplotlib-backed helper for easier customization and lower maintenance cost.

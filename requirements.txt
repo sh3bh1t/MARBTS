@@ -3,4 +3,5 @@
 # Pin versions after baseline validation to preserve reproducibility.
 
 networkx>=3.2,<4.0
+matplotlib>=3.8,<4.0
 pytest>=8.0,<9.0
