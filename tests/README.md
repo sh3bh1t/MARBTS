@@ -28,11 +28,13 @@ If you have not set up the environment yet:
 	- `python -m pytest tests/unit/test_environment_transitions.py -q`
 - Specific test case:
 	- `python -m pytest tests/unit/test_simulation_kernel.py::test_seed_reproducibility -q`
+- Adaptive policy unit coverage:
+	- `python -m pytest tests/unit/test_agents_adaptive.py -q`
 
 ## Current Status
 
 - Test framework: `pytest`
-- Implemented coverage (Phase 1 + Phase 2 completed):
+- Implemented coverage (Phase 1 + Phase 2 completed, Phase 3 increment 1 started):
 	- schema validation
 	- graph initialization
 	- transition primitives
@@ -42,6 +44,7 @@ If you have not set up the environment yet:
 	- deterministic rule-based red/blue policy behavior
 	- phase 2 action-sequence reproducibility and regression signature checks
 	- phase 2 multi-seed aggregate report integration checks
+	- adaptive planning policy determinism, safety-filter rejection, and rationale trace payload emission
 
 ## Contributor Notes
 

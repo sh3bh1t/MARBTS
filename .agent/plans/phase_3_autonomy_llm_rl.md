@@ -7,8 +7,25 @@ Introduce adaptive agent policies (LLM reasoning and/or RL) through the same pol
 
 ## Current Status
 
-- Status: Not started
-- Prerequisite: Phase 2 baseline policies required
+- Status: In progress
+- Prerequisite: Phase 2 baseline policies required (satisfied)
+
+### Increment Progress
+
+- Increment 1 (completed):
+   - Implemented deterministic adaptive planning policy adapter at `src/agents/adaptive/planning.py`
+   - Added adaptive shared contracts in `src/hart/models/policy_models.py`:
+      - `AdaptivePolicyConfig`
+      - `PlanningTrace`
+      - `ValueEstimate`
+      - `ModelInferenceRecord`
+   - Added adaptive policy unit coverage (`tests/unit/test_agents_adaptive.py`)
+   - Added Phase 3 smoke execution script (`scripts/run_phase3_smoke.py`)
+   - Removed replaced scaffold stub (`src/agents/adaptive/STUB.md`)
+
+- Increment 2 (next):
+   - Add adaptive-vs-rule experiment matrix runner with multi-seed aggregate comparison outputs
+   - Add ablation toggles (`no_planning`, `reduced_observability`) and labeled report metadata
 
 ## Inputs
 - Stable rule-based baseline from Phase 2
@@ -90,3 +107,5 @@ Introduce adaptive agent policies (LLM reasoning and/or RL) through the same pol
 - 2026-03-28: Confirmed adaptive policy components align with `src/agents/adaptive` and experiments layout.
 - 2026-03-28: Updated phase path assumptions to flattened `src/*` source layout.
 - 2026-03-28: Added explicit phase status tracking section.
+- 2026-04-23: Started Phase 3 with Increment 1 adaptive planning scaffold, safety legality filtering, and shared adaptive rationale contracts.
+- 2026-04-23: Added Phase 3 smoke runner and adaptive policy unit tests; validated deterministic adaptive traces under fixed seed.

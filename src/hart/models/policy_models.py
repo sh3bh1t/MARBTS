@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Mapping
+from typing import Any, Mapping
 
 from hart.enums import ActorType
 
@@ -13,6 +13,51 @@ class PolicyScoreBreakdown:
 
 
 @dataclass(frozen=True)
+class ValueEstimate:
+    step: int
+    immediate_utility: float
+    discounted_utility: float
+    projected_compromised_nodes: float
+
+
+@dataclass(frozen=True)
+class PlanningTrace:
+    action_type: str
+    targets: tuple[str, ...]
+    horizon: int
+    cumulative_utility: float
+    value_estimates: tuple[ValueEstimate, ...]
+
+
+@dataclass(frozen=True)
+class ModelInferenceRecord:
+    model_family: str
+    model_name: str
+    deterministic: bool
+    input_features: Mapping[str, Any] = field(default_factory=dict)
+    output_action: str = ""
+    output_utility: float = 0.0
+
+
+@dataclass(frozen=True)
+class AdaptivePolicyConfig:
+    planning_horizon: int = 3
+    discount_factor: float = 0.85
+    exploration_bias: float = 0.15
+    max_compromised_projection: int = 128
+
+    def __post_init__(self) -> None:
+        if self.planning_horizon < 1:
+            raise ValueError("planning_horizon must be >= 1")
+        if not 0.0 < self.discount_factor <= 1.0:
+            raise ValueError("discount_factor must be in the range (0.0, 1.0]")
+        if self.exploration_bias < 0.0:
+            raise ValueError("exploration_bias must be >= 0.0")
+        if self.max_compromised_projection < 1:
+            raise ValueError("max_compromised_projection must be >= 1")
+
+
+@dataclass(frozen=True)
 class DecisionRationale:
     policy_name: str
     summary: str
@@ -21,6 +66,8 @@ class DecisionRationale:
     utility_estimate: float
     score_breakdown: PolicyScoreBreakdown
     tie_breaker: str
+    planning_trace: PlanningTrace | None = None
+    inference_record: ModelInferenceRecord | None = None
 
 
 @dataclass(frozen=True)

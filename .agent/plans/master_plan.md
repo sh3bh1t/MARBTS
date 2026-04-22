@@ -291,8 +291,8 @@ Secondary:
 ## 10.1 Current Phase Status
 
 - Phase 1: Completed (core implementation + pytest validation + smoke hardening)
-- Phase 2: Not started
-- Phase 3: Not started
+- Phase 2: Completed (deterministic rule-based red/blue baselines + policy metrics + multi-seed reporting)
+- Phase 3: In progress (Increment 1 complete: adaptive planning policy scaffold, safety filtering, planning trace contracts, and smoke/test validation)
 - Phase 4: Not started
 - Phase 5: Not started
 
@@ -312,3 +312,5 @@ After each major feature or phase: "Validation complete for this step."
 - 2026-03-28: Added Phase 1 closure hardening assets (smoke runner and closure checklist/report path).
 - 2026-03-28: Updated project docs with explicit collaborator test execution instructions and phase status tracking.
 - 2026-03-29: Introduced centralized `src/hart/` type system (enums/models) and refactored Phase 1 modules to consume shared contracts.
+- 2026-04-23: Updated cross-phase status tracking to mark Phase 2 complete and Phase 3 as active.
+- 2026-04-23: Added Phase 3 Increment 1 deliverables: adaptive planning policy scaffold, adaptive rationale contracts, and smoke/test validation workflow.

@@ -143,6 +143,10 @@ For Phase 2 multi-seed aggregate report generation:
 - PowerShell: `$env:PYTHONPATH='src'; python scripts/run_phase2_multi_seed_report.py`
 - Bash/Zsh: `PYTHONPATH=src python scripts/run_phase2_multi_seed_report.py`
 
+For Phase 3 adaptive planning smoke execution (adaptive red vs rule-based blue):
+- PowerShell: `$env:PYTHONPATH='src'; python scripts/run_phase3_smoke.py`
+- Bash/Zsh: `PYTHONPATH=src python scripts/run_phase3_smoke.py`
+
 Examples:
 - PowerShell (custom seeds and horizon):
    - `$env:PYTHONPATH='src'; python scripts/run_phase2_multi_seed_report.py --seeds 20260329,20260332,20260333 --horizon 10`
@@ -175,7 +179,9 @@ From repository root:
    - Test framework migrated to `pytest`; unit suite passing.
 - **Phase 2 (Rule-Based Agents): Completed**
    - Policy interface/registry, deterministic red/blue rule-based policies, explainable rationale payloads, policy metrics snapshots, baseline metrics artifacts, and multi-seed aggregate reporting are integrated and validated.
-- **Phase 3–5: Planned / Not started yet**
+- **Phase 3 (Adaptive Autonomy): In progress**
+   - Increment 1 complete: adaptive planning policy scaffold, safety-filtered legal action selection, planning/value trace payloads, and phase3 smoke execution.
+- **Phase 4–5: Planned / Not started yet**
    - See `.agent/plans/` for phase-specific implementation definitions.
 
 
