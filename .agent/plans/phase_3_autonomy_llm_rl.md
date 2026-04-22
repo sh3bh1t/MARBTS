@@ -30,9 +30,9 @@ Introduce adaptive agent policies (LLM reasoning and/or RL) through the same pol
    - Added integration coverage for matrix execution and artifact generation (`tests/integration/test_policy_experiment_matrix.py`)
    - Extended adaptive unit coverage for reduced-observability metadata signaling (`tests/unit/test_agents_adaptive.py`)
 
-- Increment 3 (next):
-   - Add expanded ablation set for adaptive-blue controls and mixed-observability conditions
-   - Add summary ranking views and optional scenario-batch matrix execution
+- Increment 3 (completed):
+   - Expanded ablation set for adaptive-blue controls and mixed-observability conditions
+   - Added summary ranking views and optional scenario-batch matrix execution
 
 ## Inputs
 - Stable rule-based baseline from Phase 2
@@ -118,3 +118,4 @@ Introduce adaptive agent policies (LLM reasoning and/or RL) through the same pol
 - 2026-04-23: Added Phase 3 smoke runner and adaptive policy unit tests; validated deterministic adaptive traces under fixed seed.
 - 2026-04-23: Completed Increment 2 matrix framework with adaptive-vs-rule condition set and baseline-relative aggregate comparisons.
 - 2026-04-23: Added ablation-aware adaptive controls (`no_planning`, `reduced_observability`) and validated matrix execution through integration tests and CLI smoke runs.
+- 2026-04-23: Completed Increment 3 with adaptive-blue ablation expansion, mixed-observability condition support, summary ranking views, and scenario-batch matrix execution.

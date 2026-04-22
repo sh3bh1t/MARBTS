@@ -4,17 +4,22 @@ import argparse
 from datetime import datetime, timezone
 from pathlib import Path
 
-from experiments.policy_experiment_matrix import run_policy_experiment_matrix
+from experiments.policy_experiment_matrix import run_policy_experiment_matrix, run_policy_experiment_matrix_batch
 
 
 def _parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Generate an adaptive-vs-rule policy experiment matrix report.",
     )
-    parser.add_argument(
+    scenario_group = parser.add_mutually_exclusive_group()
+    scenario_group.add_argument(
         "--scenario",
         default="scenarios/baselines/rule_baseline.json",
-        help="Path to scenario JSON file.",
+        help="Path to a single scenario JSON file.",
+    )
+    scenario_group.add_argument(
+        "--scenario-batch",
+        help="Comma-separated list of scenario JSON files to process as a batch.",
     )
     parser.add_argument(
         "--seeds",
@@ -60,11 +65,38 @@ def _parse_seeds(raw_seeds: str) -> list[int]:
         raise ValueError("--seeds must be a comma-separated list of integers") from exc
 
 
+def _parse_scenario_batch(raw_scenarios: str) -> list[str]:
+    scenario_paths = [scenario.strip() for scenario in raw_scenarios.split(",") if scenario.strip()]
+    if not scenario_paths:
+        raise ValueError("--scenario-batch must include at least one scenario path")
+    return scenario_paths
+
+
 def main() -> None:
     args = _parse_args()
-    scenario_path = Path(args.scenario)
     seeds = _parse_seeds(args.seeds)
 
+    if args.scenario_batch is not None:
+        output = run_policy_experiment_matrix_batch(
+            scenario_paths=_parse_scenario_batch(args.scenario_batch),
+            seeds=seeds,
+            horizon=args.horizon,
+            runs_root=Path(args.runs_root),
+            metrics_root=Path(args.metrics_root),
+            reports_root=Path(args.reports_root),
+            include_ablations=not args.skip_ablations,
+        )
+        metadata = output["report"]["batch_metadata"]
+        print("POLICY_EXPERIMENT_MATRIX_BATCH_OK")
+        print(f"timestamp_utc={datetime.now(timezone.utc).isoformat()}")
+        print(f"scenario_count={metadata['scenario_count']}")
+        print(f"seed_count={metadata['seed_count']}")
+        print(f"horizon={metadata['horizon']}")
+        print(f"include_ablations={metadata['include_ablations']}")
+        print(f"report_file={output['report_file']}")
+        return
+
+    scenario_path = Path(args.scenario)
     output = run_policy_experiment_matrix(
         scenario_path=scenario_path,
         seeds=seeds,

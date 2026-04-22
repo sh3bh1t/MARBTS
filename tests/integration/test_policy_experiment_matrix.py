@@ -26,7 +26,7 @@ def test_policy_experiment_matrix_generates_condition_aggregates_and_artifacts()
         assert report["matrix_metadata"]["seed_count"] == 2
         assert report["matrix_metadata"]["horizon"] == 2
         assert report["matrix_metadata"]["include_ablations"] is True
-        assert report["matrix_metadata"]["condition_count"] == 6
+        assert report["matrix_metadata"]["condition_count"] == 10
 
         condition_ids = {aggregate["condition_id"] for aggregate in report["condition_aggregates"]}
         assert "rule_red_vs_rule_blue" in condition_ids
@@ -35,18 +35,28 @@ def test_policy_experiment_matrix_generates_condition_aggregates_and_artifacts()
         assert "adaptive_red_vs_adaptive_blue" in condition_ids
         assert "adaptive_red_no_planning_vs_rule_blue" in condition_ids
         assert "adaptive_red_reduced_observability_vs_rule_blue" in condition_ids
+        assert "rule_red_vs_adaptive_blue_no_planning" in condition_ids
+        assert "rule_red_vs_adaptive_blue_reduced_observability" in condition_ids
+        assert "adaptive_red_reduced_observability_vs_adaptive_blue" in condition_ids
+        assert "adaptive_red_vs_adaptive_blue_reduced_observability" in condition_ids
 
         assert any(
-            aggregate["ablation"]["no_planning"]
+            (aggregate["red_ablation"] or aggregate["blue_ablation"] or {}).get("no_planning")
             for aggregate in report["condition_aggregates"]
         )
         assert any(
-            aggregate["ablation"]["reduced_observability"]
+            (aggregate["red_ablation"] or aggregate["blue_ablation"] or {}).get("reduced_observability")
             for aggregate in report["condition_aggregates"]
         )
 
-        assert len(report["comparison_to_baseline"]) == 6
-        assert len(report["runs"]) == 12
+        assert len(report["comparison_to_baseline"]) == 10
+        assert len(report["runs"]) == 20
+        assert set(report["summary_rankings"].keys()) == {
+            "lowest_final_compromised",
+            "highest_blue_containment",
+            "most_deterministic",
+        }
+        assert len(report["summary_rankings"]["lowest_final_compromised"]) == 10
 
         for run in report["runs"]:
             assert Path(run["run_dir"]).exists()

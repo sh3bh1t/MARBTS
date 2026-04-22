@@ -20,6 +20,8 @@ Generated outputs only (never source-of-truth configs):
 	- `reports/multi_seed_report_<scenario_id>.json`
 - Adaptive policy experiment matrix report is generated under:
 	- `reports/policy_experiment_matrix_<scenario_id>.json`
+- Batch matrix report is generated under:
+	- `reports/policy_experiment_matrix_batch_<scenario_ids>.json`
 - `figures/` remains scaffolded and currently contains a stub.
 
 ## Usage Notes
@@ -50,6 +52,9 @@ Generated outputs only (never source-of-truth configs):
 		- `python scripts/run_policy_experiment_matrix.py --skip-ablations`
 	- Custom seeds/horizon example:
 		- `python scripts/run_policy_experiment_matrix.py --seeds 20260423,20260424 --horizon 2`
+- Generate batch matrix reports across scenarios:
+	- `python scripts/run_policy_experiment_matrix.py --scenario-batch scenarios/baselines/rule_baseline.json,scenarios/library/containment_stress.json`
+- Matrix reports include summary rankings for lowest compromise, highest blue containment, and most deterministic conditions.
 - Generated outputs in `runs/`, `metrics/`, `figures/`, and `reports/` are intended to remain local and are gitignored by default (except tracked `README.md` placeholders).
 - Do not commit large generated artifacts unless explicitly needed for reproducibility evidence.
 - If artifact layout changes, update this README in the same change.

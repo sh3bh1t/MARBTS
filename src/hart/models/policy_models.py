@@ -74,6 +74,10 @@ class ExperimentCondition:
     horizon: int
     ablation: AblationConfig = field(default_factory=AblationConfig)
     adaptive_config: AdaptivePolicyConfig | None = None
+    red_ablation: AblationConfig | None = None
+    blue_ablation: AblationConfig | None = None
+    red_adaptive_config: AdaptivePolicyConfig | None = None
+    blue_adaptive_config: AdaptivePolicyConfig | None = None
 
 
 @dataclass(frozen=True)

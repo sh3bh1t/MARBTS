@@ -40,7 +40,27 @@ def _build_adaptive_config(ablation: AblationConfig) -> AdaptivePolicyConfig:
     )
 
 
+def _resolve_ablation(condition: ExperimentCondition, actor: ActorType) -> AblationConfig:
+    if actor == ActorType.RED and condition.red_ablation is not None:
+        return condition.red_ablation
+    if actor == ActorType.BLUE and condition.blue_ablation is not None:
+        return condition.blue_ablation
+    return condition.ablation
+
+
+def _resolve_adaptive_config(condition: ExperimentCondition, actor: ActorType) -> AdaptivePolicyConfig:
+    if actor == ActorType.RED and condition.red_adaptive_config is not None:
+        return condition.red_adaptive_config
+    if actor == ActorType.BLUE and condition.blue_adaptive_config is not None:
+        return condition.blue_adaptive_config
+    if condition.adaptive_config is not None and condition.red_adaptive_config is None and condition.blue_adaptive_config is None:
+        return condition.adaptive_config
+    return _build_adaptive_config(_resolve_ablation(condition, actor))
+
+
 def _build_conditions(*, seeds: list[int], horizon: int, include_ablations: bool) -> tuple[ExperimentCondition, ...]:
+    default_ablation = AblationConfig()
+    shared_adaptive_config = _build_adaptive_config(default_ablation)
     conditions: list[ExperimentCondition] = [
         ExperimentCondition(
             condition_id="rule_red_vs_rule_blue",
@@ -57,7 +77,7 @@ def _build_conditions(*, seeds: list[int], horizon: int, include_ablations: bool
             blue_policy="rule",
             seeds=tuple(seeds),
             horizon=horizon,
-            adaptive_config=_build_adaptive_config(AblationConfig()),
+            adaptive_config=shared_adaptive_config,
         ),
         ExperimentCondition(
             condition_id="rule_red_vs_adaptive_blue",
@@ -66,7 +86,7 @@ def _build_conditions(*, seeds: list[int], horizon: int, include_ablations: bool
             blue_policy="adaptive",
             seeds=tuple(seeds),
             horizon=horizon,
-            adaptive_config=_build_adaptive_config(AblationConfig()),
+            adaptive_config=shared_adaptive_config,
         ),
         ExperimentCondition(
             condition_id="adaptive_red_vs_adaptive_blue",
@@ -75,7 +95,7 @@ def _build_conditions(*, seeds: list[int], horizon: int, include_ablations: bool
             blue_policy="adaptive",
             seeds=tuple(seeds),
             horizon=horizon,
-            adaptive_config=_build_adaptive_config(AblationConfig()),
+            adaptive_config=shared_adaptive_config,
         ),
     ]
 
@@ -91,8 +111,8 @@ def _build_conditions(*, seeds: list[int], horizon: int, include_ablations: bool
                     blue_policy="rule",
                     seeds=tuple(seeds),
                     horizon=horizon,
-                    ablation=no_planning,
-                    adaptive_config=_build_adaptive_config(no_planning),
+                    red_ablation=no_planning,
+                    red_adaptive_config=_build_adaptive_config(no_planning),
                 ),
                 ExperimentCondition(
                     condition_id="adaptive_red_reduced_observability_vs_rule_blue",
@@ -101,8 +121,52 @@ def _build_conditions(*, seeds: list[int], horizon: int, include_ablations: bool
                     blue_policy="rule",
                     seeds=tuple(seeds),
                     horizon=horizon,
-                    ablation=reduced_observability,
-                    adaptive_config=_build_adaptive_config(reduced_observability),
+                    red_ablation=reduced_observability,
+                    red_adaptive_config=_build_adaptive_config(reduced_observability),
+                ),
+                ExperimentCondition(
+                    condition_id="rule_red_vs_adaptive_blue_no_planning",
+                    label="Rule Red vs Adaptive Blue (No Planning)",
+                    red_policy="rule",
+                    blue_policy="adaptive",
+                    seeds=tuple(seeds),
+                    horizon=horizon,
+                    blue_ablation=no_planning,
+                    blue_adaptive_config=_build_adaptive_config(no_planning),
+                ),
+                ExperimentCondition(
+                    condition_id="rule_red_vs_adaptive_blue_reduced_observability",
+                    label="Rule Red vs Adaptive Blue (Reduced Observability)",
+                    red_policy="rule",
+                    blue_policy="adaptive",
+                    seeds=tuple(seeds),
+                    horizon=horizon,
+                    blue_ablation=reduced_observability,
+                    blue_adaptive_config=_build_adaptive_config(reduced_observability),
+                ),
+                ExperimentCondition(
+                    condition_id="adaptive_red_reduced_observability_vs_adaptive_blue",
+                    label="Adaptive Red (Reduced Observability) vs Adaptive Blue",
+                    red_policy="adaptive",
+                    blue_policy="adaptive",
+                    seeds=tuple(seeds),
+                    horizon=horizon,
+                    red_ablation=reduced_observability,
+                    blue_ablation=default_ablation,
+                    red_adaptive_config=_build_adaptive_config(reduced_observability),
+                    blue_adaptive_config=shared_adaptive_config,
+                ),
+                ExperimentCondition(
+                    condition_id="adaptive_red_vs_adaptive_blue_reduced_observability",
+                    label="Adaptive Red vs Adaptive Blue (Reduced Observability)",
+                    red_policy="adaptive",
+                    blue_policy="adaptive",
+                    seeds=tuple(seeds),
+                    horizon=horizon,
+                    red_ablation=default_ablation,
+                    blue_ablation=reduced_observability,
+                    red_adaptive_config=shared_adaptive_config,
+                    blue_adaptive_config=_build_adaptive_config(reduced_observability),
                 ),
             )
         )
@@ -114,18 +178,70 @@ def _build_policy_registry(condition: ExperimentCondition) -> PolicyRegistry:
     registry = PolicyRegistry()
 
     if condition.red_policy == "adaptive":
-        adaptive_config = condition.adaptive_config or _build_adaptive_config(condition.ablation)
+        adaptive_config = _resolve_adaptive_config(condition, ActorType.RED)
         registry.register(AdaptivePlanningPolicy(actor=ActorType.RED, config=adaptive_config))
     else:
         registry.register(RuleBasedRedPolicy())
 
     if condition.blue_policy == "adaptive":
-        adaptive_config = condition.adaptive_config or _build_adaptive_config(condition.ablation)
+        adaptive_config = _resolve_adaptive_config(condition, ActorType.BLUE)
         registry.register(AdaptivePlanningPolicy(actor=ActorType.BLUE, config=adaptive_config))
     else:
         registry.register(RuleBasedBluePolicy())
 
     return registry
+
+
+def _rank_condition_aggregates(condition_aggregates: list[dict]) -> dict[str, list[dict]]:
+    def _format_ranked_entries(sorted_aggregates: list[dict]) -> list[dict]:
+        ranked_entries: list[dict] = []
+        for index, aggregate in enumerate(sorted_aggregates, start=1):
+            metric_bundle = aggregate["metric_bundle"]
+            ranked_entries.append(
+                {
+                    "rank": index,
+                    "condition_id": aggregate["condition_id"],
+                    "condition_label": aggregate["condition_label"],
+                    "final_compromised_mean": metric_bundle["final_compromised_mean"],
+                    "blue_containment_mean": metric_bundle["blue_containment_mean"],
+                    "deterministic_consistency_ratio": metric_bundle["deterministic_consistency_ratio"],
+                }
+            )
+        return ranked_entries
+
+    lowest_final_compromised = sorted(
+        condition_aggregates,
+        key=lambda aggregate: (
+            aggregate["metric_bundle"]["final_compromised_mean"],
+            -aggregate["metric_bundle"]["blue_containment_mean"],
+            -aggregate["metric_bundle"]["deterministic_consistency_ratio"],
+            aggregate["condition_id"],
+        ),
+    )
+    highest_blue_containment = sorted(
+        condition_aggregates,
+        key=lambda aggregate: (
+            -aggregate["metric_bundle"]["blue_containment_mean"],
+            aggregate["metric_bundle"]["final_compromised_mean"],
+            -aggregate["metric_bundle"]["deterministic_consistency_ratio"],
+            aggregate["condition_id"],
+        ),
+    )
+    most_deterministic = sorted(
+        condition_aggregates,
+        key=lambda aggregate: (
+            -aggregate["metric_bundle"]["deterministic_consistency_ratio"],
+            aggregate["metric_bundle"]["final_compromised_mean"],
+            -aggregate["metric_bundle"]["blue_containment_mean"],
+            aggregate["condition_id"],
+        ),
+    )
+
+    return {
+        "lowest_final_compromised": _format_ranked_entries(lowest_final_compromised),
+        "highest_blue_containment": _format_ranked_entries(highest_blue_containment),
+        "most_deterministic": _format_ranked_entries(most_deterministic),
+    }
 
 
 def _aggregate_condition(condition: ExperimentCondition, runs: list[dict]) -> dict:
@@ -160,6 +276,10 @@ def _aggregate_condition(condition: ExperimentCondition, runs: list[dict]) -> di
         "blue_policy": condition.blue_policy,
         "ablation": asdict(condition.ablation),
         "adaptive_config": asdict(condition.adaptive_config) if condition.adaptive_config is not None else None,
+        "red_ablation": asdict(condition.red_ablation) if condition.red_ablation is not None else None,
+        "blue_ablation": asdict(condition.blue_ablation) if condition.blue_ablation is not None else None,
+        "red_adaptive_config": asdict(condition.red_adaptive_config) if condition.red_adaptive_config is not None else None,
+        "blue_adaptive_config": asdict(condition.blue_adaptive_config) if condition.blue_adaptive_config is not None else None,
         "run_count": len(runs),
         "metric_bundle": asdict(metrics_bundle),
         "first_containment_mean": round(_mean(containment_timesteps), 3) if containment_timesteps else -1,
@@ -167,6 +287,11 @@ def _aggregate_condition(condition: ExperimentCondition, runs: list[dict]) -> di
         "sequence_hashes": sorted(hash_frequency.keys()),
         "hash_frequency": dict(sorted(hash_frequency.items())),
     }
+
+
+def _scenario_batch_report_file(report_dir: Path, scenario_ids: list[str]) -> Path:
+    batch_name = "_".join(scenario_ids)
+    return report_dir / f"policy_experiment_matrix_batch_{batch_name}.json"
 
 
 def run_policy_experiment_matrix(
@@ -222,6 +347,7 @@ def run_policy_experiment_matrix(
             runs_by_condition[condition.condition_id].append(run_record)
 
     condition_aggregates = [_aggregate_condition(condition, runs_by_condition[condition.condition_id]) for condition in conditions]
+    summary_rankings = _rank_condition_aggregates(condition_aggregates)
 
     baseline_aggregate = next(
         (aggregate for aggregate in condition_aggregates if aggregate["condition_id"] == "rule_red_vs_rule_blue"),
@@ -269,6 +395,7 @@ def run_policy_experiment_matrix(
         },
         "conditions": [asdict(condition) for condition in conditions],
         "condition_aggregates": condition_aggregates,
+        "summary_rankings": summary_rankings,
         "comparison_to_baseline": comparison_to_baseline,
         "runs": all_runs,
     }
@@ -281,4 +408,112 @@ def run_policy_experiment_matrix(
     return {
         "report_file": str(report_file),
         "report": report_payload,
+    }
+
+
+def run_policy_experiment_matrix_batch(
+    *,
+    scenario_paths: list[str | Path],
+    seeds: list[int],
+    horizon: int,
+    runs_root: str | Path = "artifacts/runs",
+    metrics_root: str | Path = "artifacts/metrics",
+    reports_root: str | Path = "artifacts/reports",
+    include_ablations: bool = True,
+) -> dict:
+    if not scenario_paths:
+        raise ValueError("scenario_paths cannot be empty")
+
+    scenario_reports: list[dict] = []
+    for scenario_path in scenario_paths:
+        report_output = run_policy_experiment_matrix(
+            scenario_path=scenario_path,
+            seeds=seeds,
+            horizon=horizon,
+            runs_root=runs_root,
+            metrics_root=metrics_root,
+            reports_root=reports_root,
+            include_ablations=include_ablations,
+        )
+        scenario_reports.append(
+            {
+                "scenario_path": str(Path(scenario_path)),
+                "report_file": report_output["report_file"],
+                "report": report_output["report"],
+            }
+        )
+
+    scenario_summaries = []
+    for scenario_report in scenario_reports:
+        report = scenario_report["report"]
+        baseline_entry = next(
+            (
+                aggregate
+                for aggregate in report["condition_aggregates"]
+                if aggregate["condition_id"] == "rule_red_vs_rule_blue"
+            ),
+            None,
+        )
+        scenario_summaries.append(
+            {
+                "scenario_id": report["matrix_metadata"]["scenario_id"],
+                "scenario_path": scenario_report["scenario_path"],
+                "report_file": scenario_report["report_file"],
+                "baseline_final_compromised_mean": (
+                    baseline_entry["metric_bundle"]["final_compromised_mean"] if baseline_entry is not None else 0.0
+                ),
+                "baseline_blue_containment_mean": (
+                    baseline_entry["metric_bundle"]["blue_containment_mean"] if baseline_entry is not None else 0.0
+                ),
+                "best_condition": report["summary_rankings"]["lowest_final_compromised"][0]
+                if report["summary_rankings"]["lowest_final_compromised"]
+                else None,
+            }
+        )
+
+    ranked_scenarios = sorted(
+        scenario_summaries,
+        key=lambda summary: (
+            summary["baseline_final_compromised_mean"],
+            -summary["baseline_blue_containment_mean"],
+            summary["scenario_id"],
+        ),
+    )
+    batch_report = {
+        "batch_metadata": {
+            "scenario_count": len(scenario_paths),
+            "scenario_paths": [str(Path(path)) for path in scenario_paths],
+            "seed_count": len(seeds),
+            "seeds": seeds,
+            "horizon": horizon,
+            "include_ablations": include_ablations,
+            "generated_at_utc": datetime.now(timezone.utc).isoformat(),
+        },
+        "scenario_reports": scenario_reports,
+        "scenario_rankings": {
+            "lowest_baseline_compromised": [
+                {
+                    "rank": index,
+                    "scenario_id": summary["scenario_id"],
+                    "scenario_path": summary["scenario_path"],
+                    "report_file": summary["report_file"],
+                    "baseline_final_compromised_mean": summary["baseline_final_compromised_mean"],
+                    "baseline_blue_containment_mean": summary["baseline_blue_containment_mean"],
+                }
+                for index, summary in enumerate(ranked_scenarios, start=1)
+            ],
+        },
+    }
+
+    report_dir = Path(reports_root)
+    report_dir.mkdir(parents=True, exist_ok=True)
+    batch_report_file = _scenario_batch_report_file(
+        report_dir,
+        [summary["scenario_id"] for summary in ranked_scenarios],
+    )
+    batch_report_file.write_text(json.dumps(batch_report, indent=2, sort_keys=True), encoding="utf-8")
+
+    return {
+        "report_file": str(batch_report_file),
+        "report": batch_report,
     }

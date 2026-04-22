@@ -32,6 +32,8 @@ If you have not set up the environment yet:
 	- `python -m pytest tests/unit/test_agents_adaptive.py -q`
 - Phase 3 matrix integration coverage:
 	- `python -m pytest tests/integration/test_policy_experiment_matrix.py -q`
+- Phase 3 matrix batch integration coverage:
+	- `python -m pytest tests/integration/test_policy_experiment_matrix_batch.py -q`
 
 ## Current Status
 

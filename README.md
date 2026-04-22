@@ -151,11 +151,17 @@ For adaptive-vs-rule experiment matrix report generation:
 - PowerShell: `$env:PYTHONPATH='src'; python scripts/run_policy_experiment_matrix.py`
 - Bash/Zsh: `PYTHONPATH=src python scripts/run_policy_experiment_matrix.py`
 
+For batch matrix execution across multiple scenarios:
+- PowerShell: `$env:PYTHONPATH='src'; python scripts/run_policy_experiment_matrix.py --scenario-batch scenarios/baselines/rule_baseline.json,scenarios/library/containment_stress.json`
+- Bash/Zsh: `PYTHONPATH=src python scripts/run_policy_experiment_matrix.py --scenario-batch scenarios/baselines/rule_baseline.json,scenarios/library/containment_stress.json`
+
 Examples:
 - PowerShell (custom seeds and horizon):
    - `$env:PYTHONPATH='src'; python scripts/run_multi_seed_report.py --seeds 20260329,20260332,20260333 --horizon 10`
 - Bash/Zsh (custom scenario and output roots):
    - `PYTHONPATH=src python scripts/run_multi_seed_report.py --scenario scenarios/baselines/rule_baseline.json --runs-root artifacts/runs --metrics-root artifacts/metrics --reports-root artifacts/reports`
+- PowerShell (scenario batch matrix execution):
+   - `$env:PYTHONPATH='src'; python scripts/run_policy_experiment_matrix.py --scenario-batch scenarios/baselines/rule_baseline.json,scenarios/library/containment_stress.json`
 - PowerShell (Phase 3 matrix with ablations):
    - `$env:PYTHONPATH='src'; python scripts/run_policy_experiment_matrix.py --seeds 20260423,20260424 --horizon 2`
 - Bash/Zsh (Phase 3 matrix without ablations):
@@ -188,8 +194,9 @@ From repository root:
 - **Rule-Based Agents: Completed**
    - Policy interface/registry, deterministic red/blue rule-based policies, explainable rationale payloads, policy metrics snapshots, baseline metrics artifacts, and multi-seed aggregate reporting are integrated and validated.
 - **Adaptive Autonomy: In progress**
-   - Increment 1 complete: adaptive planning policy scaffold, safety-filtered legal action selection, planning/value trace payloads, and phase3 smoke execution.
+   - Increment 1 complete: adaptive planning policy scaffold, safety-filtered legal action selection, planning/value trace payloads, and adaptive planning smoke execution.
    - Increment 2 complete: adaptive-vs-rule matrix runner, ablation toggles (`no_planning`, `reduced_observability`), condition-level aggregates, and baseline-relative deltas.
+   - Increment 3 complete: expanded adaptive-blue and mixed-observability conditions, summary ranking views, and optional scenario-batch matrix execution.
 - **Observability / Advanced Research: Planned / Not started yet**
    - See `.agent/plans/` for phase-specific implementation definitions.
 

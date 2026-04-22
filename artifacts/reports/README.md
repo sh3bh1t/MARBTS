@@ -9,6 +9,7 @@ Current writer:
 Current output:
 - `multi_seed_report_<scenario_id>.json`
 - `policy_experiment_matrix_<scenario_id>.json`
+- `policy_experiment_matrix_batch_<scenario_ids>.json`
 
 The report includes:
 - aggregate statistics across seed runs
@@ -16,3 +17,4 @@ The report includes:
 - deterministic consistency indicators (sequence-hash frequency and dominant-hash ratio)
 - per-run run_id, sequence hash, and output artifact references
 - condition-level comparisons for adaptive-vs-rule experiment matrices
+- summary ranking views for lowest compromise, highest blue containment, and most deterministic conditions
