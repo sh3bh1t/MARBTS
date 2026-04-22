@@ -31,7 +31,7 @@ If you have not set up the environment yet:
 - Adaptive policy unit coverage:
 	- `python -m pytest tests/unit/test_agents_adaptive.py -q`
 - Phase 3 matrix integration coverage:
-	- `python -m pytest tests/integration/test_phase3_experiment_matrix.py -q`
+	- `python -m pytest tests/integration/test_policy_experiment_matrix.py -q`
 
 ## Current Status
 

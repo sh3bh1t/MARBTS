@@ -11,7 +11,7 @@ from simulation.kernel import run_turn_based_simulation
 
 
 def _phase2_result():
-    scenario = load_scenario_file("scenarios/baselines/phase2_rule_baseline.json")
+    scenario = load_scenario_file("scenarios/baselines/rule_baseline.json")
     graph = build_graph_from_scenario(scenario)
     return run_turn_based_simulation(
         graph,

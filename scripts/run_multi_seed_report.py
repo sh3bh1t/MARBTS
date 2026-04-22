@@ -4,16 +4,16 @@ import argparse
 from datetime import datetime, timezone
 from pathlib import Path
 
-from experiments.phase2_comparison import run_phase2_multi_seed_report
+from experiments.multi_seed_report import run_multi_seed_report
 
 
 def _parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Generate a Phase 2 multi-seed aggregate report.",
+        description="Generate a multi-seed aggregate report.",
     )
     parser.add_argument(
         "--scenario",
-        default="scenarios/baselines/phase2_rule_baseline.json",
+        default="scenarios/baselines/rule_baseline.json",
         help="Path to scenario JSON file.",
     )
     parser.add_argument(
@@ -61,7 +61,7 @@ def main() -> None:
     seeds = _parse_seeds(args.seeds)
     horizon = args.horizon
 
-    output = run_phase2_multi_seed_report(
+    output = run_multi_seed_report(
         scenario_path=scenario_path,
         seeds=seeds,
         horizon=horizon,
@@ -71,7 +71,7 @@ def main() -> None:
     )
 
     aggregate = output["report"]["aggregate"]
-    print("PHASE2_MULTI_SEED_REPORT_OK")
+    print("MULTI_SEED_REPORT_OK")
     print(f"timestamp_utc={datetime.now(timezone.utc).isoformat()}")
     print(f"scenario_id={aggregate['scenario_id']}")
     print(f"seed_count={aggregate['seed_count']}")

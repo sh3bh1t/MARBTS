@@ -20,14 +20,14 @@ Introduce adaptive agent policies (LLM reasoning and/or RL) through the same pol
       - `ValueEstimate`
       - `ModelInferenceRecord`
    - Added adaptive policy unit coverage (`tests/unit/test_agents_adaptive.py`)
-   - Added Phase 3 smoke execution script (`scripts/run_phase3_smoke.py`)
+   - Added adaptive planning smoke execution script (`scripts/run_adaptive_planning_smoke.py`)
    - Removed replaced scaffold stub (`src/agents/adaptive/STUB.md`)
 
 - Increment 2 (completed):
-   - Added adaptive-vs-rule experiment matrix runner at `src/experiments/phase3_comparison.py`
-   - Added matrix CLI script at `scripts/run_phase3_experiment_matrix.py`
+   - Added adaptive-vs-rule experiment matrix runner at `src/experiments/policy_experiment_matrix.py`
+   - Added matrix CLI script at `scripts/run_policy_experiment_matrix.py`
    - Added adaptive ablation toggles (`no_planning`, `reduced_observability`) with labeled report metadata
-   - Added integration coverage for matrix execution and artifact generation (`tests/integration/test_phase3_experiment_matrix.py`)
+   - Added integration coverage for matrix execution and artifact generation (`tests/integration/test_policy_experiment_matrix.py`)
    - Extended adaptive unit coverage for reduced-observability metadata signaling (`tests/unit/test_agents_adaptive.py`)
 
 - Increment 3 (next):

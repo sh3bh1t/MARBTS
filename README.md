@@ -131,37 +131,37 @@ Assumption: your Python environment is already activated.
 - Run one specific test function:
    - `python -m pytest tests/unit/test_simulation_kernel.py::test_seed_reproducibility -q`
 
-For reproducible baseline smoke execution:
-- PowerShell: `$env:PYTHONPATH='src'; python scripts/run_phase1_smoke.py`
-- Bash/Zsh: `PYTHONPATH=src python scripts/run_phase1_smoke.py`
+For reproducible network core smoke execution:
+- PowerShell: `$env:PYTHONPATH='src'; python scripts/run_network_core_smoke.py`
+- Bash/Zsh: `PYTHONPATH=src python scripts/run_network_core_smoke.py`
 
-For Phase 2 rule-based smoke execution:
-- PowerShell: `$env:PYTHONPATH='src'; python scripts/run_phase2_smoke.py`
-- Bash/Zsh: `PYTHONPATH=src python scripts/run_phase2_smoke.py`
+For rule baseline smoke execution:
+- PowerShell: `$env:PYTHONPATH='src'; python scripts/run_rule_baseline_smoke.py`
+- Bash/Zsh: `PYTHONPATH=src python scripts/run_rule_baseline_smoke.py`
 
-For Phase 2 multi-seed aggregate report generation:
-- PowerShell: `$env:PYTHONPATH='src'; python scripts/run_phase2_multi_seed_report.py`
-- Bash/Zsh: `PYTHONPATH=src python scripts/run_phase2_multi_seed_report.py`
+For multi-seed aggregate report generation:
+- PowerShell: `$env:PYTHONPATH='src'; python scripts/run_multi_seed_report.py`
+- Bash/Zsh: `PYTHONPATH=src python scripts/run_multi_seed_report.py`
 
-For Phase 3 adaptive planning smoke execution (adaptive red vs rule-based blue):
-- PowerShell: `$env:PYTHONPATH='src'; python scripts/run_phase3_smoke.py`
-- Bash/Zsh: `PYTHONPATH=src python scripts/run_phase3_smoke.py`
+For adaptive planning smoke execution (adaptive red vs rule-based blue):
+- PowerShell: `$env:PYTHONPATH='src'; python scripts/run_adaptive_planning_smoke.py`
+- Bash/Zsh: `PYTHONPATH=src python scripts/run_adaptive_planning_smoke.py`
 
-For Phase 3 adaptive-vs-rule experiment matrix report generation:
-- PowerShell: `$env:PYTHONPATH='src'; python scripts/run_phase3_experiment_matrix.py`
-- Bash/Zsh: `PYTHONPATH=src python scripts/run_phase3_experiment_matrix.py`
+For adaptive-vs-rule experiment matrix report generation:
+- PowerShell: `$env:PYTHONPATH='src'; python scripts/run_policy_experiment_matrix.py`
+- Bash/Zsh: `PYTHONPATH=src python scripts/run_policy_experiment_matrix.py`
 
 Examples:
 - PowerShell (custom seeds and horizon):
-   - `$env:PYTHONPATH='src'; python scripts/run_phase2_multi_seed_report.py --seeds 20260329,20260332,20260333 --horizon 10`
+   - `$env:PYTHONPATH='src'; python scripts/run_multi_seed_report.py --seeds 20260329,20260332,20260333 --horizon 10`
 - Bash/Zsh (custom scenario and output roots):
-   - `PYTHONPATH=src python scripts/run_phase2_multi_seed_report.py --scenario scenarios/baselines/phase2_rule_baseline.json --runs-root artifacts/runs --metrics-root artifacts/metrics --reports-root artifacts/reports`
+   - `PYTHONPATH=src python scripts/run_multi_seed_report.py --scenario scenarios/baselines/rule_baseline.json --runs-root artifacts/runs --metrics-root artifacts/metrics --reports-root artifacts/reports`
 - PowerShell (Phase 3 matrix with ablations):
-   - `$env:PYTHONPATH='src'; python scripts/run_phase3_experiment_matrix.py --seeds 20260423,20260424 --horizon 2`
+   - `$env:PYTHONPATH='src'; python scripts/run_policy_experiment_matrix.py --seeds 20260423,20260424 --horizon 2`
 - Bash/Zsh (Phase 3 matrix without ablations):
-   - `PYTHONPATH=src python scripts/run_phase3_experiment_matrix.py --skip-ablations`
+   - `PYTHONPATH=src python scripts/run_policy_experiment_matrix.py --skip-ablations`
 
-## Run Phase 1 Baseline
+## Run Network Core Baseline
 
 From repository root:
 
@@ -172,9 +172,9 @@ From repository root:
    - `python -m pip install -r requirements.txt`
 2. Validate Phase 1 unit tests suite:
    - `python -m pytest tests/unit -q`
-3. Run Phase 1 smoke path and generate artifacts:
-   - PowerShell: `$env:PYTHONPATH='src'; python scripts/run_phase1_smoke.py`
-   - Bash/Zsh: `PYTHONPATH=src python scripts/run_phase1_smoke.py`
+3. Run network core smoke path and generate artifacts:
+   - PowerShell: `$env:PYTHONPATH='src'; python scripts/run_network_core_smoke.py`
+   - Bash/Zsh: `PYTHONPATH=src python scripts/run_network_core_smoke.py`
 4. Inspect outputs:
    - `artifacts/runs/<run_id>/run_metadata.json`
    - `artifacts/runs/<run_id>/timesteps.jsonl`
@@ -182,15 +182,15 @@ From repository root:
 
 ## Current Status
 
-- **Phase 1 (Network Simulation Core): Completed**
+- **Network Simulation Core: Completed**
    - Schema validation, graph initialization, transition primitives, legal actions, seeded simulation kernel, state diff utilities, and artifact logging scaffold are implemented.
    - Test framework migrated to `pytest`; unit suite passing.
-- **Phase 2 (Rule-Based Agents): Completed**
+- **Rule-Based Agents: Completed**
    - Policy interface/registry, deterministic red/blue rule-based policies, explainable rationale payloads, policy metrics snapshots, baseline metrics artifacts, and multi-seed aggregate reporting are integrated and validated.
-- **Phase 3 (Adaptive Autonomy): In progress**
+- **Adaptive Autonomy: In progress**
    - Increment 1 complete: adaptive planning policy scaffold, safety-filtered legal action selection, planning/value trace payloads, and phase3 smoke execution.
    - Increment 2 complete: adaptive-vs-rule matrix runner, ablation toggles (`no_planning`, `reduced_observability`), condition-level aggregates, and baseline-relative deltas.
-- **Phase 4–5: Planned / Not started yet**
+- **Observability / Advanced Research: Planned / Not started yet**
    - See `.agent/plans/` for phase-specific implementation definitions.
 
 

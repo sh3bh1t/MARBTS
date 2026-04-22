@@ -3,7 +3,7 @@
 This directory stores per-run computed baseline metrics artifacts.
 
 Current writer:
-- `scripts/run_phase2_smoke.py` writes `artifacts/metrics/<run_id>.json`
+- `scripts/run_rule_baseline_smoke.py` writes `artifacts/metrics/<run_id>.json`
 
 Baseline metrics artifact includes:
 - run/scenario metadata

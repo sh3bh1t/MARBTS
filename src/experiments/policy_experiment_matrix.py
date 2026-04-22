@@ -169,7 +169,7 @@ def _aggregate_condition(condition: ExperimentCondition, runs: list[dict]) -> di
     }
 
 
-def run_phase3_experiment_matrix(
+def run_policy_experiment_matrix(
     *,
     scenario_path: str | Path,
     seeds: list[int],
@@ -275,7 +275,7 @@ def run_phase3_experiment_matrix(
 
     report_dir = Path(reports_root)
     report_dir.mkdir(parents=True, exist_ok=True)
-    report_file = report_dir / f"phase3_matrix_report_{scenario.metadata.scenario_id}.json"
+    report_file = report_dir / f"policy_experiment_matrix_{scenario.metadata.scenario_id}.json"
     report_file.write_text(json.dumps(report_payload, indent=2, sort_keys=True), encoding="utf-8")
 
     return {

@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "scenario_id": "phase2-containment-stress",
+    "scenario_id": "containment-stress",
     "version": "1.0.0"
   },
   "nodes": [

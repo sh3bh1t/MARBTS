@@ -24,7 +24,7 @@ def _stddev(values: list[float]) -> float:
     return statistics.pstdev(values)
 
 
-def run_phase2_multi_seed_report(
+def run_multi_seed_report(
     *,
     scenario_path: str | Path,
     seeds: list[int],
@@ -108,7 +108,7 @@ def run_phase2_multi_seed_report(
 
     report_dir = Path(reports_root)
     report_dir.mkdir(parents=True, exist_ok=True)
-    report_file = report_dir / f"phase2_multi_seed_report_{scenario.metadata.scenario_id}.json"
+    report_file = report_dir / f"multi_seed_report_{scenario.metadata.scenario_id}.json"
     report_file.write_text(json.dumps(report_payload, indent=2, sort_keys=True), encoding="utf-8")
 
     return {

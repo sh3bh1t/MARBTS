@@ -3,14 +3,14 @@ from __future__ import annotations
 from pathlib import Path
 import tempfile
 
-from experiments.phase2_comparison import run_phase2_multi_seed_report
+from experiments.multi_seed_report import run_multi_seed_report
 
 
 def test_multi_seed_report_generates_expected_artifacts() -> None:
     with tempfile.TemporaryDirectory() as temp_dir:
         root = Path(temp_dir)
-        output = run_phase2_multi_seed_report(
-            scenario_path="scenarios/baselines/phase2_rule_baseline.json",
+        output = run_multi_seed_report(
+            scenario_path="scenarios/baselines/rule_baseline.json",
             seeds=[20260329, 20260330],
             horizon=6,
             runs_root=root / "runs",
@@ -23,7 +23,7 @@ def test_multi_seed_report_generates_expected_artifacts() -> None:
 
         assert report_file.exists()
         assert report_payload["aggregate"]["seed_count"] == 2
-        assert report_payload["aggregate"]["scenario_id"] == "phase2-rule-baseline"
+        assert report_payload["aggregate"]["scenario_id"] == "rule-baseline"
         assert report_payload["aggregate"]["horizon"] == 6
         assert "final_compromised_stddev" in report_payload["aggregate"]
         assert "blue_containment_stddev" in report_payload["aggregate"]

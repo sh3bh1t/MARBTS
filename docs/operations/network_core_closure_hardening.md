@@ -1,9 +1,9 @@
-# Phase 1 Closure Hardening
+# Network Core Closure Hardening
 
 Conforms to guide files in .agent/guides/
 
 ## Scope
-This document defines closure hardening checks for Phase 1 implementation.
+This document defines closure hardening checks for the network core implementation.
 
 ## Hardening Checks
 
@@ -28,19 +28,19 @@ This document defines closure hardening checks for Phase 1 implementation.
    - Artifact writer persists run metadata and JSONL timestep stream.
 
 6. **Smoke Execution Path**
-   - Script: `scripts/run_phase1_smoke.py`
+   - Script: `scripts/run_network_core_smoke.py`
    - Produces run artifacts under `artifacts/runs/<run_id>/`.
 
 ## Recommended Closure Commands
 
 - `python -m pytest -q`
-- PowerShell: `$env:PYTHONPATH='src'; python scripts/run_phase1_smoke.py`
-- Bash/Zsh: `PYTHONPATH=src python scripts/run_phase1_smoke.py`
+- PowerShell: `$env:PYTHONPATH='src'; python scripts/run_network_core_smoke.py`
+- Bash/Zsh: `PYTHONPATH=src python scripts/run_network_core_smoke.py`
 
 ## Expected Evidence
 
 - Pytest suite passes with all unit checks.
-- Smoke script outputs `PHASE1_SMOKE_OK`.
+- Smoke script outputs `NETWORK_CORE_SMOKE_OK`.
 - Generated files:
   - `artifacts/runs/<run_id>/run_metadata.json`
   - `artifacts/runs/<run_id>/timesteps.jsonl`

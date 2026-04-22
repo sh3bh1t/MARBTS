@@ -1,9 +1,9 @@
-# Phase 2 Closure Hardening
+# Rule Baseline Closure Hardening
 
 Conforms to guide files in .agent/guides/
 
 ## Scope
-This document defines closure hardening checks for Phase 2 implementation.
+This document defines closure hardening checks for the rule baseline implementation.
 
 ## Hardening Checks
 
@@ -22,11 +22,11 @@ This document defines closure hardening checks for Phase 2 implementation.
 4. **Policy Telemetry & Metrics**
    - Per-run policy telemetry is persisted in `artifacts/runs/<run_id>/policy_metrics.json`.
    - Baseline metrics are persisted in `artifacts/metrics/<run_id>.json`.
-   - Multi-seed aggregate report is persisted in `artifacts/reports/phase2_multi_seed_report_<scenario_id>.json`.
+   - Multi-seed aggregate report is persisted in `artifacts/reports/multi_seed_report_<scenario_id>.json`.
 
 5. **Reproducibility & Regression**
-   - Same-seed sequence-hash reproducibility test is in `tests/reproducibility/test_phase2_reproducibility.py`.
-   - Baseline sequence-hash regression lock is in `tests/regression/test_phase2_rule_regression.py`.
+   - Same-seed sequence-hash reproducibility test is in `tests/reproducibility/test_rule_baseline_reproducibility.py`.
+   - Baseline sequence-hash regression lock is in `tests/regression/test_rule_baseline_regression.py`.
 
 6. **Report Stability Bands**
    - Multi-seed aggregate includes mean/stddev/min/max where applicable.
@@ -35,18 +35,18 @@ This document defines closure hardening checks for Phase 2 implementation.
 ## Recommended Closure Commands
 
 - `python -m pytest -q`
-- PowerShell: `$env:PYTHONPATH='src'; python scripts/run_phase2_smoke.py`
-- PowerShell: `$env:PYTHONPATH='src'; python scripts/run_phase2_multi_seed_report.py --seeds 20260329,20260330,20260331 --horizon 8`
+- PowerShell: `$env:PYTHONPATH='src'; python scripts/run_rule_baseline_smoke.py`
+- PowerShell: `$env:PYTHONPATH='src'; python scripts/run_multi_seed_report.py --seeds 20260329,20260330,20260331 --horizon 8`
 
 ## Expected Evidence
 
-- Pytest suite passes with Phase 2 unit/integration/simulation/reproducibility/regression checks.
-- Smoke script outputs `PHASE2_SMOKE_OK`.
-- Multi-seed script outputs `PHASE2_MULTI_SEED_REPORT_OK`.
+- Pytest suite passes with rule baseline unit/integration/simulation/reproducibility/regression checks.
+- Smoke script outputs `RULE_BASELINE_SMOKE_OK`.
+- Multi-seed script outputs `MULTI_SEED_REPORT_OK`.
 - Generated artifacts:
   - `artifacts/runs/<run_id>/policy_metrics.json`
   - `artifacts/metrics/<run_id>.json`
-  - `artifacts/reports/phase2_multi_seed_report_<scenario_id>.json`
+   - `artifacts/reports/multi_seed_report_<scenario_id>.json`
 
 ## Status
 

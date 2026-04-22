@@ -12,7 +12,7 @@ from simulation.policy_trace import action_sequence_hash
 
 
 def main() -> None:
-    scenario_path = Path("scenarios/baselines/phase2_rule_baseline.json")
+    scenario_path = Path("scenarios/baselines/rule_baseline.json")
     scenario = load_scenario_file(scenario_path)
     graph = build_graph_from_scenario(scenario)
 
@@ -31,7 +31,7 @@ def main() -> None:
 
     sequence_hash = action_sequence_hash(result)
 
-    print("PHASE2_SMOKE_OK")
+    print("RULE_BASELINE_SMOKE_OK")
     print(f"timestamp_utc={datetime.now(timezone.utc).isoformat()}")
     print(f"scenario_id={scenario.metadata.scenario_id}")
     print(f"seed={seed}")

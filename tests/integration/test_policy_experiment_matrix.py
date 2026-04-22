@@ -3,14 +3,14 @@ from __future__ import annotations
 from pathlib import Path
 import tempfile
 
-from experiments.phase3_comparison import run_phase3_experiment_matrix
+from experiments.policy_experiment_matrix import run_policy_experiment_matrix
 
 
-def test_phase3_matrix_report_generates_condition_aggregates_and_artifacts() -> None:
+def test_policy_experiment_matrix_generates_condition_aggregates_and_artifacts() -> None:
     with tempfile.TemporaryDirectory() as temp_dir:
         root = Path(temp_dir)
-        output = run_phase3_experiment_matrix(
-            scenario_path="scenarios/baselines/phase2_rule_baseline.json",
+        output = run_policy_experiment_matrix(
+            scenario_path="scenarios/baselines/rule_baseline.json",
             seeds=[20260423, 20260424],
             horizon=2,
             runs_root=root / "runs",

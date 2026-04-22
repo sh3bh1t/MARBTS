@@ -4,16 +4,16 @@ import argparse
 from datetime import datetime, timezone
 from pathlib import Path
 
-from experiments.phase3_comparison import run_phase3_experiment_matrix
+from experiments.policy_experiment_matrix import run_policy_experiment_matrix
 
 
 def _parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Generate a Phase 3 adaptive-vs-rule experiment matrix report.",
+        description="Generate an adaptive-vs-rule policy experiment matrix report.",
     )
     parser.add_argument(
         "--scenario",
-        default="scenarios/baselines/phase2_rule_baseline.json",
+        default="scenarios/baselines/rule_baseline.json",
         help="Path to scenario JSON file.",
     )
     parser.add_argument(
@@ -65,7 +65,7 @@ def main() -> None:
     scenario_path = Path(args.scenario)
     seeds = _parse_seeds(args.seeds)
 
-    output = run_phase3_experiment_matrix(
+    output = run_policy_experiment_matrix(
         scenario_path=scenario_path,
         seeds=seeds,
         horizon=args.horizon,
@@ -76,7 +76,7 @@ def main() -> None:
     )
 
     metadata = output["report"]["matrix_metadata"]
-    print("PHASE3_MATRIX_REPORT_OK")
+    print("POLICY_EXPERIMENT_MATRIX_OK")
     print(f"timestamp_utc={datetime.now(timezone.utc).isoformat()}")
     print(f"scenario_id={metadata['scenario_id']}")
     print(f"seed_count={metadata['seed_count']}")

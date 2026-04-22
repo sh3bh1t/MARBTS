@@ -6,8 +6,8 @@ from simulation.kernel import run_turn_based_simulation
 from simulation.policy_trace import action_sequence_hash
 
 
-def test_phase2_same_seed_produces_same_action_sequence_hash() -> None:
-    scenario = load_scenario_file("scenarios/baselines/phase2_rule_baseline.json")
+def test_rule_baseline_same_seed_produces_same_action_sequence_hash() -> None:
+    scenario = load_scenario_file("scenarios/baselines/rule_baseline.json")
     graph = build_graph_from_scenario(scenario)
 
     first = run_turn_based_simulation(

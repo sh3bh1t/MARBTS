@@ -12,7 +12,7 @@ from simulation.policy_trace import action_sequence_hash
 
 
 def test_policy_metrics_artifact_matches_simulation_trace() -> None:
-    scenario = load_scenario_file("scenarios/baselines/phase2_rule_baseline.json")
+    scenario = load_scenario_file("scenarios/baselines/rule_baseline.json")
     graph = build_graph_from_scenario(scenario)
     result = run_turn_based_simulation(
         graph,

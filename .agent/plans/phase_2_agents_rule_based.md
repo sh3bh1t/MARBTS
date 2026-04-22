@@ -93,7 +93,7 @@ Implement deterministic, explainable Red and Blue rule-based policies integrated
 - 2026-03-29: Added Phase 2 baseline scenarios, policy trace hashing/summaries, phase2 smoke script, reproducibility/regression tests, and removed replaced scaffold stubs.
 - 2026-03-29: Added dedicated policy metrics artifact emission (`runs/<run_id>/policy_metrics.json`) and simulation-level validation tests.
 - 2026-03-29: Added baseline metrics module (`src/metrics`), per-run metrics artifact emission (`artifacts/metrics/<run_id>.json`), and corresponding unit coverage.
-- 2026-03-29: Added multi-seed Phase 2 comparison runner (`src/experiments` + script), integration coverage, and report artifacts (`artifacts/reports/phase2_multi_seed_report_<scenario_id>.json`).
+- 2026-03-29: Added multi-seed Phase 2 comparison runner (`src/experiments` + script), integration coverage, and report artifacts (`artifacts/reports/multi_seed_report_<scenario_id>.json`).
 - 2026-03-29: Extended multi-seed comparison aggregates with stability bands (stddev) and deterministic consistency indicators.
 - 2026-03-29: Added configurable CLI options for multi-seed reporting (`--scenario`, `--seeds`, `--horizon`, output roots) with usage examples in READMEs.
 - 2026-03-29: Added Phase 2 closure hardening document and marked phase status as completed.

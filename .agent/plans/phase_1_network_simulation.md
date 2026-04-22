@@ -88,7 +88,7 @@ Build a deterministic, graph-based simulation environment using `networkx` with 
 - Completion date: 2026-03-28
 - Evidence:
    - pytest unit suite passing (`22 passed`)
-   - smoke runner implemented and validated (`scripts/run_phase1_smoke.py`)
+   - smoke runner implemented and validated (`scripts/run_network_core_smoke.py`)
    - run artifact generation validated (`run_metadata.json`, `timesteps.jsonl`)
 
 ## Plan Revision Log

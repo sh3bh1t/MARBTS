@@ -26,7 +26,7 @@ def main() -> None:
     artifacts_root = Path("artifacts/runs")
     output_paths = write_run_artifacts(result, artifacts_root)
 
-    print("PHASE1_SMOKE_OK")
+    print("NETWORK_CORE_SMOKE_OK")
     print(f"timestamp_utc={datetime.now(timezone.utc).isoformat()}")
     print(f"scenario_id={scenario.metadata.scenario_id}")
     print(f"seed={seed}")

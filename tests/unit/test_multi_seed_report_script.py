@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import pytest
 
-from scripts.run_phase2_multi_seed_report import _parse_seeds
+from scripts.run_multi_seed_report import _parse_seeds
 
 
 def test_parse_seeds_happy_path() -> None:

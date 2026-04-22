@@ -91,3 +91,9 @@ If any requirement is ambiguous:
 - Generated runtime/research outputs must not pollute the repository history.
 - For artifact-heavy directories (for example under `artifacts/runs`, `artifacts/metrics`, `artifacts/figures`, `artifacts/reports`), keep only a tracked `README.md` and ignore generated files by default via `.gitignore`.
 - If a generated artifact must be shared for reproducibility evidence, include it only through an explicit, intentional change and document why.
+
+## Public Naming Convention Rules
+- Use capability-based, stable names for reusable modules/scripts/tests/artifacts (for example `multi_seed_report`, `policy_experiment_matrix`) instead of implementation-phase labels.
+- Do not encode roadmap phase identifiers (`phase1`, `phase2`, `phase3`, etc.) in source module filenames, script filenames, test filenames, public function names, or generated artifact filenames unless the artifact is intentionally phase-specific archival evidence.
+- Prefer names that communicate behavior and ownership domain, not delivery chronology.
+- When renaming for clarity, update imports, CLI commands, tests, docs, and plan references in the same change.
