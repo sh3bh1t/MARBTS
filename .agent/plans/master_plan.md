@@ -292,7 +292,7 @@ Secondary:
 
 - Phase 1: Completed (core implementation + pytest validation + smoke hardening)
 - Phase 2: Completed (deterministic rule-based red/blue baselines + policy metrics + multi-seed reporting)
-- Phase 3: In progress (Increment 1 complete: adaptive planning policy scaffold, safety filtering, planning trace contracts, and smoke/test validation)
+- Phase 3: In progress (Increments 1-2 complete: adaptive planning policy scaffold + matrix comparison runner + ablation toggles + validation coverage)
 - Phase 4: Not started
 - Phase 5: Not started
 
@@ -314,3 +314,4 @@ After each major feature or phase: "Validation complete for this step."
 - 2026-03-29: Introduced centralized `src/hart/` type system (enums/models) and refactored Phase 1 modules to consume shared contracts.
 - 2026-04-23: Updated cross-phase status tracking to mark Phase 2 complete and Phase 3 as active.
 - 2026-04-23: Added Phase 3 Increment 1 deliverables: adaptive planning policy scaffold, adaptive rationale contracts, and smoke/test validation workflow.
+- 2026-04-23: Added Phase 3 Increment 2 deliverables: adaptive-vs-rule experiment matrix runner, ablation-labeled condition metadata, and matrix report CLI/test workflow.

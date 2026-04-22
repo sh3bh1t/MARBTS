@@ -45,6 +45,7 @@ class AdaptivePolicyConfig:
     discount_factor: float = 0.85
     exploration_bias: float = 0.15
     max_compromised_projection: int = 128
+    reduced_observability: bool = False
 
     def __post_init__(self) -> None:
         if self.planning_horizon < 1:
@@ -55,6 +56,35 @@ class AdaptivePolicyConfig:
             raise ValueError("exploration_bias must be >= 0.0")
         if self.max_compromised_projection < 1:
             raise ValueError("max_compromised_projection must be >= 1")
+
+
+@dataclass(frozen=True)
+class AblationConfig:
+    no_planning: bool = False
+    reduced_observability: bool = False
+
+
+@dataclass(frozen=True)
+class ExperimentCondition:
+    condition_id: str
+    label: str
+    red_policy: str
+    blue_policy: str
+    seeds: tuple[int, ...]
+    horizon: int
+    ablation: AblationConfig = field(default_factory=AblationConfig)
+    adaptive_config: AdaptivePolicyConfig | None = None
+
+
+@dataclass(frozen=True)
+class ComparisonMetricBundle:
+    condition_id: str
+    condition_label: str
+    final_compromised_mean: float
+    final_compromised_stddev: float
+    blue_containment_mean: float
+    blue_containment_stddev: float
+    deterministic_consistency_ratio: float
 
 
 @dataclass(frozen=True)

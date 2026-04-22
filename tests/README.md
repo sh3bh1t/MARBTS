@@ -30,11 +30,13 @@ If you have not set up the environment yet:
 	- `python -m pytest tests/unit/test_simulation_kernel.py::test_seed_reproducibility -q`
 - Adaptive policy unit coverage:
 	- `python -m pytest tests/unit/test_agents_adaptive.py -q`
+- Phase 3 matrix integration coverage:
+	- `python -m pytest tests/integration/test_phase3_experiment_matrix.py -q`
 
 ## Current Status
 
 - Test framework: `pytest`
-- Implemented coverage (Phase 1 + Phase 2 completed, Phase 3 increment 1 started):
+- Implemented coverage (Phase 1 + Phase 2 completed, Phase 3 increments 1-2 in progress):
 	- schema validation
 	- graph initialization
 	- transition primitives
@@ -45,6 +47,7 @@ If you have not set up the environment yet:
 	- phase 2 action-sequence reproducibility and regression signature checks
 	- phase 2 multi-seed aggregate report integration checks
 	- adaptive planning policy determinism, safety-filter rejection, and rationale trace payload emission
+	- phase 3 experiment matrix generation with adaptive-vs-rule conditions and ablation-labeled outputs
 
 ## Contributor Notes
 

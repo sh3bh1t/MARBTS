@@ -125,3 +125,32 @@ def test_kernel_with_adaptive_policies_emits_planning_payloads() -> None:
         assert blue_payload["planning_trace"]["horizon"] == 3
         assert red_payload["inference_record"]["deterministic"] is True
         assert blue_payload["inference_record"]["deterministic"] is True
+
+
+def test_adaptive_reduced_observability_flag_is_reflected_in_rationale_payload() -> None:
+    graph = _build_graph()
+    legal_actions = get_legal_actions(graph, ActorType.RED)
+    context = PolicyContext(
+        actor=ActorType.RED,
+        timestep=2,
+        scenario_id="phase3-adaptive-small",
+        seed=7,
+        compromised_nodes=5,
+        policy_metrics={},
+    )
+
+    policy = AdaptivePlanningPolicy(
+        actor=ActorType.RED,
+        config=AdaptivePolicyConfig(
+            planning_horizon=3,
+            discount_factor=0.9,
+            exploration_bias=0.0,
+            reduced_observability=True,
+        ),
+    )
+
+    decision = policy.select_action(context, legal_actions)
+
+    assert decision.rationale.score_breakdown.components["reduced_observability"] == 1.0
+    assert decision.rationale.inference_record is not None
+    assert decision.rationale.inference_record.input_features["reduced_observability"] is True

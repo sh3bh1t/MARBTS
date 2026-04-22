@@ -23,9 +23,16 @@ Introduce adaptive agent policies (LLM reasoning and/or RL) through the same pol
    - Added Phase 3 smoke execution script (`scripts/run_phase3_smoke.py`)
    - Removed replaced scaffold stub (`src/agents/adaptive/STUB.md`)
 
-- Increment 2 (next):
-   - Add adaptive-vs-rule experiment matrix runner with multi-seed aggregate comparison outputs
-   - Add ablation toggles (`no_planning`, `reduced_observability`) and labeled report metadata
+- Increment 2 (completed):
+   - Added adaptive-vs-rule experiment matrix runner at `src/experiments/phase3_comparison.py`
+   - Added matrix CLI script at `scripts/run_phase3_experiment_matrix.py`
+   - Added adaptive ablation toggles (`no_planning`, `reduced_observability`) with labeled report metadata
+   - Added integration coverage for matrix execution and artifact generation (`tests/integration/test_phase3_experiment_matrix.py`)
+   - Extended adaptive unit coverage for reduced-observability metadata signaling (`tests/unit/test_agents_adaptive.py`)
+
+- Increment 3 (next):
+   - Add expanded ablation set for adaptive-blue controls and mixed-observability conditions
+   - Add summary ranking views and optional scenario-batch matrix execution
 
 ## Inputs
 - Stable rule-based baseline from Phase 2
@@ -109,3 +116,5 @@ Introduce adaptive agent policies (LLM reasoning and/or RL) through the same pol
 - 2026-03-28: Added explicit phase status tracking section.
 - 2026-04-23: Started Phase 3 with Increment 1 adaptive planning scaffold, safety legality filtering, and shared adaptive rationale contracts.
 - 2026-04-23: Added Phase 3 smoke runner and adaptive policy unit tests; validated deterministic adaptive traces under fixed seed.
+- 2026-04-23: Completed Increment 2 matrix framework with adaptive-vs-rule condition set and baseline-relative aggregate comparisons.
+- 2026-04-23: Added ablation-aware adaptive controls (`no_planning`, `reduced_observability`) and validated matrix execution through integration tests and CLI smoke runs.

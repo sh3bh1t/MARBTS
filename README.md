@@ -147,11 +147,19 @@ For Phase 3 adaptive planning smoke execution (adaptive red vs rule-based blue):
 - PowerShell: `$env:PYTHONPATH='src'; python scripts/run_phase3_smoke.py`
 - Bash/Zsh: `PYTHONPATH=src python scripts/run_phase3_smoke.py`
 
+For Phase 3 adaptive-vs-rule experiment matrix report generation:
+- PowerShell: `$env:PYTHONPATH='src'; python scripts/run_phase3_experiment_matrix.py`
+- Bash/Zsh: `PYTHONPATH=src python scripts/run_phase3_experiment_matrix.py`
+
 Examples:
 - PowerShell (custom seeds and horizon):
    - `$env:PYTHONPATH='src'; python scripts/run_phase2_multi_seed_report.py --seeds 20260329,20260332,20260333 --horizon 10`
 - Bash/Zsh (custom scenario and output roots):
    - `PYTHONPATH=src python scripts/run_phase2_multi_seed_report.py --scenario scenarios/baselines/phase2_rule_baseline.json --runs-root artifacts/runs --metrics-root artifacts/metrics --reports-root artifacts/reports`
+- PowerShell (Phase 3 matrix with ablations):
+   - `$env:PYTHONPATH='src'; python scripts/run_phase3_experiment_matrix.py --seeds 20260423,20260424 --horizon 2`
+- Bash/Zsh (Phase 3 matrix without ablations):
+   - `PYTHONPATH=src python scripts/run_phase3_experiment_matrix.py --skip-ablations`
 
 ## Run Phase 1 Baseline
 
@@ -181,6 +189,7 @@ From repository root:
    - Policy interface/registry, deterministic red/blue rule-based policies, explainable rationale payloads, policy metrics snapshots, baseline metrics artifacts, and multi-seed aggregate reporting are integrated and validated.
 - **Phase 3 (Adaptive Autonomy): In progress**
    - Increment 1 complete: adaptive planning policy scaffold, safety-filtered legal action selection, planning/value trace payloads, and phase3 smoke execution.
+   - Increment 2 complete: adaptive-vs-rule matrix runner, ablation toggles (`no_planning`, `reduced_observability`), condition-level aggregates, and baseline-relative deltas.
 - **Phase 4–5: Planned / Not started yet**
    - See `.agent/plans/` for phase-specific implementation definitions.
 

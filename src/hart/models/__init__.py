@@ -1,8 +1,11 @@
 from .environment_models import LegalAction, NodeRuntimeState, SimulationState, TransitionResult
 from .policy_models import (
     ActionCandidate,
+    AblationConfig,
     AdaptivePolicyConfig,
+    ComparisonMetricBundle,
     DecisionRationale,
+    ExperimentCondition,
     ModelInferenceRecord,
     PlanningTrace,
     PolicyContext,
@@ -19,8 +22,11 @@ __all__ = [
     "SimulationState",
     "TransitionResult",
     "ActionCandidate",
+    "AblationConfig",
     "AdaptivePolicyConfig",
+    "ComparisonMetricBundle",
     "DecisionRationale",
+    "ExperimentCondition",
     "ModelInferenceRecord",
     "PlanningTrace",
     "PolicyContext",

@@ -104,13 +104,19 @@ class AdaptivePlanningPolicy:
             return compromised_nodes * 0.45
         return compromised_nodes * 1.15
 
+    def _observed_compromised_nodes(self, compromised_nodes: float) -> float:
+        if not self.config.reduced_observability:
+            return compromised_nodes
+        return min(compromised_nodes, 1.0)
+
     def _project_plan(self, action: LegalAction, context: PolicyContext) -> PlanningTrace:
         projected_compromised = float(context.compromised_nodes)
         value_estimates: list[ValueEstimate] = []
         cumulative_utility = 0.0
 
         for step in range(self.config.planning_horizon):
-            pressure = self._threat_or_gain_pressure(projected_compromised)
+            observed_compromised = self._observed_compromised_nodes(projected_compromised)
+            pressure = self._threat_or_gain_pressure(observed_compromised)
             immediate = self._base_utility(action) + pressure
             discounted = immediate * (self.config.discount_factor ** step)
 
@@ -195,6 +201,7 @@ class AdaptivePlanningPolicy:
                 "exploration_bonus": exploration_bonus,
                 "horizon": float(self.config.planning_horizon),
                 "safety_passed": 1.0,
+                "reduced_observability": 1.0 if self.config.reduced_observability else 0.0,
             }
             inference_record = ModelInferenceRecord(
                 model_family="heuristic_planner",
@@ -204,6 +211,7 @@ class AdaptivePlanningPolicy:
                     "actor": self.actor.value,
                     "timestep": context.timestep,
                     "compromised_nodes": context.compromised_nodes,
+                    "reduced_observability": self.config.reduced_observability,
                     "action_type": action.action_type.value,
                 },
                 output_action=action.action_type.value,
