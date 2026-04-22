@@ -12,8 +12,9 @@ Implement production-quality observability: complete structured logging, run pro
 
 ### Increment Progress
 
-- Increment 1 (in progress): shared observability contracts, schema validation, provenance capture, and structured run artifact envelopes.
-- Increment 2 (next): replay utilities and comparative report packaging.
+- Increment 1 (completed): shared observability contracts, schema validation, provenance capture, and structured run artifact envelopes.
+- Increment 2 (completed): replay utilities and comparative report packaging.
+- Increment 3 (next): plots/tables for compromise trend, defense efficiency, and response latency.
 
 ## Inputs
 - Event contracts and required log fields from master plan + guides
@@ -96,3 +97,4 @@ Implement production-quality observability: complete structured logging, run pro
 - 2026-03-28: Updated phase path assumptions to flattened `src/*` source layout.
 - 2026-03-28: Added explicit phase status tracking section.
 - 2026-04-23: Began phase 4 with shared observability contracts under `src/observability`, schema validation, provenance capture, and structured run artifact envelopes.
+- 2026-04-23: Completed phase 4 increment 2 with replay utilities, comparative report packaging, and CLI support for pairwise run comparisons.

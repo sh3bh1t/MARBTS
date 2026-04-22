@@ -29,6 +29,7 @@ class ActionRecord:
 class TimestepLogEntry:
     timestep: int
     pre_state_ref: str
+    post_state_ref: str
     red_action_intent: ActionRecord
     blue_action_intent: ActionRecord
     action_outcomes: tuple[ActionRecord, ActionRecord]

@@ -22,6 +22,8 @@ Generated outputs only (never source-of-truth configs):
 	- `reports/policy_experiment_matrix_<scenario_id>.json`
 - Batch matrix report is generated under:
 	- `reports/policy_experiment_matrix_batch_<scenario_ids>.json`
+- Pairwise comparative replay report is generated under:
+	- `reports/comparative_report_<run_id_a>_vs_<run_id_b>.json`
 - `figures/` remains scaffolded and currently contains a stub.
 
 ## Usage Notes
@@ -55,6 +57,8 @@ Generated outputs only (never source-of-truth configs):
 - Generate batch matrix reports across scenarios:
 	- `python scripts/run_policy_experiment_matrix.py --scenario-batch scenarios/baselines/rule_baseline.json,scenarios/library/containment_stress.json`
 - Matrix reports include summary rankings for lowest compromise, highest blue containment, and most deterministic conditions.
+- Generate pairwise comparative replay reports:
+	- `python scripts/run_comparative_report.py --left-run-dir artifacts/runs/<run_id_a> --right-run-dir artifacts/runs/<run_id_b>`
 - Generated outputs in `runs/`, `metrics/`, `figures/`, and `reports/` are intended to remain local and are gitignored by default (except tracked `README.md` placeholders).
 - Do not commit large generated artifacts unless explicitly needed for reproducibility evidence.
 - If artifact layout changes, update this README in the same change.

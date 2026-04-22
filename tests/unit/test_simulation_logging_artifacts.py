@@ -102,6 +102,7 @@ def test_run_artifacts_writer_outputs_metadata_and_jsonl() -> None:
         assert first_line["event_type"] == "timestep"
         assert first_line["provenance"]["run_id"] == metadata["run_id"]
         assert "pre_state_ref" in first_line
+        assert "post_state_ref" in first_line
         assert "red_action_intent" in first_line
         assert "blue_action_intent" in first_line
         assert "post_state_diff" in first_line

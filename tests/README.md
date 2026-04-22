@@ -36,11 +36,13 @@ If you have not set up the environment yet:
 	- `python -m pytest tests/integration/test_policy_experiment_matrix_batch.py -q`
 - Observability serialization and validation coverage:
 	- `python -m pytest tests/unit/test_simulation_logging_artifacts.py tests/unit/test_observability_validation.py -q`
+- Observability replay and comparative report coverage:
+	- `python -m pytest tests/unit/test_observability_replay.py tests/unit/test_visualization_comparative_report.py -q`
 
 ## Current Status
 
 - Test framework: `pytest`
-- Implemented coverage (Phase 1 + Phase 2 completed, Phase 3 completed, Phase 4 increment 1 in progress):
+- Implemented coverage (Phase 1 + Phase 2 completed, Phase 3 completed, Phase 4 increments 1-2 completed):
 	- schema validation
 	- graph initialization
 	- transition primitives
@@ -53,6 +55,7 @@ If you have not set up the environment yet:
 	- adaptive planning policy determinism, safety-filter rejection, and rationale trace payload emission
 	- phase 3 experiment matrix generation with adaptive-vs-rule conditions, ablation-labeled outputs, and batch scenario ranking views
 	- observability schema validation and provenance capture
+	- replay bundle loading and comparative report packaging
 
 ## Contributor Notes
 

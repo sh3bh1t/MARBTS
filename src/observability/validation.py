@@ -26,6 +26,7 @@ _EVENT_REQUIRED_FIELDS = {
     TIMESTEP_EVENT_TYPE: {
         "timestep",
         "pre_state_ref",
+        "post_state_ref",
         "red_action_intent",
         "blue_action_intent",
         "action_outcomes",

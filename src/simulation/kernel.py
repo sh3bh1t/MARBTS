@@ -212,6 +212,7 @@ def run_turn_based_simulation(
         log_entry = TimestepLogEntry(
             timestep=timestep,
             pre_state_ref=pre_ref,
+            post_state_ref=snapshot_ref(after_blue_graph),
             red_action_intent=red_record,
             blue_action_intent=blue_record,
             action_outcomes=(red_record, blue_record),

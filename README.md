@@ -155,6 +155,10 @@ For batch matrix execution across multiple scenarios:
 - PowerShell: `$env:PYTHONPATH='src'; python scripts/run_policy_experiment_matrix.py --scenario-batch scenarios/baselines/rule_baseline.json,scenarios/library/containment_stress.json`
 - Bash/Zsh: `PYTHONPATH=src python scripts/run_policy_experiment_matrix.py --scenario-batch scenarios/baselines/rule_baseline.json,scenarios/library/containment_stress.json`
 
+For comparative report packaging from two run directories:
+- PowerShell: `$env:PYTHONPATH='src'; python scripts/run_comparative_report.py --left-run-dir artifacts/runs/<run_id_a> --right-run-dir artifacts/runs/<run_id_b>`
+- Bash/Zsh: `PYTHONPATH=src python scripts/run_comparative_report.py --left-run-dir artifacts/runs/<run_id_a> --right-run-dir artifacts/runs/<run_id_b>`
+
 Examples:
 - PowerShell (custom seeds and horizon):
    - `$env:PYTHONPATH='src'; python scripts/run_multi_seed_report.py --seeds 20260329,20260332,20260333 --horizon 10`
@@ -199,7 +203,8 @@ From repository root:
    - Increment 3 complete: expanded adaptive-blue and mixed-observability conditions, summary ranking views, and optional scenario-batch matrix execution.
 - **Observability & Visualization: In progress**
    - Increment 1 complete: shared observability contracts, schema validation, provenance capture, and structured run artifact envelopes.
-   - Increment 2 next: replay utilities and comparative report packaging.
+   - Increment 2 complete: replay utilities and comparative report packaging.
+   - Increment 3 next: plots/tables for compromise trend, defense efficiency, and response latency.
 
 
 
