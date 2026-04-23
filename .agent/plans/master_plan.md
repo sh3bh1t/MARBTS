@@ -307,7 +307,7 @@ Secondary:
 - Phase 3: Completed (adaptive planning + experiment matrix + ablations + batch rankings)
 - Phase 4: Completed (schema-validated observability pipeline + replay + comparative visualization/reporting)
 - Phase 5: Completed (Increments 1-4 complete: scenario taxonomy/registry + decoy/bluff hooks + stress-test suite + ablation report package)
-- Phase 6: In progress (planning + execution runway opened for plug-and-play delivery, Docker assets, notebook assets, and release hardening)
+- Phase 6: In progress (Increment 1 complete: installable packaging + presetized runtime configs; increments 2-4 pending for Docker assets, notebooks, and release hardening)
 
 ## 11) Governance and Plan Maintenance
 
@@ -334,3 +334,4 @@ After each major feature or phase: "Validation complete for this step."
 - 2026-04-23: Added Phase 5 Increment 3 deliverables: stress-test suite profiles for scale/noise/observability and ranked robustness outputs.
 - 2026-04-23: Completed Phase 5 Increment 4 by adding ablation report templates, research artifact manifests, and an optional containerized execution profile.
 - 2026-04-24: Added Phase 6 roadmap for project-level completion work (plug-and-play bootstrap, concrete Docker assets, notebook deliverables, config presets, and release gates).
+- 2026-04-24: Completed Phase 6 Increment 1 with packaged install surface (`pyproject.toml` + `marbts` CLI entry points), runtime preset contracts/loaders, and concrete `configs/{base,experiments,seeds}` bundles consumed by command scripts.

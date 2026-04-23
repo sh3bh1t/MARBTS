@@ -1,0 +1,14 @@
+{
+  "description": "Preset for scripts/run_policy_experiment_matrix.py and marbts-policy-experiment-matrix.",
+  "include_ablations": true,
+  "preset_id": "policy_experiment_matrix_baseline",
+  "runtime": {
+    "horizon": 2,
+    "metrics_root": "artifacts/metrics",
+    "reports_root": "artifacts/reports",
+    "runs_root": "artifacts/runs",
+    "scenario_path": "scenarios/baselines/rule_baseline.json"
+  },
+  "schema_version": "2026-04-24.runtime_preset.v1",
+  "seed_bundle": "../seeds/adaptive_matrix_default.json"
+}

@@ -1,0 +1,10 @@
+{
+  "bundle_id": "rule_baseline_multi_seed",
+  "description": "Seed bundle for deterministic Phase 2-style multi-seed baseline reporting.",
+  "schema_version": "2026-04-24.seed_bundle.v1",
+  "seeds": [
+    20260329,
+    20260330,
+    20260331
+  ]
+}

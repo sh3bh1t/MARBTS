@@ -1,0 +1,9 @@
+{
+  "bundle_id": "adaptive_matrix_default",
+  "description": "Seed bundle for adaptive matrix, stress-suite, and ablation workflows.",
+  "schema_version": "2026-04-24.seed_bundle.v1",
+  "seeds": [
+    20260423,
+    20260424
+  ]
+}

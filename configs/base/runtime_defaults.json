@@ -1,0 +1,12 @@
+{
+  "description": "Shared runtime defaults for MARBTS experiment workflows.",
+  "preset_id": "runtime_defaults",
+  "runtime": {
+    "horizon": 2,
+    "metrics_root": "artifacts/metrics",
+    "reports_root": "artifacts/reports",
+    "runs_root": "artifacts/runs",
+    "scenario_path": "scenarios/baselines/rule_baseline.json"
+  },
+  "schema_version": "2026-04-24.runtime_preset.v1"
+}

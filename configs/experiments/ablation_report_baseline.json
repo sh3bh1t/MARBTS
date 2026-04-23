@@ -1,0 +1,17 @@
+{
+  "container_image": "python:3.12-slim",
+  "container_working_directory": "/workspace/MARBTS",
+  "containerized": false,
+  "description": "Preset for scripts/run_ablation_report.py and marbts-ablation-report.",
+  "include_ablations": true,
+  "preset_id": "ablation_report_baseline",
+  "runtime": {
+    "horizon": 2,
+    "metrics_root": "artifacts/metrics",
+    "reports_root": "artifacts/reports",
+    "runs_root": "artifacts/runs",
+    "scenario_path": "scenarios/baselines/rule_baseline.json"
+  },
+  "schema_version": "2026-04-24.runtime_preset.v1",
+  "seed_bundle": "../seeds/adaptive_matrix_default.json"
+}

@@ -1,0 +1,12 @@
+{
+  "description": "Preset for scripts/run_stress_test_suite.py and marbts-stress-test-suite.",
+  "preset_id": "stress_test_suite_baseline",
+  "runtime": {
+    "horizon": 3,
+    "metrics_root": "artifacts/metrics",
+    "reports_root": "artifacts/reports",
+    "runs_root": "artifacts/runs"
+  },
+  "schema_version": "2026-04-24.runtime_preset.v1",
+  "seed_bundle": "../seeds/adaptive_matrix_default.json"
+}

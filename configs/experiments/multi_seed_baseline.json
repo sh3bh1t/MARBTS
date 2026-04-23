@@ -1,0 +1,13 @@
+{
+  "description": "Preset for scripts/run_multi_seed_report.py and marbts-multi-seed-report.",
+  "preset_id": "multi_seed_baseline",
+  "runtime": {
+    "horizon": 8,
+    "metrics_root": "artifacts/metrics",
+    "reports_root": "artifacts/reports",
+    "runs_root": "artifacts/runs",
+    "scenario_path": "scenarios/baselines/rule_baseline.json"
+  },
+  "schema_version": "2026-04-24.runtime_preset.v1",
+  "seed_bundle": "../seeds/rule_baseline_multi_seed.json"
+}

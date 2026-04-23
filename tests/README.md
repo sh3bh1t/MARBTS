@@ -36,6 +36,8 @@ If you have not set up the environment yet:
 	- `python -m pytest tests/integration/test_policy_experiment_matrix_batch.py -q`
 - Phase 5 stress suite integration coverage:
 	- `python -m pytest tests/integration/test_stress_test_suite.py -q`
+- Preset loading and packaged command-layer coverage:
+	- `python -m pytest tests/unit/test_runtime_presets.py tests/unit/test_marbts_cli_experiment_commands.py -q`
 - Observability serialization and validation coverage:
 	- `python -m pytest tests/unit/test_simulation_logging_artifacts.py tests/unit/test_observability_validation.py -q`
 - Observability replay and comparative report coverage:
@@ -76,4 +78,9 @@ If you have not set up the environment yet:
 - Add tests near the related scope folder (`unit/`, `integration/`, `simulation/`, etc.).
 - Prefer deterministic tests with fixed seeds for simulation behavior.
 - If test workflow changes, update this README in the same change.
+- Phase 6 presetized script defaults:
+	- `python scripts/run_multi_seed_report.py --config configs/experiments/multi_seed_baseline.json`
+	- `python scripts/run_policy_experiment_matrix.py --config configs/experiments/policy_experiment_matrix_baseline.json`
+	- `python scripts/run_stress_test_suite.py --config configs/experiments/stress_test_suite_baseline.json`
+	- `python scripts/run_ablation_report.py --config configs/experiments/ablation_report_baseline.json`
 

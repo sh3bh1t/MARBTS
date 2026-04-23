@@ -41,6 +41,7 @@ Implementation roadmap and phase plans are defined in:
 - `.agent/plans/phase_3_autonomy_llm_rl.md`
 - `.agent/plans/phase_4_logging_visualization.md`
 - `.agent/plans/phase_5_advanced_research.md`
+- `.agent/plans/phase_6_productization_delivery.md`
 
 ## Repository Structure
 
@@ -140,16 +141,16 @@ For rule baseline smoke execution:
 - Bash/Zsh: `PYTHONPATH=src python scripts/run_rule_baseline_smoke.py`
 
 For multi-seed aggregate report generation:
-- PowerShell: `$env:PYTHONPATH='src'; python scripts/run_multi_seed_report.py`
-- Bash/Zsh: `PYTHONPATH=src python scripts/run_multi_seed_report.py`
+- PowerShell: `$env:PYTHONPATH='src'; python scripts/run_multi_seed_report.py --config configs/experiments/multi_seed_baseline.json`
+- Bash/Zsh: `PYTHONPATH=src python scripts/run_multi_seed_report.py --config configs/experiments/multi_seed_baseline.json`
 
 For adaptive planning smoke execution (adaptive red vs rule-based blue):
 - PowerShell: `$env:PYTHONPATH='src'; python scripts/run_adaptive_planning_smoke.py`
 - Bash/Zsh: `PYTHONPATH=src python scripts/run_adaptive_planning_smoke.py`
 
 For adaptive-vs-rule experiment matrix report generation:
-- PowerShell: `$env:PYTHONPATH='src'; python scripts/run_policy_experiment_matrix.py`
-- Bash/Zsh: `PYTHONPATH=src python scripts/run_policy_experiment_matrix.py`
+- PowerShell: `$env:PYTHONPATH='src'; python scripts/run_policy_experiment_matrix.py --config configs/experiments/policy_experiment_matrix_baseline.json`
+- Bash/Zsh: `PYTHONPATH=src python scripts/run_policy_experiment_matrix.py --config configs/experiments/policy_experiment_matrix_baseline.json`
 
 For batch matrix execution across multiple scenarios:
 - PowerShell: `$env:PYTHONPATH='src'; python scripts/run_policy_experiment_matrix.py --scenario-batch scenarios/baselines/rule_baseline.json,scenarios/library/containment_stress.json`
@@ -169,13 +170,27 @@ For decoy/bluff adaptive hook smoke execution (Phase 5 increment 2):
 - Bash/Zsh: `PYTHONPATH=src python scripts/run_deception_hooks_smoke.py`
 
 For stress-test suite execution (Phase 5 increment 3):
-- PowerShell: `$env:PYTHONPATH='src'; python scripts/run_stress_test_suite.py`
-- Bash/Zsh: `PYTHONPATH=src python scripts/run_stress_test_suite.py`
+- PowerShell: `$env:PYTHONPATH='src'; python scripts/run_stress_test_suite.py --config configs/experiments/stress_test_suite_baseline.json`
+- Bash/Zsh: `PYTHONPATH=src python scripts/run_stress_test_suite.py --config configs/experiments/stress_test_suite_baseline.json`
 
 For ablation report package generation (Phase 5 increment 4):
-- PowerShell: `$env:PYTHONPATH='src'; python scripts/run_ablation_report.py`
-- Bash/Zsh: `PYTHONPATH=src python scripts/run_ablation_report.py`
+- PowerShell: `$env:PYTHONPATH='src'; python scripts/run_ablation_report.py --config configs/experiments/ablation_report_baseline.json`
+- Bash/Zsh: `PYTHONPATH=src python scripts/run_ablation_report.py --config configs/experiments/ablation_report_baseline.json`
 - Optional containerized profile: add `--containerized` to emit a container execution profile artifact.
+
+For packaged CLI execution (Phase 6 increment 1):
+- Install editable package:
+   - `python -m pip install -e .`
+- Show command surface:
+   - `marbts --help`
+- Run multi-seed report with presets:
+   - `marbts-multi-seed-report --config configs/experiments/multi_seed_baseline.json`
+- Run policy matrix with presets:
+   - `marbts-policy-experiment-matrix --config configs/experiments/policy_experiment_matrix_baseline.json`
+- Run stress suite with presets:
+   - `marbts-stress-test-suite --config configs/experiments/stress_test_suite_baseline.json`
+- Run ablation package with presets:
+   - `marbts-ablation-report --config configs/experiments/ablation_report_baseline.json`
 
 Examples:
 - PowerShell (custom seeds and horizon):
@@ -228,6 +243,9 @@ From repository root:
    - Increment 2 complete: decoy/bluff tactic primitives with adaptive-policy hooks, rationale payload events, and deception-enabled matrix condition variants.
    - Increment 3 complete: stress-test suite for scale/noise/observability robustness profiling with profile rankings and observability-penalty summaries.
    - Increment 4 complete: ablation orchestration/report templates, research artifact manifests, and optional containerized execution profiles.
+- **Productization and Delivery: In Progress**
+   - Increment 1 complete: packaged install path (`pyproject.toml`), `marbts` CLI entry point, preset loaders, and real config/seed bundles under `configs/`.
+   - Increments 2-4 pending: Docker runtime assets, notebook analysis pack, and release validation automation.
 
 
 
@@ -246,6 +264,7 @@ Immediate baseline setup commands:
    - PowerShell: `.venv\Scripts\Activate.ps1`
    - Bash/Zsh: `source .venv/bin/activate`
 - `python -m pip install -r requirements.txt`
+- `python -m pip install -e .`
 - `python -m pytest -q`
 
 

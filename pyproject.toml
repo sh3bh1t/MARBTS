@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "marbts"
+version = "0.6.0"
+description = "Sandboxed Red vs Blue autonomous cyber defense simulation platform."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "networkx>=3.2,<4.0",
+  "matplotlib>=3.8,<4.0",
+  "packaging>=24.0,<26.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0,<9.0"]
+
+[project.scripts]
+marbts = "marbts_cli.main:main"
+marbts-multi-seed-report = "marbts_cli.experiment_commands:run_multi_seed_report_main"
+marbts-policy-experiment-matrix = "marbts_cli.experiment_commands:run_policy_experiment_matrix_main"
+marbts-stress-test-suite = "marbts_cli.experiment_commands:run_stress_test_suite_main"
+marbts-ablation-report = "marbts_cli.experiment_commands:run_ablation_report_main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
