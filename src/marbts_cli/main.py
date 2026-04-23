@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 from typing import Sequence
 
+from .container_commands import run_container_profile_main
 from .experiment_commands import (
     run_ablation_report_main,
     run_multi_seed_report_main,
@@ -16,6 +17,7 @@ COMMANDS = {
     "policy-experiment-matrix": run_policy_experiment_matrix_main,
     "stress-test-suite": run_stress_test_suite_main,
     "ablation-report": run_ablation_report_main,
+    "container-profile": run_container_profile_main,
 }
 
 

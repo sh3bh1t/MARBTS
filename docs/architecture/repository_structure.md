@@ -17,7 +17,7 @@ This document defines the canonical directory layout for MARBTS. It is designed 
 - `docs/` — Architecture, operations, and research documentation.
 - `notebooks/` — Exploratory analysis notebooks (non-authoritative).
 - `artifacts/` — Generated run outputs, metrics, figures, and reports.
-- `docker/` — Optional containerized execution assets.
+- `docker/` — Containerized execution assets (Dockerfile + compose profiles).
 
 ## Source Package Layout (`src/`)
 

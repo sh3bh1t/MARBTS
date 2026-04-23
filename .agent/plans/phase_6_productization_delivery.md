@@ -13,7 +13,7 @@ Convert the completed research platform into a clean-room reproducible, plug-and
 ### Increment Progress
 
 - Increment 1 (completed): runtime packaging and configuration presets.
-- Increment 2 (next): concrete Docker runtime assets and container validation.
+- Increment 2 (completed): concrete Docker runtime assets and container validation.
 - Increment 3 (next): notebook deliverables and reproducible analysis workflow.
 - Increment 4 (next): release-quality validation automation and readiness checklist.
 
@@ -50,7 +50,7 @@ Convert the completed research platform into a clean-room reproducible, plug-and
 - `RuntimeConfig` (implemented in `src/hart/models/runtime_models.py`)
 - `ExperimentPreset` (implemented in `src/hart/models/runtime_models.py`)
 - `SeedBundle` (implemented in `src/hart/models/runtime_models.py`)
-- `ContainerExecutionSpec` (planned)
+- `ContainerExecutionSpec` (implemented in `src/hart/models/runtime_models.py`)
 - `NotebookRunSummary` (planned)
 - `ReleaseReadinessReport` (planned)
 
@@ -94,3 +94,4 @@ Convert the completed research platform into a clean-room reproducible, plug-and
 ## Plan Revision Log
 - 2026-04-24: Initial phase plan created after full `.agent` and `idea-core` audit identified remaining productization gaps despite Phase 5 research completion.
 - 2026-04-24: Completed Increment 1 by adding installable packaging (`pyproject.toml`), packaged CLI entry points (`src/marbts_cli`), canonical preset loader/contracts (`src/utils/runtime_presets.py`, `src/hart/models/runtime_models.py`), and real preset/seed bundles under `configs/` with script integration via `--config`.
+- 2026-04-24: Completed Increment 2 by replacing `docker/` stub with runnable Dockerfile/compose profiles, adding canonical `ContainerExecutionSpec` contracts/utilities, and validating container profile command wiring via unit coverage.

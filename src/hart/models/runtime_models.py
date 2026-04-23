@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from typing import Mapping
 
 
 @dataclass(frozen=True)
@@ -57,3 +58,50 @@ class ExperimentPreset:
             raise ValueError("container_image must be a non-empty string")
         if not self.container_working_directory:
             raise ValueError("container_working_directory must be a non-empty string")
+
+
+@dataclass(frozen=True)
+class ContainerExecutionSpec:
+    spec_id: str
+    service_name: str
+    compose_profile: str
+    description: str
+    marbts_subcommand: str
+    preset_config_path: str
+    additional_args: tuple[str, ...] = field(default_factory=tuple)
+    image: str = "marbts:phase6-local"
+    working_directory: str = "/workspace/MARBTS"
+    environment: Mapping[str, str] = field(default_factory=lambda: {"PYTHONPATH": "src"})
+
+    def __post_init__(self) -> None:
+        if not self.spec_id:
+            raise ValueError("spec_id must be a non-empty string")
+        if not self.service_name:
+            raise ValueError("service_name must be a non-empty string")
+        if not self.compose_profile:
+            raise ValueError("compose_profile must be a non-empty string")
+        if not self.description:
+            raise ValueError("description must be a non-empty string")
+        if not self.marbts_subcommand:
+            raise ValueError("marbts_subcommand must be a non-empty string")
+        if not self.preset_config_path:
+            raise ValueError("preset_config_path must be a non-empty string")
+        if any(not arg.strip() for arg in self.additional_args):
+            raise ValueError("additional_args cannot contain empty entries")
+        if not self.image:
+            raise ValueError("image must be a non-empty string")
+        if not self.working_directory:
+            raise ValueError("working_directory must be a non-empty string")
+        if any(not key.strip() for key in self.environment):
+            raise ValueError("environment keys must be non-empty strings")
+        if any(not str(value).strip() for value in self.environment.values()):
+            raise ValueError("environment values must be non-empty strings")
+
+    @property
+    def marbts_command(self) -> tuple[str, ...]:
+        return (
+            self.marbts_subcommand,
+            "--config",
+            self.preset_config_path,
+            *self.additional_args,
+        )

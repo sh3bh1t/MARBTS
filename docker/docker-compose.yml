@@ -1,0 +1,38 @@
+name: marbts
+
+x-marbts-common: &marbts-common
+  build:
+    context: ..
+    dockerfile: docker/Dockerfile
+  image: marbts:phase6-local
+  working_dir: /workspace/MARBTS
+  environment:
+    PYTHONPATH: src
+  volumes:
+    - ../:/workspace/MARBTS
+
+services:
+  marbts-shell:
+    <<: *marbts-common
+    profiles: ["shell"]
+    command: ["--help"]
+
+  multi-seed-report:
+    <<: *marbts-common
+    profiles: ["multi-seed"]
+    command: ["multi-seed-report", "--config", "configs/experiments/multi_seed_baseline.json"]
+
+  policy-experiment-matrix:
+    <<: *marbts-common
+    profiles: ["policy-matrix"]
+    command: ["policy-experiment-matrix", "--config", "configs/experiments/policy_experiment_matrix_baseline.json"]
+
+  stress-test-suite:
+    <<: *marbts-common
+    profiles: ["stress-suite"]
+    command: ["stress-test-suite", "--config", "configs/experiments/stress_test_suite_baseline.json"]
+
+  ablation-report:
+    <<: *marbts-common
+    profiles: ["ablation-report"]
+    command: ["ablation-report", "--config", "configs/experiments/ablation_report_baseline.json", "--containerized"]

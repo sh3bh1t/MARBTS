@@ -1,0 +1,11 @@
+.agent/
+.git/
+.pytest_cache/
+.venv/
+artifacts/
+docs/
+idea-core/
+notebooks/
+tests/
+**/__pycache__/
+**/*.pyc

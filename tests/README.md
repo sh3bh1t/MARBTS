@@ -38,6 +38,8 @@ If you have not set up the environment yet:
 	- `python -m pytest tests/integration/test_stress_test_suite.py -q`
 - Preset loading and packaged command-layer coverage:
 	- `python -m pytest tests/unit/test_runtime_presets.py tests/unit/test_marbts_cli_experiment_commands.py -q`
+- Container runtime asset/spec coverage:
+	- `python -m pytest tests/unit/test_container_runtime_assets.py -q`
 - Observability serialization and validation coverage:
 	- `python -m pytest tests/unit/test_simulation_logging_artifacts.py tests/unit/test_observability_validation.py -q`
 - Observability replay and comparative report coverage:
@@ -72,6 +74,7 @@ If you have not set up the environment yet:
 	- adaptive decoy/bluff hook scoring and deception event rationale payload emission
 	- stress-suite profile orchestration for scale/noise/observability experiments
 	- ablation report package generation with research manifest and optional container profile output
+	- phase 6 docker runtime asset/spec validation and container-profile command dispatch dry-run execution
 
 ## Contributor Notes
 
@@ -83,4 +86,5 @@ If you have not set up the environment yet:
 	- `python scripts/run_policy_experiment_matrix.py --config configs/experiments/policy_experiment_matrix_baseline.json`
 	- `python scripts/run_stress_test_suite.py --config configs/experiments/stress_test_suite_baseline.json`
 	- `python scripts/run_ablation_report.py --config configs/experiments/ablation_report_baseline.json`
+	- `python scripts/run_container_profile.py --spec multi_seed_baseline --dry-run`
 

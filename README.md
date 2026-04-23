@@ -191,6 +191,23 @@ For packaged CLI execution (Phase 6 increment 1):
    - `marbts-stress-test-suite --config configs/experiments/stress_test_suite_baseline.json`
 - Run ablation package with presets:
    - `marbts-ablation-report --config configs/experiments/ablation_report_baseline.json`
+- Run container profile dispatcher:
+   - `marbts-container-profile --spec multi_seed_baseline --dry-run`
+   - `marbts container-profile --spec policy_matrix_baseline`
+
+For Docker runtime execution (Phase 6 increment 2):
+- Build the project image:
+   - `docker compose -f docker/docker-compose.yml build`
+- Run multi-seed baseline:
+   - `docker compose -f docker/docker-compose.yml --profile multi-seed run --rm multi-seed-report`
+- Run policy matrix baseline:
+   - `docker compose -f docker/docker-compose.yml --profile policy-matrix run --rm policy-experiment-matrix`
+- Run stress suite baseline:
+   - `docker compose -f docker/docker-compose.yml --profile stress-suite run --rm stress-test-suite`
+- Run ablation report baseline:
+   - `docker compose -f docker/docker-compose.yml --profile ablation-report run --rm ablation-report`
+- Host-side compose profile runner (same canonical specs):
+   - `python scripts/run_container_profile.py --spec multi_seed_baseline --dry-run`
 
 Examples:
 - PowerShell (custom seeds and horizon):
@@ -245,7 +262,8 @@ From repository root:
    - Increment 4 complete: ablation orchestration/report templates, research artifact manifests, and optional containerized execution profiles.
 - **Productization and Delivery: In Progress**
    - Increment 1 complete: packaged install path (`pyproject.toml`), `marbts` CLI entry point, preset loaders, and real config/seed bundles under `configs/`.
-   - Increments 2-4 pending: Docker runtime assets, notebook analysis pack, and release validation automation.
+   - Increment 2 complete: concrete Docker assets (`docker/Dockerfile`, `docker/docker-compose.yml`), canonical container execution specs, and container profile dispatcher (`marbts container-profile`).
+   - Increments 3-4 pending: notebook analysis pack and release validation automation.
 
 
 
