@@ -34,6 +34,8 @@ If you have not set up the environment yet:
 	- `python -m pytest tests/integration/test_policy_experiment_matrix.py -q`
 - Phase 3 matrix batch integration coverage:
 	- `python -m pytest tests/integration/test_policy_experiment_matrix_batch.py -q`
+- Phase 5 stress suite integration coverage:
+	- `python -m pytest tests/integration/test_stress_test_suite.py -q`
 - Observability serialization and validation coverage:
 	- `python -m pytest tests/unit/test_simulation_logging_artifacts.py tests/unit/test_observability_validation.py -q`
 - Observability replay and comparative report coverage:
@@ -58,12 +60,13 @@ If you have not set up the environment yet:
 	- phase 2 action-sequence reproducibility and regression signature checks
 	- phase 2 multi-seed aggregate report integration checks
 	- adaptive planning policy determinism, safety-filter rejection, and rationale trace payload emission
-	- phase 3 experiment matrix generation with adaptive-vs-rule conditions, ablation-labeled outputs, and batch scenario ranking views
+	- phase 3 experiment matrix generation with adaptive-vs-rule conditions, ablation-labeled outputs (including deception-enabled variants), and batch scenario ranking views
 	- observability schema validation and provenance capture
 	- replay bundle loading and comparative report packaging
 	- comparative trend plots, defense-efficiency summaries, and response-latency visualizations
 	- semantic-versioned scenario catalog generation and latest-version selection logic
 	- adaptive decoy/bluff hook scoring and deception event rationale payload emission
+	- stress-suite profile orchestration for scale/noise/observability experiments
 
 ## Contributor Notes
 

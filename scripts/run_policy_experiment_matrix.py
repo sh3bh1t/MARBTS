@@ -50,7 +50,7 @@ def _parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--skip-ablations",
         action="store_true",
-        help="Skip no-planning and reduced-observability ablation conditions.",
+        help="Skip adaptive variant conditions (no-planning, reduced-observability, and decoy/bluff hooks).",
     )
     return parser.parse_args()
 

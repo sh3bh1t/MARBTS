@@ -168,6 +168,10 @@ For decoy/bluff adaptive hook smoke execution (Phase 5 increment 2):
 - PowerShell: `$env:PYTHONPATH='src'; python scripts/run_deception_hooks_smoke.py`
 - Bash/Zsh: `PYTHONPATH=src python scripts/run_deception_hooks_smoke.py`
 
+For stress-test suite execution (Phase 5 increment 3):
+- PowerShell: `$env:PYTHONPATH='src'; python scripts/run_stress_test_suite.py`
+- Bash/Zsh: `PYTHONPATH=src python scripts/run_stress_test_suite.py`
+
 Examples:
 - PowerShell (custom seeds and horizon):
    - `$env:PYTHONPATH='src'; python scripts/run_multi_seed_report.py --seeds 20260329,20260332,20260333 --horizon 10`
@@ -216,8 +220,9 @@ From repository root:
    - Increment 3 complete: compromise-trend plots, defense-efficiency summaries, response-latency reports, and markdown/SVG comparative packaging.
 - **Advanced Research Extensions: In progress**
    - Increment 1 complete: scenario taxonomy heuristics and semantic-versioned scenario registry with latest-version selection.
-   - Increment 2 complete: decoy/bluff tactic primitives with adaptive-policy hooks and rationale payload events.
-   - Increment 3 next: stress-test suite for scale/noise/observability robustness profiling.
+   - Increment 2 complete: decoy/bluff tactic primitives with adaptive-policy hooks, rationale payload events, and deception-enabled matrix condition variants.
+   - Increment 3 complete: stress-test suite for scale/noise/observability robustness profiling with profile rankings and observability-penalty summaries.
+   - Increment 4 next: ablation orchestration/report templates plus optional containerized execution profile.
 
 
 

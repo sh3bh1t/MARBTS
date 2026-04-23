@@ -31,12 +31,21 @@ def _stddev(values: list[float]) -> float:
     return statistics.pstdev(values)
 
 
-def _build_adaptive_config(ablation: AblationConfig) -> AdaptivePolicyConfig:
+def _build_adaptive_config(
+    ablation: AblationConfig,
+    *,
+    enable_decoy: bool = False,
+    enable_bluff: bool = False,
+    deception_bias: float = 1.0,
+) -> AdaptivePolicyConfig:
     return AdaptivePolicyConfig(
         planning_horizon=1 if ablation.no_planning else 3,
         discount_factor=0.9,
         exploration_bias=0.0,
         reduced_observability=ablation.reduced_observability,
+        enable_decoy=enable_decoy,
+        enable_bluff=enable_bluff,
+        deception_bias=deception_bias,
     )
 
 
@@ -102,6 +111,12 @@ def _build_conditions(*, seeds: list[int], horizon: int, include_ablations: bool
     if include_ablations:
         no_planning = AblationConfig(no_planning=True)
         reduced_observability = AblationConfig(reduced_observability=True)
+        deception_enabled = _build_adaptive_config(
+            default_ablation,
+            enable_decoy=True,
+            enable_bluff=True,
+            deception_bias=1.0,
+        )
         conditions.extend(
             (
                 ExperimentCondition(
@@ -167,6 +182,50 @@ def _build_conditions(*, seeds: list[int], horizon: int, include_ablations: bool
                     blue_ablation=reduced_observability,
                     red_adaptive_config=shared_adaptive_config,
                     blue_adaptive_config=_build_adaptive_config(reduced_observability),
+                ),
+                ExperimentCondition(
+                    condition_id="adaptive_red_decoy_bluff_vs_rule_blue",
+                    label="Adaptive Red (Decoy/Bluff) vs Rule Blue",
+                    red_policy="adaptive",
+                    blue_policy="rule",
+                    seeds=tuple(seeds),
+                    horizon=horizon,
+                    red_ablation=default_ablation,
+                    red_adaptive_config=deception_enabled,
+                ),
+                ExperimentCondition(
+                    condition_id="rule_red_vs_adaptive_blue_decoy_bluff",
+                    label="Rule Red vs Adaptive Blue (Decoy/Bluff)",
+                    red_policy="rule",
+                    blue_policy="adaptive",
+                    seeds=tuple(seeds),
+                    horizon=horizon,
+                    blue_ablation=default_ablation,
+                    blue_adaptive_config=deception_enabled,
+                ),
+                ExperimentCondition(
+                    condition_id="adaptive_red_decoy_bluff_vs_adaptive_blue",
+                    label="Adaptive Red (Decoy/Bluff) vs Adaptive Blue",
+                    red_policy="adaptive",
+                    blue_policy="adaptive",
+                    seeds=tuple(seeds),
+                    horizon=horizon,
+                    red_ablation=default_ablation,
+                    blue_ablation=default_ablation,
+                    red_adaptive_config=deception_enabled,
+                    blue_adaptive_config=shared_adaptive_config,
+                ),
+                ExperimentCondition(
+                    condition_id="adaptive_red_vs_adaptive_blue_decoy_bluff",
+                    label="Adaptive Red vs Adaptive Blue (Decoy/Bluff)",
+                    red_policy="adaptive",
+                    blue_policy="adaptive",
+                    seeds=tuple(seeds),
+                    horizon=horizon,
+                    red_ablation=default_ablation,
+                    blue_ablation=default_ablation,
+                    red_adaptive_config=shared_adaptive_config,
+                    blue_adaptive_config=deception_enabled,
                 ),
             )
         )
@@ -334,6 +393,10 @@ def run_policy_experiment_matrix(
                 "blue_policy": condition.blue_policy,
                 "ablation": asdict(condition.ablation),
                 "adaptive_config": asdict(condition.adaptive_config) if condition.adaptive_config is not None else None,
+                "red_ablation": asdict(condition.red_ablation) if condition.red_ablation is not None else None,
+                "blue_ablation": asdict(condition.blue_ablation) if condition.blue_ablation is not None else None,
+                "red_adaptive_config": asdict(condition.red_adaptive_config) if condition.red_adaptive_config is not None else None,
+                "blue_adaptive_config": asdict(condition.blue_adaptive_config) if condition.blue_adaptive_config is not None else None,
                 "run_id": result.metadata.run_id,
                 "seed": seed,
                 "sequence_hash": baseline_metrics["sequence_hash"],

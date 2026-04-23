@@ -12,6 +12,7 @@ from .policy_models import (
     PolicyContext,
     PolicyMetricsSnapshot,
     PolicyScoreBreakdown,
+    StressTestConfig,
     ValueEstimate,
 )
 from .observability_models import (
@@ -48,6 +49,7 @@ __all__ = [
     "PolicyContext",
     "PolicyMetricsSnapshot",
     "PolicyScoreBreakdown",
+    "StressTestConfig",
     "ValueEstimate",
     "ActionDecisionRecord",
     "EventEnvelope",

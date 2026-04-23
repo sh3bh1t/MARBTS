@@ -1,0 +1,94 @@
+{
+  "metadata": {
+    "scenario_id": "scale-chain-6",
+    "version": "1.0.0"
+  },
+  "nodes": [
+    {
+      "node_id": "edge-1",
+      "node_type": "endpoint",
+      "services": ["rdp"],
+      "vulnerabilities": ["cve-sim-401"],
+      "security_level": 2,
+      "compromised_state": "user",
+      "detection_state": "suspected",
+      "isolation_state": false
+    },
+    {
+      "node_id": "edge-2",
+      "node_type": "endpoint",
+      "services": ["rdp"],
+      "vulnerabilities": ["cve-sim-402"],
+      "security_level": 3,
+      "compromised_state": "none",
+      "detection_state": "undetected",
+      "isolation_state": false
+    },
+    {
+      "node_id": "svc-1",
+      "node_type": "server",
+      "services": ["https"],
+      "vulnerabilities": ["cve-sim-403"],
+      "security_level": 4,
+      "compromised_state": "none",
+      "detection_state": "undetected",
+      "isolation_state": false
+    },
+    {
+      "node_id": "svc-2",
+      "node_type": "server",
+      "services": ["https", "ssh"],
+      "vulnerabilities": ["cve-sim-404"],
+      "security_level": 4,
+      "compromised_state": "none",
+      "detection_state": "undetected",
+      "isolation_state": false
+    },
+    {
+      "node_id": "db-1",
+      "node_type": "database",
+      "services": ["postgres"],
+      "vulnerabilities": ["cve-sim-405"],
+      "security_level": 5,
+      "compromised_state": "none",
+      "detection_state": "undetected",
+      "isolation_state": false
+    },
+    {
+      "node_id": "iot-1",
+      "node_type": "iot",
+      "services": ["mqtt"],
+      "vulnerabilities": ["cve-sim-406"],
+      "security_level": 2,
+      "compromised_state": "none",
+      "detection_state": "undetected",
+      "isolation_state": false
+    }
+  ],
+  "edges": [
+    {
+      "source": "edge-1",
+      "target": "edge-2"
+    },
+    {
+      "source": "edge-2",
+      "target": "svc-1"
+    },
+    {
+      "source": "svc-1",
+      "target": "svc-2"
+    },
+    {
+      "source": "svc-2",
+      "target": "db-1"
+    },
+    {
+      "source": "svc-1",
+      "target": "iot-1"
+    },
+    {
+      "source": "edge-2",
+      "target": "iot-1"
+    }
+  ]
+}

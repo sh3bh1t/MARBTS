@@ -50,6 +50,7 @@ def test_build_scenario_catalog_loads_current_library_and_taxonomy() -> None:
     assert "baseline-small" in scenario_ids
     assert "rule-baseline" in scenario_ids
     assert "containment-stress" in scenario_ids
+    assert "scale-chain-6" in scenario_ids
 
     assert all(not Path(entry.scenario_path).name.startswith("invalid_") for entry in entries)
 

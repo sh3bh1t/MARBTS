@@ -98,6 +98,30 @@ class ExperimentCondition:
 
 
 @dataclass(frozen=True)
+class StressTestConfig:
+    profile_id: str
+    label: str
+    scenario_paths: tuple[str, ...]
+    seeds: tuple[int, ...]
+    horizon: int
+    include_ablations: bool = True
+    observation_noise_proxy: bool = False
+    notes: str = ""
+
+    def __post_init__(self) -> None:
+        if not self.profile_id:
+            raise ValueError("profile_id must be a non-empty string")
+        if not self.label:
+            raise ValueError("label must be a non-empty string")
+        if not self.scenario_paths:
+            raise ValueError("scenario_paths cannot be empty")
+        if not self.seeds:
+            raise ValueError("seeds cannot be empty")
+        if self.horizon < 1:
+            raise ValueError("horizon must be >= 1")
+
+
+@dataclass(frozen=True)
 class ComparisonMetricBundle:
     condition_id: str
     condition_label: str

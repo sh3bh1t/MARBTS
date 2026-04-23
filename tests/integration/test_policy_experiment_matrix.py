@@ -26,7 +26,7 @@ def test_policy_experiment_matrix_generates_condition_aggregates_and_artifacts()
         assert report["matrix_metadata"]["seed_count"] == 2
         assert report["matrix_metadata"]["horizon"] == 2
         assert report["matrix_metadata"]["include_ablations"] is True
-        assert report["matrix_metadata"]["condition_count"] == 10
+        assert report["matrix_metadata"]["condition_count"] == 14
 
         condition_ids = {aggregate["condition_id"] for aggregate in report["condition_aggregates"]}
         assert "rule_red_vs_rule_blue" in condition_ids
@@ -39,6 +39,10 @@ def test_policy_experiment_matrix_generates_condition_aggregates_and_artifacts()
         assert "rule_red_vs_adaptive_blue_reduced_observability" in condition_ids
         assert "adaptive_red_reduced_observability_vs_adaptive_blue" in condition_ids
         assert "adaptive_red_vs_adaptive_blue_reduced_observability" in condition_ids
+        assert "adaptive_red_decoy_bluff_vs_rule_blue" in condition_ids
+        assert "rule_red_vs_adaptive_blue_decoy_bluff" in condition_ids
+        assert "adaptive_red_decoy_bluff_vs_adaptive_blue" in condition_ids
+        assert "adaptive_red_vs_adaptive_blue_decoy_bluff" in condition_ids
 
         assert any(
             (aggregate["red_ablation"] or aggregate["blue_ablation"] or {}).get("no_planning")
@@ -48,15 +52,25 @@ def test_policy_experiment_matrix_generates_condition_aggregates_and_artifacts()
             (aggregate["red_ablation"] or aggregate["blue_ablation"] or {}).get("reduced_observability")
             for aggregate in report["condition_aggregates"]
         )
+        assert any(
+            (aggregate["red_adaptive_config"] or {}).get("enable_decoy") and
+            (aggregate["red_adaptive_config"] or {}).get("enable_bluff")
+            for aggregate in report["condition_aggregates"]
+        )
+        assert any(
+            (aggregate["blue_adaptive_config"] or {}).get("enable_decoy") and
+            (aggregate["blue_adaptive_config"] or {}).get("enable_bluff")
+            for aggregate in report["condition_aggregates"]
+        )
 
-        assert len(report["comparison_to_baseline"]) == 10
-        assert len(report["runs"]) == 20
+        assert len(report["comparison_to_baseline"]) == 14
+        assert len(report["runs"]) == 28
         assert set(report["summary_rankings"].keys()) == {
             "lowest_final_compromised",
             "highest_blue_containment",
             "most_deterministic",
         }
-        assert len(report["summary_rankings"]["lowest_final_compromised"]) == 10
+        assert len(report["summary_rankings"]["lowest_final_compromised"]) == 14
 
         for run in report["runs"]:
             assert Path(run["run_dir"]).exists()
