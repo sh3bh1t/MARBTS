@@ -160,6 +160,10 @@ For comparative report packaging from two run directories:
 - Bash/Zsh: `PYTHONPATH=src python scripts/run_comparative_report.py --left-run-dir artifacts/runs/<run_id_a> --right-run-dir artifacts/runs/<run_id_b>`
    - Outputs: `reports/comparative_report_<run_id_a>_vs_<run_id_b>.json`, matching `.md` summary, and SVG figures in `artifacts/figures/`.
 
+For scenario catalog smoke execution (Phase 5 increment 1):
+- PowerShell: `$env:PYTHONPATH='src'; python scripts/run_scenario_catalog_smoke.py`
+- Bash/Zsh: `PYTHONPATH=src python scripts/run_scenario_catalog_smoke.py`
+
 Examples:
 - PowerShell (custom seeds and horizon):
    - `$env:PYTHONPATH='src'; python scripts/run_multi_seed_report.py --seeds 20260329,20260332,20260333 --horizon 10`
@@ -206,6 +210,9 @@ From repository root:
    - Increment 1 complete: shared observability contracts, schema validation, provenance capture, and structured run artifact envelopes.
    - Increment 2 complete: replay utilities and comparative report packaging.
    - Increment 3 complete: compromise-trend plots, defense-efficiency summaries, response-latency reports, and markdown/SVG comparative packaging.
+- **Advanced Research Extensions: In progress**
+   - Increment 1 complete: scenario taxonomy heuristics and semantic-versioned scenario registry with latest-version selection.
+   - Increment 2 next: decoy/bluff tactic primitives and adaptive policy hooks.
 
 
 

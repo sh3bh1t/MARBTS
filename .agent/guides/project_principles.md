@@ -34,6 +34,11 @@ Build a sandboxed Red vs Blue autonomous cyber defense simulation framework that
 - Reproducibility-first runtime: same seed + scenario + configs must produce equivalent trajectories.
 - Experiment-driven design: all components must map to measurable hypotheses.
 
+## Build-vs-Buy Principle
+- Default to a library-first approach across all domains when mature packages provide clear gains in correctness, maintainability, safety, testability, or implementation speed.
+- Keep third-party usage behind stable module boundaries so dependencies remain replaceable.
+- Use custom implementations only when constraints or risks make external dependencies unsuitable, and document that rationale in the corresponding plan/doc update.
+
 ## Data and Contract Principles
 - Use strict schema definitions for scenario config, node state, action intents, action outcomes, and metrics snapshots.
 - Version all schemas and scenario definitions.

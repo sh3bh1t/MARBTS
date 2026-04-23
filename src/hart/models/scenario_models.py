@@ -2,7 +2,14 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from hart.enums import CompromisedState, DetectionState, NodeType
+from hart.enums import (
+    CompromisedState,
+    DefensePosture,
+    DetectionState,
+    NodeType,
+    TopologyComplexity,
+    VulnerabilityDensity,
+)
 
 
 @dataclass(frozen=True)
@@ -38,3 +45,24 @@ class ScenarioConfig:
     @property
     def node_ids(self) -> tuple[str, ...]:
         return tuple(node.node_id for node in self.nodes)
+
+
+@dataclass(frozen=True)
+class ScenarioTaxonomy:
+    topology_complexity: TopologyComplexity
+    vulnerability_density: VulnerabilityDensity
+    defense_posture: DefensePosture
+
+
+@dataclass(frozen=True)
+class ScenarioCatalogEntry:
+    scenario_id: str
+    version: str
+    source_group: str
+    scenario_path: str
+    node_count: int
+    edge_count: int
+    vulnerabilities_count: int
+    average_security_level: float
+    taxonomy: ScenarioTaxonomy
+    tags: tuple[str, ...]

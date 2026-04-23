@@ -27,6 +27,7 @@ from .observability_models import (
     TIMESTEP_EVENT_TYPE,
 )
 from .scenario_models import EdgeConfig, NodeConfig, ScenarioConfig, ScenarioMetadata
+from .scenario_models import ScenarioCatalogEntry, ScenarioTaxonomy
 from .simulation_models import ActionRecord, RunMetadata, SimulationRunResult, TimestepLogEntry
 
 __all__ = [
@@ -60,7 +61,9 @@ __all__ = [
     "EdgeConfig",
     "NodeConfig",
     "ScenarioConfig",
+    "ScenarioCatalogEntry",
     "ScenarioMetadata",
+    "ScenarioTaxonomy",
     "ActionRecord",
     "RunMetadata",
     "SimulationRunResult",

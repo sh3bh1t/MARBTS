@@ -17,11 +17,16 @@ This folder is the source of truth for simulation scenario inputs.
 - Example invalid scenario for validation testing:
 	- `baselines/invalid_missing_security_level.json`
 - Phase 2 library scenario seed added:
-	- `library/phase2_containment_stress.json`
+	- `library/containment_stress.json`
+- Phase 5 scenario catalog manager added:
+	- `src/schemas/catalog.py`
+- Scenario catalog smoke command:
+	- `python scripts/run_scenario_catalog_smoke.py`
 - `schemas/` remains scaffolded and currently contains a stub.
 
 ## Contributor Notes
 
 - Any new scenario file must satisfy schema validation in `src/schemas/scenario.py`.
 - Use semantic versioning in scenario metadata (`version`).
+- Scenario catalog indexing excludes test/invalid fixtures prefixed with `invalid_` by default.
 - If schema conventions change, update this README in the same change.

@@ -82,9 +82,19 @@ If any requirement is ambiguous:
 - Prefer explicit version ranges and tighten to pinned versions after baseline validation milestones.
 - Do not add unused dependencies; every dependency must map to an implemented component.
 
-## Visualization Library Guidance
-- For plots, charts, comparison figures, and other report visuals, prefer a mature plotting library such as `matplotlib` over hand-built SVG or bespoke drawing code when the artifact is expected to evolve or need customization.
-- Use custom rendering only when a library cannot produce the required format, the dependency cost is not justified, or the output is intentionally minimal and stable.
+## Library-First Implementation Guidance (All Domains)
+- Apply a build-vs-buy decision for every meaningful new capability (for example: parsing, validation, serialization, analytics, optimization, visualization, reporting, and CLI workflows).
+- Prefer mature, well-maintained external libraries over bespoke implementations when they materially improve correctness, maintainability, safety, testability, or delivery speed.
+- Use custom implementations only when one or more of the following is true:
+  - no suitable library exists for the requirement;
+  - project constraints (license, platform, footprint, determinism, auditability, security posture) rule out available libraries;
+  - dependency overhead/risk is greater than expected implementation and maintenance cost;
+  - the required behavior is intentionally minimal and stable, and a custom path is demonstrably simpler.
+- When selecting custom code over a library, document the rationale briefly in the related plan/doc update.
+- When adding a library-backed path, keep a clear adapter boundary so implementation details remain replaceable.
+
+### Visualization-Specific Note
+- For plots, charts, comparison figures, and other report visuals, default to a mature plotting library such as `matplotlib` instead of hand-built SVG or bespoke drawing code when outputs are expected to evolve.
 - When switching a visualization path to a library, update `requirements.txt`, related docs, and any impacted plan revision log entries in the same change.
 
 ## Scaffold Stub Lifecycle Rules
