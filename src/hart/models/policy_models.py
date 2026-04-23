@@ -40,6 +40,27 @@ class ModelInferenceRecord:
 
 
 @dataclass(frozen=True)
+class ModelRoutingConfig:
+    provider: str = "heuristic"
+    model_name: str = ""
+    api_base_url: str = ""
+    api_key_env_var: str = ""
+    enabled: bool = False
+    temperature: float = 0.0
+    timeout_seconds: float = 30.0
+    max_retries: int = 0
+    fallback_to_heuristic: bool = True
+
+    def __post_init__(self) -> None:
+        if self.temperature < 0.0:
+            raise ValueError("temperature must be >= 0.0")
+        if self.timeout_seconds < 1.0:
+            raise ValueError("timeout_seconds must be >= 1.0")
+        if self.max_retries < 0:
+            raise ValueError("max_retries must be >= 0")
+
+
+@dataclass(frozen=True)
 class DeceptionEvent:
     tactic: str
     actor: str
@@ -61,6 +82,7 @@ class AdaptivePolicyConfig:
     enable_decoy: bool = False
     enable_bluff: bool = False
     deception_bias: float = 1.0
+    model_routing: ModelRoutingConfig = field(default_factory=ModelRoutingConfig)
 
     def __post_init__(self) -> None:
         if self.planning_horizon < 1:

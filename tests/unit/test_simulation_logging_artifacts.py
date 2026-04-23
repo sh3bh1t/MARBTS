@@ -24,7 +24,7 @@ def _scenario_dict() -> dict:
                 "isolation_state": False,
             },
             {
-                "node_id": "db-1",
+                "node_id": "db-1",  
                 "node_type": "database",
                 "services": ["postgres"],
                 "vulnerabilities": ["cve-sim-010"],

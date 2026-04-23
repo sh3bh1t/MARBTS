@@ -207,3 +207,24 @@ def test_adaptive_deception_hooks_emit_deception_event_when_enabled() -> None:
     assert decision.rationale.score_breakdown.components["deception_bonus"] > 0.0
     assert decision.rationale.inference_record is not None
     assert decision.rationale.inference_record.input_features["deception_tactic"] == decision.rationale.deception_event.tactic
+
+
+def test_adaptive_policy_defaults_to_heuristic_routing_without_model_config() -> None:
+    graph = _build_graph()
+    legal_actions = get_legal_actions(graph, ActorType.BLUE)
+    context = PolicyContext(
+        actor=ActorType.BLUE,
+        timestep=5,
+        scenario_id="phase3-adaptive-small",
+        seed=13,
+        compromised_nodes=3,
+        policy_metrics={},
+    )
+
+    policy = AdaptivePlanningPolicy(actor=ActorType.BLUE, config=AdaptivePolicyConfig(exploration_bias=0.0))
+    decision = policy.select_action(context, legal_actions)
+
+    assert decision.rationale.inference_record is not None
+    assert decision.rationale.inference_record.model_family == "heuristic_planner"
+    assert decision.rationale.inference_record.deterministic is True
+    assert decision.rationale.score_breakdown.components["deception_triggered"] == 0.0

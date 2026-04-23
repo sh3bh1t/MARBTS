@@ -3,6 +3,7 @@ from __future__ import annotations
 from collections import defaultdict
 
 from agents.adaptive.deception import evaluate_deception_hook
+from agents.adaptive.model_routing import ModelRoutingError, build_model_router
 from agents.interfaces.policy import PolicyDecision
 from environment.legal_actions import LegalAction
 from hart.enums import ActionType, ActorType
@@ -180,6 +181,62 @@ class AdaptivePlanningPolicy:
     def select_action(self, context: PolicyContext, legal_actions: tuple[LegalAction, ...]) -> PolicyDecision:
         if not legal_actions:
             raise ValueError("legal_actions cannot be empty")
+
+        router = build_model_router(self.config)
+        if self.config.model_routing.enabled and self.config.model_routing.provider != "heuristic":
+            try:
+                routing_result = router.route(context=context, legal_actions=legal_actions, config=self.config)
+                selected_action = next(
+                    action
+                    for action in legal_actions
+                    if action.action_type.value == routing_result.action_type and action.targets == routing_result.targets
+                )
+                selected_score = routing_result.utility
+                components = {
+                    "model_utility": routing_result.utility,
+                    "horizon": float(self.config.planning_horizon),
+                    "safety_passed": 1.0,
+                    "reduced_observability": 1.0 if self.config.reduced_observability else 0.0,
+                    "decoy_enabled": 1.0 if self.config.enable_decoy else 0.0,
+                    "bluff_enabled": 1.0 if self.config.enable_bluff else 0.0,
+                    "deception_triggered": 0.0,
+                }
+                inference_record = ModelInferenceRecord(
+                    model_family="remote_router" if routing_result.provider != "heuristic" else "heuristic_router",
+                    model_name=self.config.model_routing.model_name or self.name,
+                    deterministic=routing_result.deterministic,
+                    input_features={
+                        "provider": routing_result.provider,
+                        "actor": self.actor.value,
+                        "timestep": context.timestep,
+                        "compromised_nodes": context.compromised_nodes,
+                        "action_type": routing_result.action_type,
+                    },
+                    output_action=routing_result.action_type,
+                    output_utility=selected_score,
+                )
+                self._actions_selected += 1
+                self._action_type_counts[selected_action.action_type.value] += 1
+                rationale = DecisionRationale(
+                    policy_name=self.name,
+                    summary=f"selected {selected_action.action_type.value} via {routing_result.provider} routing",
+                    predicted_effect=routing_result.rationale,
+                    confidence=self._confidence(selected_score),
+                    utility_estimate=selected_score,
+                    score_breakdown=PolicyScoreBreakdown(total_score=selected_score, components=components),
+                    tie_breaker="provider_routed",
+                    planning_trace=None,
+                    inference_record=inference_record,
+                    deception_event=None,
+                )
+                return PolicyDecision(
+                    action=selected_action,
+                    rationale=rationale,
+                    metrics_snapshot=self._metrics_snapshot(),
+                )
+            except (ModelRoutingError, StopIteration):
+                if not self.config.model_routing.fallback_to_heuristic:
+                    raise
 
         safe_actions = tuple(action for action in legal_actions if self._is_safe_legal_action(action))
         if not safe_actions:

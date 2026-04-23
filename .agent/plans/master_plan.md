@@ -179,6 +179,12 @@ Per timestep t:
 - Optional containerized simulation execution
 - Robust ablations and stress experiments
 
+### Phase 6: Productization and Delivery
+- Plug-and-play project bootstrap and install path
+- Concrete container runtime assets (replace `docker/` scaffold)
+- Notebook analysis package (replace `notebooks/` scaffold)
+- Config preset bundles and release-readiness automation
+
 ## 7) Evaluation Metrics
 
 ### 7.1 Security Outcomes
@@ -288,6 +294,12 @@ Secondary:
 - Reproducibility package assembled
 - Paper-ready experiment artifacts generated
 
+### M6: Delivery Package Complete (Phase 6)
+- Clean-room bootstrap path validated
+- Docker runtime assets operational
+- Notebook workflows executable
+- Release-readiness checklist passing
+
 ## 10.1 Current Phase Status
 
 - Phase 1: Completed (core implementation + pytest validation + smoke hardening)
@@ -295,6 +307,7 @@ Secondary:
 - Phase 3: Completed (adaptive planning + experiment matrix + ablations + batch rankings)
 - Phase 4: Completed (schema-validated observability pipeline + replay + comparative visualization/reporting)
 - Phase 5: Completed (Increments 1-4 complete: scenario taxonomy/registry + decoy/bluff hooks + stress-test suite + ablation report package)
+- Phase 6: In progress (planning + execution runway opened for plug-and-play delivery, Docker assets, notebook assets, and release hardening)
 
 ## 11) Governance and Plan Maintenance
 
@@ -320,3 +333,4 @@ After each major feature or phase: "Validation complete for this step."
 - 2026-04-23: Completed Phase 5 Increment 2 closure by adding deception-enabled experiment matrix variants and validating their reporting metadata.
 - 2026-04-23: Added Phase 5 Increment 3 deliverables: stress-test suite profiles for scale/noise/observability and ranked robustness outputs.
 - 2026-04-23: Completed Phase 5 Increment 4 by adding ablation report templates, research artifact manifests, and an optional containerized execution profile.
+- 2026-04-24: Added Phase 6 roadmap for project-level completion work (plug-and-play bootstrap, concrete Docker assets, notebook deliverables, config presets, and release gates).
