@@ -1,8 +1,10 @@
-# STUB: docs/research/
+# Research Artifacts
 
-Placeholder stub for research documentation.
+Phase 5 now emits research-oriented ablation packaging from `scripts/run_ablation_report.py`.
 
-Expected future content:
-- experiment design notes,
-- ablation definitions,
-- paper support artifacts.
+Available artifacts:
+- ablation report templates under `artifacts/reports/ablation/`
+- research artifact manifests for paper-ready packaging
+- optional container execution profiles for reproducible runs
+
+This directory remains the landing zone for experiment design notes and paper support artifacts.

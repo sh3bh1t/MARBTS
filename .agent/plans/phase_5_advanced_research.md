@@ -7,7 +7,7 @@ Extend the platform for publication-grade experimentation via richer scenarios, 
 
 ## Current Status
 
-- Status: In progress
+- Status: Completed
 - Dependency: Requires stable outputs from Phases 1-4
 
 ### Increment Progress
@@ -15,7 +15,7 @@ Extend the platform for publication-grade experimentation via richer scenarios, 
 - Increment 1 (completed): scenario taxonomy model and semantic-versioned scenario registry manager with latest-version selection utilities.
 - Increment 2 (completed): decoy/bluff tactic primitives with adaptive-policy feature flags, score hooks, and rationale payload events.
 - Increment 3 (completed): stress-test suite (scale, noise, observability constraints) with profile-level ranking summaries.
-- Increment 4 (next): ablation orchestration/report templates and optional containerized execution profile.
+- Increment 4 (completed): ablation orchestration/report templates and optional containerized execution profile.
 
 ## Inputs
 - Stable platform from Phases 1-4
@@ -102,3 +102,4 @@ Extend the platform for publication-grade experimentation via richer scenarios, 
 - 2026-04-23: Completed Increment 2 by adding decoy/bluff adaptive policy hooks, deception event contracts, unit validation, and smoke execution coverage.
 - 2026-04-23: Expanded experiment matrix ablations with deception-enabled adaptive variants to complete Increment 2 closure and measurable-condition coverage.
 - 2026-04-23: Completed Increment 3 by adding stress-test profile orchestration, scale/noise scenario coverage, and observability-penalty summaries.
+- 2026-04-23: Completed Increment 4 by adding ablation report templates, research artifact manifests, and an optional container execution profile.

@@ -133,6 +133,43 @@ class ComparisonMetricBundle:
 
 
 @dataclass(frozen=True)
+class PublicationMetricTable:
+    title: str
+    columns: tuple[str, ...]
+    rows: tuple[tuple[Any, ...], ...]
+
+
+@dataclass(frozen=True)
+class ContainerExecutionConfig:
+    enabled: bool = False
+    image: str = "python:3.12-slim"
+    working_directory: str = "/workspace/MARBTS"
+    command: tuple[str, ...] = field(default_factory=tuple)
+    environment: Mapping[str, str] = field(default_factory=dict)
+    config_pin: str = ""
+    notes: str = ""
+
+
+@dataclass(frozen=True)
+class AblationMatrix:
+    template_metadata: Mapping[str, Any]
+    publication_tables: tuple[PublicationMetricTable, ...]
+    comparison_to_baseline: tuple[Mapping[str, Any], ...]
+    summary_rankings: Mapping[str, Any]
+    container_execution: ContainerExecutionConfig | None = None
+
+
+@dataclass(frozen=True)
+class ResearchArtifactManifest:
+    manifest_id: str
+    manifest_metadata: Mapping[str, Any]
+    ablation_matrix_file: str
+    markdown_file: str
+    container_profile_file: str | None = None
+    artifact_files: tuple[str, ...] = ()
+
+
+@dataclass(frozen=True)
 class DecisionRationale:
     policy_name: str
     summary: str

@@ -218,11 +218,11 @@ From repository root:
    - Increment 1 complete: shared observability contracts, schema validation, provenance capture, and structured run artifact envelopes.
    - Increment 2 complete: replay utilities and comparative report packaging.
    - Increment 3 complete: compromise-trend plots, defense-efficiency summaries, response-latency reports, and markdown/SVG comparative packaging.
-- **Advanced Research Extensions: In progress**
+- **Advanced Research Extensions: Completed**
    - Increment 1 complete: scenario taxonomy heuristics and semantic-versioned scenario registry with latest-version selection.
    - Increment 2 complete: decoy/bluff tactic primitives with adaptive-policy hooks, rationale payload events, and deception-enabled matrix condition variants.
    - Increment 3 complete: stress-test suite for scale/noise/observability robustness profiling with profile rankings and observability-penalty summaries.
-   - Increment 4 next: ablation orchestration/report templates plus optional containerized execution profile.
+   - Increment 4 complete: ablation orchestration/report templates, research artifact manifests, and optional containerized execution profiles.
 
 
 

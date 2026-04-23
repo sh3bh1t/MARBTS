@@ -294,7 +294,7 @@ Secondary:
 - Phase 2: Completed (deterministic rule-based red/blue baselines + policy metrics + multi-seed reporting)
 - Phase 3: Completed (adaptive planning + experiment matrix + ablations + batch rankings)
 - Phase 4: Completed (schema-validated observability pipeline + replay + comparative visualization/reporting)
-- Phase 5: In progress (Increments 1-3 complete: scenario taxonomy/registry + decoy/bluff hooks + stress-test suite)
+- Phase 5: Completed (Increments 1-4 complete: scenario taxonomy/registry + decoy/bluff hooks + stress-test suite + ablation report package)
 
 ## 11) Governance and Plan Maintenance
 
@@ -319,3 +319,4 @@ After each major feature or phase: "Validation complete for this step."
 - 2026-04-23: Added Phase 5 Increment 2 deliverables: decoy/bluff tactic primitives and adaptive policy hook instrumentation.
 - 2026-04-23: Completed Phase 5 Increment 2 closure by adding deception-enabled experiment matrix variants and validating their reporting metadata.
 - 2026-04-23: Added Phase 5 Increment 3 deliverables: stress-test suite profiles for scale/noise/observability and ranked robustness outputs.
+- 2026-04-23: Completed Phase 5 Increment 4 by adding ablation report templates, research artifact manifests, and an optional containerized execution profile.
