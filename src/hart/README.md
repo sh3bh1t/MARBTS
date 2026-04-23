@@ -20,3 +20,12 @@
 - Prevents contract drift across modules.
 - Simplifies maintainability and contributor onboarding.
 - Supports future online/hosted service boundaries where shared contracts must remain stable and portable.
+
+## Current Shared Contracts
+
+The active codebase uses `src/hart` for the following shared contracts:
+
+- simulation/environment models and run metadata
+- observability envelopes, provenance, and replay contracts
+- policy models for adaptive planning, deception events, ablation config, stress-test config, and research artifact manifests
+- scenario taxonomy and catalog entry models

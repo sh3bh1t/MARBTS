@@ -7,7 +7,7 @@ Introduce adaptive agent policies (LLM reasoning and/or RL) through the same pol
 
 ## Current Status
 
-- Status: In progress
+- Status: Completed
 - Prerequisite: Phase 2 baseline policies required (satisfied)
 
 ### Increment Progress
@@ -119,3 +119,4 @@ Introduce adaptive agent policies (LLM reasoning and/or RL) through the same pol
 - 2026-04-23: Completed Increment 2 matrix framework with adaptive-vs-rule condition set and baseline-relative aggregate comparisons.
 - 2026-04-23: Added ablation-aware adaptive controls (`no_planning`, `reduced_observability`) and validated matrix execution through integration tests and CLI smoke runs.
 - 2026-04-23: Completed Increment 3 with adaptive-blue ablation expansion, mixed-observability condition support, summary ranking views, and scenario-batch matrix execution.
+- 2026-04-23: Marked Phase 3 complete after the adaptive policy, matrix, ablation, and batch execution paths stabilized in the codebase.

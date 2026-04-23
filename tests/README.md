@@ -45,11 +45,13 @@ If you have not set up the environment yet:
 	- `python -m pytest tests/unit/test_scenario_catalog.py -q`
 - Adaptive decoy/bluff hook coverage:
 	- `python -m pytest tests/unit/test_agents_adaptive.py -q`
+- Ablation report package coverage:
+	- `python -m pytest tests/unit/test_ablation_report.py -q`
 
 ## Current Status
 
 - Test framework: `pytest`
-- Implemented coverage (Phase 1 + Phase 2 completed, Phase 3 completed, Phase 4 completed, Phase 5 increments 1-2 completed):
+- Implemented coverage (Phase 1 + Phase 2 completed, Phase 3 completed, Phase 4 completed, Phase 5 increments 1-4 completed):
 	- schema validation
 	- graph initialization
 	- transition primitives
@@ -67,6 +69,7 @@ If you have not set up the environment yet:
 	- semantic-versioned scenario catalog generation and latest-version selection logic
 	- adaptive decoy/bluff hook scoring and deception event rationale payload emission
 	- stress-suite profile orchestration for scale/noise/observability experiments
+	- ablation report package generation with research manifest and optional container profile output
 
 ## Contributor Notes
 

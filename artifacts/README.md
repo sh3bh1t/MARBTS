@@ -5,7 +5,7 @@ Generated outputs only (never source-of-truth configs):
 - `runs/`: run logs and event streams.
 - `metrics/`: computed metric outputs.
 - `figures/`: plots for analysis/papers.
-- `reports/`: experiment summaries and evaluation bundles.
+- `reports/`: experiment summaries, evaluation bundles, and research artifact packages.
 
 ## Current Status
 
@@ -27,6 +27,11 @@ Generated outputs only (never source-of-truth configs):
 	- `reports/comparative_report_<run_id_a>_vs_<run_id_b>.md`
 	- `figures/comparative_report_<run_id_a>_vs_<run_id_b>_*.svg`
 	- `figures/` now stores the comparison plots for compromise trend, defense efficiency, and response latency.
+- Ablation report package artifacts are generated under:
+	- `reports/ablation/ablation_report_template_<package_id>.json`
+	- `reports/ablation/ablation_report_template_<package_id>.md`
+	- `reports/ablation/research_artifact_manifest_<package_id>.json`
+	- `reports/ablation/container_execution_profile_<package_id>.json` when containerized output is requested
 
 ## Usage Notes
 
@@ -61,6 +66,9 @@ Generated outputs only (never source-of-truth configs):
 - Matrix reports include summary rankings for lowest compromise, highest blue containment, and most deterministic conditions.
 - Generate pairwise comparative replay reports:
 	- `python scripts/run_comparative_report.py --left-run-dir artifacts/runs/<run_id_a> --right-run-dir artifacts/runs/<run_id_b>`
+- Generate ablation report packages:
+	- PowerShell: `$env:PYTHONPATH='src'; python scripts/run_ablation_report.py`
+	- Bash/Zsh: `PYTHONPATH=src python scripts/run_ablation_report.py`
 - Generated outputs in `runs/`, `metrics/`, `figures/`, and `reports/` are intended to remain local and are gitignored by default (except tracked `README.md` placeholders).
 - Do not commit large generated artifacts unless explicitly needed for reproducibility evidence.
 - If artifact layout changes, update this README in the same change.

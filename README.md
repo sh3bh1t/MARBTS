@@ -172,6 +172,11 @@ For stress-test suite execution (Phase 5 increment 3):
 - PowerShell: `$env:PYTHONPATH='src'; python scripts/run_stress_test_suite.py`
 - Bash/Zsh: `PYTHONPATH=src python scripts/run_stress_test_suite.py`
 
+For ablation report package generation (Phase 5 increment 4):
+- PowerShell: `$env:PYTHONPATH='src'; python scripts/run_ablation_report.py`
+- Bash/Zsh: `PYTHONPATH=src python scripts/run_ablation_report.py`
+- Optional containerized profile: add `--containerized` to emit a container execution profile artifact.
+
 Examples:
 - PowerShell (custom seeds and horizon):
    - `$env:PYTHONPATH='src'; python scripts/run_multi_seed_report.py --seeds 20260329,20260332,20260333 --horizon 10`

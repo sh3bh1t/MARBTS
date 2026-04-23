@@ -18,11 +18,14 @@ This folder is the source of truth for simulation scenario inputs.
 	- `baselines/invalid_missing_security_level.json`
 - Phase 2 library scenario seed added:
 	- `library/containment_stress.json`
+- Phase 5 library scenario added:
+	- `library/scale_chain_6.json`
 - Phase 5 scenario catalog manager added:
 	- `src/schemas/catalog.py`
 - Scenario catalog smoke command:
 	- `python scripts/run_scenario_catalog_smoke.py`
 - `schemas/` remains scaffolded and currently contains a stub.
+- Scenario catalog support now covers semantic-versioned latest selection and taxonomy-aware grouping for research experiments.
 
 ## Contributor Notes
 
