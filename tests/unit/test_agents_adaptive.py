@@ -154,3 +154,56 @@ def test_adaptive_reduced_observability_flag_is_reflected_in_rationale_payload()
     assert decision.rationale.score_breakdown.components["reduced_observability"] == 1.0
     assert decision.rationale.inference_record is not None
     assert decision.rationale.inference_record.input_features["reduced_observability"] is True
+
+
+def test_adaptive_deception_hooks_are_disabled_by_default() -> None:
+    graph = _build_graph()
+    legal_actions = get_legal_actions(graph, ActorType.BLUE)
+    context = PolicyContext(
+        actor=ActorType.BLUE,
+        timestep=3,
+        scenario_id="phase3-adaptive-small",
+        seed=11,
+        compromised_nodes=2,
+        policy_metrics={},
+    )
+
+    policy = AdaptivePlanningPolicy(actor=ActorType.BLUE, config=AdaptivePolicyConfig(exploration_bias=0.0))
+    decision = policy.select_action(context, legal_actions)
+
+    assert decision.rationale.deception_event is None
+    assert decision.rationale.score_breakdown.components["deception_triggered"] == 0.0
+    assert decision.rationale.score_breakdown.components["deception_bonus"] == 0.0
+
+
+def test_adaptive_deception_hooks_emit_deception_event_when_enabled() -> None:
+    graph = _build_graph()
+    legal_actions = get_legal_actions(graph, ActorType.BLUE)
+    context = PolicyContext(
+        actor=ActorType.BLUE,
+        timestep=4,
+        scenario_id="phase3-adaptive-small",
+        seed=12,
+        compromised_nodes=4,
+        policy_metrics={},
+    )
+
+    policy = AdaptivePlanningPolicy(
+        actor=ActorType.BLUE,
+        config=AdaptivePolicyConfig(
+            planning_horizon=3,
+            discount_factor=0.9,
+            exploration_bias=0.0,
+            enable_decoy=True,
+            enable_bluff=True,
+            deception_bias=1.0,
+        ),
+    )
+    decision = policy.select_action(context, legal_actions)
+
+    assert decision.rationale.deception_event is not None
+    assert decision.rationale.deception_event.tactic in {"decoy", "bluff"}
+    assert decision.rationale.score_breakdown.components["deception_triggered"] == 1.0
+    assert decision.rationale.score_breakdown.components["deception_bonus"] > 0.0
+    assert decision.rationale.inference_record is not None
+    assert decision.rationale.inference_record.input_features["deception_tactic"] == decision.rationale.deception_event.tactic

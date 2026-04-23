@@ -2,11 +2,13 @@ from __future__ import annotations
 
 from collections import defaultdict
 
+from agents.adaptive.deception import evaluate_deception_hook
 from agents.interfaces.policy import PolicyDecision
 from environment.legal_actions import LegalAction
 from hart.enums import ActionType, ActorType
 from hart.models import (
     AdaptivePolicyConfig,
+    DeceptionEvent,
     DecisionRationale,
     ModelInferenceRecord,
     PlanningTrace,
@@ -148,7 +150,7 @@ class AdaptivePlanningPolicy:
         prior_selections = self._action_type_counts[action.action_type.value]
         return round(self.config.exploration_bias / (1 + prior_selections), 3)
 
-    def _predict_effect(self, action: LegalAction) -> str:
+    def _predict_effect(self, action: LegalAction, deception_event: DeceptionEvent | None = None) -> str:
         predictions = {
             ActionType.SCAN: "increase uncertainty reduction before offensive commitment",
             ActionType.EXPLOIT: "increase probability of initial or expanded compromise",
@@ -159,7 +161,10 @@ class AdaptivePlanningPolicy:
             ActionType.BLOCK: "break attack-path connectivity and delay propagation",
             ActionType.ISOLATE: "contain blast radius by severing node traffic paths",
         }
-        return predictions.get(action.action_type, "maintain adaptive posture")
+        base_prediction = predictions.get(action.action_type, "maintain adaptive posture")
+        if deception_event is None:
+            return base_prediction
+        return f"{base_prediction}; apply {deception_event.tactic} tactic to shape opponent response"
 
     def _confidence(self, score: float) -> float:
         bounded = max(0.0, min(score, 100.0))
@@ -189,19 +194,30 @@ class AdaptivePlanningPolicy:
                 dict[str, float],
                 PlanningTrace,
                 ModelInferenceRecord,
+                DeceptionEvent | None,
             ]
         ] = []
 
         for action in safe_actions:
             planning_trace = self._project_plan(action, context)
             exploration_bonus = self._exploration_bonus(action)
-            total_score = round(planning_trace.cumulative_utility + exploration_bonus, 3)
+            deception_bonus, deception_event = evaluate_deception_hook(
+                actor=self.actor,
+                action=action,
+                context=context,
+                config=self.config,
+            )
+            total_score = round(planning_trace.cumulative_utility + exploration_bonus + deception_bonus, 3)
             components = {
                 "planning_utility": planning_trace.cumulative_utility,
                 "exploration_bonus": exploration_bonus,
+                "deception_bonus": deception_bonus,
                 "horizon": float(self.config.planning_horizon),
                 "safety_passed": 1.0,
                 "reduced_observability": 1.0 if self.config.reduced_observability else 0.0,
+                "decoy_enabled": 1.0 if self.config.enable_decoy else 0.0,
+                "bluff_enabled": 1.0 if self.config.enable_bluff else 0.0,
+                "deception_triggered": 1.0 if deception_event is not None else 0.0,
             }
             inference_record = ModelInferenceRecord(
                 model_family="heuristic_planner",
@@ -212,7 +228,10 @@ class AdaptivePlanningPolicy:
                     "timestep": context.timestep,
                     "compromised_nodes": context.compromised_nodes,
                     "reduced_observability": self.config.reduced_observability,
+                    "enable_decoy": self.config.enable_decoy,
+                    "enable_bluff": self.config.enable_bluff,
                     "action_type": action.action_type.value,
+                    "deception_tactic": deception_event.tactic if deception_event is not None else "none",
                 },
                 output_action=action.action_type.value,
                 output_utility=total_score,
@@ -226,25 +245,31 @@ class AdaptivePlanningPolicy:
                     components,
                     planning_trace,
                     inference_record,
+                    deception_event,
                 )
             )
 
         candidates.sort(key=lambda item: (-item[0], item[1], item[2]))
-        selected_score, _, _, selected_action, components, planning_trace, inference_record = candidates[0]
+        selected_score, _, _, selected_action, components, planning_trace, inference_record, deception_event = candidates[0]
 
         self._actions_selected += 1
         self._action_type_counts[selected_action.action_type.value] += 1
 
+        rationale_summary = f"selected {selected_action.action_type.value} using bounded adaptive planning"
+        if deception_event is not None:
+            rationale_summary += f" with {deception_event.tactic} hook"
+
         rationale = DecisionRationale(
             policy_name=self.name,
-            summary=f"selected {selected_action.action_type.value} using bounded adaptive planning",
-            predicted_effect=self._predict_effect(selected_action),
+            summary=rationale_summary,
+            predicted_effect=self._predict_effect(selected_action, deception_event=deception_event),
             confidence=self._confidence(selected_score),
             utility_estimate=selected_score,
             score_breakdown=PolicyScoreBreakdown(total_score=selected_score, components=components),
             tie_breaker="(-score, action_type, targets)",
             planning_trace=planning_trace,
             inference_record=inference_record,
+            deception_event=deception_event,
         )
 
         return PolicyDecision(

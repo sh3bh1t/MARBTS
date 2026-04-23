@@ -40,12 +40,27 @@ class ModelInferenceRecord:
 
 
 @dataclass(frozen=True)
+class DeceptionEvent:
+    tactic: str
+    actor: str
+    action_type: str
+    timestep: int
+    targets: tuple[str, ...]
+    trigger: str
+    expected_shift: float
+    confidence: float
+
+
+@dataclass(frozen=True)
 class AdaptivePolicyConfig:
     planning_horizon: int = 3
     discount_factor: float = 0.85
     exploration_bias: float = 0.15
     max_compromised_projection: int = 128
     reduced_observability: bool = False
+    enable_decoy: bool = False
+    enable_bluff: bool = False
+    deception_bias: float = 1.0
 
     def __post_init__(self) -> None:
         if self.planning_horizon < 1:
@@ -56,6 +71,8 @@ class AdaptivePolicyConfig:
             raise ValueError("exploration_bias must be >= 0.0")
         if self.max_compromised_projection < 1:
             raise ValueError("max_compromised_projection must be >= 1")
+        if self.deception_bias < 0.0:
+            raise ValueError("deception_bias must be >= 0.0")
 
 
 @dataclass(frozen=True)
@@ -102,6 +119,7 @@ class DecisionRationale:
     tie_breaker: str
     planning_trace: PlanningTrace | None = None
     inference_record: ModelInferenceRecord | None = None
+    deception_event: DeceptionEvent | None = None
 
 
 @dataclass(frozen=True)

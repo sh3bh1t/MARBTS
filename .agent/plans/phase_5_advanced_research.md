@@ -13,7 +13,8 @@ Extend the platform for publication-grade experimentation via richer scenarios, 
 ### Increment Progress
 
 - Increment 1 (completed): scenario taxonomy model and semantic-versioned scenario registry manager with latest-version selection utilities.
-- Increment 2 (next): decoy/bluff tactic primitives and policy hooks.
+- Increment 2 (completed): decoy/bluff tactic primitives with adaptive-policy feature flags, score hooks, and rationale payload events.
+- Increment 3 (next): stress-test suite (scale, noise, observability constraints).
 
 ## Inputs
 - Stable platform from Phases 1-4
@@ -97,3 +98,4 @@ Extend the platform for publication-grade experimentation via richer scenarios, 
 - 2026-03-28: Updated phase path assumptions to flattened `src/*` source layout.
 - 2026-03-28: Added explicit phase status tracking section.
 - 2026-04-23: Started Phase 5 and completed Increment 1 with scenario taxonomy heuristics and semantic-versioned scenario catalog registry support.
+- 2026-04-23: Completed Increment 2 by adding decoy/bluff adaptive policy hooks, deception event contracts, unit validation, and smoke execution coverage.

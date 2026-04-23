@@ -41,11 +41,13 @@ If you have not set up the environment yet:
 	- Covers replay reconstruction, comparative summary packaging, markdown report generation, and SVG figure outputs.
 - Scenario catalog registry coverage:
 	- `python -m pytest tests/unit/test_scenario_catalog.py -q`
+- Adaptive decoy/bluff hook coverage:
+	- `python -m pytest tests/unit/test_agents_adaptive.py -q`
 
 ## Current Status
 
 - Test framework: `pytest`
-- Implemented coverage (Phase 1 + Phase 2 completed, Phase 3 completed, Phase 4 completed, Phase 5 increment 1 completed):
+- Implemented coverage (Phase 1 + Phase 2 completed, Phase 3 completed, Phase 4 completed, Phase 5 increments 1-2 completed):
 	- schema validation
 	- graph initialization
 	- transition primitives
@@ -61,6 +63,7 @@ If you have not set up the environment yet:
 	- replay bundle loading and comparative report packaging
 	- comparative trend plots, defense-efficiency summaries, and response-latency visualizations
 	- semantic-versioned scenario catalog generation and latest-version selection logic
+	- adaptive decoy/bluff hook scoring and deception event rationale payload emission
 
 ## Contributor Notes
 

@@ -294,7 +294,7 @@ Secondary:
 - Phase 2: Completed (deterministic rule-based red/blue baselines + policy metrics + multi-seed reporting)
 - Phase 3: Completed (adaptive planning + experiment matrix + ablations + batch rankings)
 - Phase 4: Completed (schema-validated observability pipeline + replay + comparative visualization/reporting)
-- Phase 5: In progress (Increment 1 complete: scenario taxonomy + semantic-versioned scenario registry)
+- Phase 5: In progress (Increments 1-2 complete: scenario taxonomy/registry + decoy/bluff adaptive hooks)
 
 ## 11) Governance and Plan Maintenance
 
@@ -316,3 +316,4 @@ After each major feature or phase: "Validation complete for this step."
 - 2026-04-23: Added Phase 3 Increment 1 deliverables: adaptive planning policy scaffold, adaptive rationale contracts, and smoke/test validation workflow.
 - 2026-04-23: Added Phase 3 Increment 2 deliverables: adaptive-vs-rule experiment matrix runner, ablation-labeled condition metadata, and matrix report CLI/test workflow.
 - 2026-04-23: Synchronized master phase status to mark Phases 3-4 complete and Phase 5 active with scenario-catalog increment delivery.
+- 2026-04-23: Added Phase 5 Increment 2 deliverables: decoy/bluff tactic primitives and adaptive policy hook instrumentation.
