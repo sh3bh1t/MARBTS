@@ -223,9 +223,9 @@ Examples:
    - `PYTHONPATH=src python scripts/run_multi_seed_report.py --scenario scenarios/baselines/rule_baseline.json --runs-root artifacts/runs --metrics-root artifacts/metrics --reports-root artifacts/reports`
 - PowerShell (scenario batch matrix execution):
    - `$env:PYTHONPATH='src'; python scripts/run_policy_experiment_matrix.py --scenario-batch scenarios/baselines/rule_baseline.json,scenarios/library/containment_stress.json`
-- PowerShell (Phase 3 matrix with ablations):
+- PowerShell (matrix with ablations):
    - `$env:PYTHONPATH='src'; python scripts/run_policy_experiment_matrix.py --seeds 20260423,20260424 --horizon 2`
-- Bash/Zsh (Phase 3 matrix without ablations):
+- Bash/Zsh (matrix without ablations):
    - `PYTHONPATH=src python scripts/run_policy_experiment_matrix.py --skip-ablations`
 
 ## Run Network Core Baseline
