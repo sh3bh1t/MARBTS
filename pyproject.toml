@@ -24,6 +24,7 @@ marbts-policy-experiment-matrix = "marbts_cli.experiment_commands:run_policy_exp
 marbts-stress-test-suite = "marbts_cli.experiment_commands:run_stress_test_suite_main"
 marbts-ablation-report = "marbts_cli.experiment_commands:run_ablation_report_main"
 marbts-container-profile = "marbts_cli.container_commands:run_container_profile_main"
+marbts-release-validation = "marbts_cli.release_commands:run_release_validation_main"
 
 [tool.setuptools]
 package-dir = {"" = "src"}

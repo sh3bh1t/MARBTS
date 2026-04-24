@@ -105,3 +105,45 @@ class ContainerExecutionSpec:
             self.preset_config_path,
             *self.additional_args,
         )
+
+
+@dataclass(frozen=True)
+class ReleaseGate:
+    gate_id: str
+    description: str
+    status: str  # "pass" | "fail"
+    evidence: str = ""
+    failure_detail: str = ""
+
+    def __post_init__(self) -> None:
+        if not self.gate_id:
+            raise ValueError("gate_id must be a non-empty string")
+        if not self.description:
+            raise ValueError("description must be a non-empty string")
+        if self.status not in ("pass", "fail"):
+            raise ValueError(f"status must be 'pass' or 'fail', got {self.status!r}")
+
+
+@dataclass(frozen=True)
+class ReleaseReadinessReport:
+    schema_version: str
+    timestamp_utc: str
+    all_gates_pass: bool
+    gate_count: int
+    pass_count: int
+    fail_count: int
+    gates: tuple[ReleaseGate, ...]
+
+    def __post_init__(self) -> None:
+        if not self.schema_version:
+            raise ValueError("schema_version must be a non-empty string")
+        if not self.timestamp_utc:
+            raise ValueError("timestamp_utc must be a non-empty string")
+        if self.gate_count < 0:
+            raise ValueError("gate_count must be >= 0")
+        if self.pass_count < 0:
+            raise ValueError("pass_count must be >= 0")
+        if self.fail_count < 0:
+            raise ValueError("fail_count must be >= 0")
+        if self.pass_count + self.fail_count != self.gate_count:
+            raise ValueError("pass_count + fail_count must equal gate_count")

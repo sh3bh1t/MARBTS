@@ -15,7 +15,7 @@ Convert the completed research platform into a clean-room reproducible, plug-and
 - Increment 1 (completed): runtime packaging and configuration presets.
 - Increment 2 (completed): concrete Docker runtime assets and container validation.
 - Increment 3 (completed): notebook deliverables and reproducible analysis workflow.
-- Increment 4 (next): release-quality validation automation and readiness checklist.
+- Increment 4 (completed): release-quality validation automation and readiness checklist.
 
 ## Inputs
 - Phase 1-5 runtime modules, scripts, and tests
@@ -96,3 +96,4 @@ Convert the completed research platform into a clean-room reproducible, plug-and
 - 2026-04-24: Completed Increment 1 by adding installable packaging (`pyproject.toml`), packaged CLI entry points (`src/marbts_cli`), canonical preset loader/contracts (`src/utils/runtime_presets.py`, `src/hart/models/runtime_models.py`), and real preset/seed bundles under `configs/` with script integration via `--config`.
 - 2026-04-24: Completed Increment 2 by replacing `docker/` stub with runnable Dockerfile/compose profiles, adding canonical `ContainerExecutionSpec` contracts/utilities, and validating container profile command wiring via unit coverage.
 - 2026-04-24: Completed Increment 3 by replacing `notebooks/` stub with reproducible walkthrough notebooks (`replay_and_comparative_walkthrough.ipynb`, `policy_matrix_walkthrough.ipynb`, `ablation_report_walkthrough.ipynb`), adding notebook usage documentation (`notebooks/README.md`), and introducing notebook smoke validation coverage (`scripts/run_notebook_smoke.py`, `tests/unit/test_notebook_assets.py`).
+- 2026-04-24: Completed Increment 4 by adding `ReleaseGate` and `ReleaseReadinessReport` models (`src/hart/models/runtime_models.py`), core 9-gate validation logic (`src/utils/release_validation.py`), release validation script entry point (`scripts/run_release_validation.py`), packaged CLI command (`src/marbts_cli/release_commands.py`, `marbts-release-validation` entry point in `pyproject.toml`), full unit test coverage (`tests/unit/test_release_validation.py` including real-project smoke gate), and human-readable release acceptance checklist (`docs/release_readiness_checklist.md`).

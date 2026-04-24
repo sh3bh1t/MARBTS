@@ -10,6 +10,7 @@ from .experiment_commands import (
     run_policy_experiment_matrix_main,
     run_stress_test_suite_main,
 )
+from .release_commands import run_release_validation_main
 
 
 COMMANDS = {
@@ -18,6 +19,7 @@ COMMANDS = {
     "stress-test-suite": run_stress_test_suite_main,
     "ablation-report": run_ablation_report_main,
     "container-profile": run_container_profile_main,
+    "release-validation": run_release_validation_main,
 }
 
 

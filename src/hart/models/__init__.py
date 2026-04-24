@@ -33,7 +33,14 @@ from .observability_models import (
     StateDiffRecord,
     TIMESTEP_EVENT_TYPE,
 )
-from .runtime_models import ContainerExecutionSpec, ExperimentPreset, RuntimeConfig, SeedBundle
+from .runtime_models import (
+    ContainerExecutionSpec,
+    ExperimentPreset,
+    ReleaseGate,
+    ReleaseReadinessReport,
+    RuntimeConfig,
+    SeedBundle,
+)
 from .scenario_models import EdgeConfig, NodeConfig, ScenarioConfig, ScenarioMetadata
 from .scenario_models import ScenarioCatalogEntry, ScenarioTaxonomy
 from .simulation_models import ActionRecord, RunMetadata, SimulationRunResult, TimestepLogEntry
@@ -75,6 +82,8 @@ __all__ = [
     "TIMESTEP_EVENT_TYPE",
     "ExperimentPreset",
     "ContainerExecutionSpec",
+    "ReleaseGate",
+    "ReleaseReadinessReport",
     "RuntimeConfig",
     "SeedBundle",
     "EdgeConfig",
