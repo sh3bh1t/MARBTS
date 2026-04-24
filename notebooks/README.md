@@ -1,6 +1,6 @@
 # Notebook Analysis Pack
 
-This directory contains the Phase 6 Increment 3 reproducible notebook workflows.
+This directory contains the reproducible notebook workflows.
 
 ## Notebook Set
 
