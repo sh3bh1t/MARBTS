@@ -161,24 +161,24 @@ For comparative report packaging from two run directories:
 - Bash/Zsh: `PYTHONPATH=src python scripts/run_comparative_report.py --left-run-dir artifacts/runs/<run_id_a> --right-run-dir artifacts/runs/<run_id_b>`
    - Outputs: `reports/comparative_report_<run_id_a>_vs_<run_id_b>.json`, matching `.md` summary, and SVG figures in `artifacts/figures/`.
 
-For scenario catalog smoke execution (Phase 5 increment 1):
+For scenario catalog smoke execution :
 - PowerShell: `$env:PYTHONPATH='src'; python scripts/run_scenario_catalog_smoke.py`
 - Bash/Zsh: `PYTHONPATH=src python scripts/run_scenario_catalog_smoke.py`
 
-For decoy/bluff adaptive hook smoke execution (Phase 5 increment 2):
+For decoy/bluff adaptive hook smoke execution :
 - PowerShell: `$env:PYTHONPATH='src'; python scripts/run_deception_hooks_smoke.py`
 - Bash/Zsh: `PYTHONPATH=src python scripts/run_deception_hooks_smoke.py`
 
-For stress-test suite execution (Phase 5 increment 3):
+For stress-test suite execution :
 - PowerShell: `$env:PYTHONPATH='src'; python scripts/run_stress_test_suite.py --config configs/experiments/stress_test_suite_baseline.json`
 - Bash/Zsh: `PYTHONPATH=src python scripts/run_stress_test_suite.py --config configs/experiments/stress_test_suite_baseline.json`
 
-For ablation report package generation (Phase 5 increment 4):
+For ablation report package generation :
 - PowerShell: `$env:PYTHONPATH='src'; python scripts/run_ablation_report.py --config configs/experiments/ablation_report_baseline.json`
 - Bash/Zsh: `PYTHONPATH=src python scripts/run_ablation_report.py --config configs/experiments/ablation_report_baseline.json`
 - Optional containerized profile: add `--containerized` to emit a container execution profile artifact.
 
-For packaged CLI execution (Phase 6 increment 1):
+For packaged CLI execution :
 - Install editable package:
    - `python -m pip install -e .`
 - Show command surface:
@@ -195,7 +195,7 @@ For packaged CLI execution (Phase 6 increment 1):
    - `marbts-container-profile --spec multi_seed_baseline --dry-run`
    - `marbts container-profile --spec policy_matrix_baseline`
 
-For Docker runtime execution (Phase 6 increment 2):
+For Docker runtime execution :
 - Build the project image:
    - `docker compose -f docker/docker-compose.yml build`
 - Run multi-seed baseline:
