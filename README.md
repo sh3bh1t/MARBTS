@@ -178,6 +178,13 @@ For ablation report package generation :
 - Bash/Zsh: `PYTHONPATH=src python scripts/run_ablation_report.py --config configs/experiments/ablation_report_baseline.json`
 - Optional containerized profile: add `--containerized` to emit a container execution profile artifact.
 
+For notebook asset smoke validation :
+- `python scripts/run_notebook_smoke.py`
+
+For notebook analysis workflows :
+- See `notebooks/README.md` for curated replay/comparison, matrix, and ablation walkthrough notebooks.
+- In notebooks, set `RUN_GENERATORS=True` to regenerate canonical artifacts in-place, or keep `False` to analyze existing outputs.
+
 For packaged CLI execution :
 - Install editable package:
    - `python -m pip install -e .`
@@ -263,7 +270,8 @@ From repository root:
 - **Productization and Delivery: In Progress**
    - Increment 1 complete: packaged install path (`pyproject.toml`), `marbts` CLI entry point, preset loaders, and real config/seed bundles under `configs/`.
    - Increment 2 complete: concrete Docker assets (`docker/Dockerfile`, `docker/docker-compose.yml`), canonical container execution specs, and container profile dispatcher (`marbts container-profile`).
-   - Increments 3-4 pending: notebook analysis pack and release validation automation.
+   - Increment 3 complete: curated notebook pack (`notebooks/*.ipynb` + `notebooks/README.md`) and notebook asset smoke validation (`scripts/run_notebook_smoke.py` + `tests/unit/test_notebook_assets.py`).
+   - Increment 4 pending: release validation automation and readiness checklist.
 
 
 

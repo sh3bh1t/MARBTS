@@ -14,7 +14,7 @@ Convert the completed research platform into a clean-room reproducible, plug-and
 
 - Increment 1 (completed): runtime packaging and configuration presets.
 - Increment 2 (completed): concrete Docker runtime assets and container validation.
-- Increment 3 (next): notebook deliverables and reproducible analysis workflow.
+- Increment 3 (completed): notebook deliverables and reproducible analysis workflow.
 - Increment 4 (next): release-quality validation automation and readiness checklist.
 
 ## Inputs
@@ -95,3 +95,4 @@ Convert the completed research platform into a clean-room reproducible, plug-and
 - 2026-04-24: Initial phase plan created after full `.agent` and `idea-core` audit identified remaining productization gaps despite Phase 5 research completion.
 - 2026-04-24: Completed Increment 1 by adding installable packaging (`pyproject.toml`), packaged CLI entry points (`src/marbts_cli`), canonical preset loader/contracts (`src/utils/runtime_presets.py`, `src/hart/models/runtime_models.py`), and real preset/seed bundles under `configs/` with script integration via `--config`.
 - 2026-04-24: Completed Increment 2 by replacing `docker/` stub with runnable Dockerfile/compose profiles, adding canonical `ContainerExecutionSpec` contracts/utilities, and validating container profile command wiring via unit coverage.
+- 2026-04-24: Completed Increment 3 by replacing `notebooks/` stub with reproducible walkthrough notebooks (`replay_and_comparative_walkthrough.ipynb`, `policy_matrix_walkthrough.ipynb`, `ablation_report_walkthrough.ipynb`), adding notebook usage documentation (`notebooks/README.md`), and introducing notebook smoke validation coverage (`scripts/run_notebook_smoke.py`, `tests/unit/test_notebook_assets.py`).

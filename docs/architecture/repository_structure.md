@@ -15,7 +15,7 @@ This document defines the canonical directory layout for MARBTS. It is designed 
 - `configs/` — Base runtime configs, experiment configs, and seed sets.
 - `scripts/` — Reproducible CLI entry scripts for simulation and experiments.
 - `docs/` — Architecture, operations, and research documentation.
-- `notebooks/` — Exploratory analysis notebooks (non-authoritative).
+- `notebooks/` — Curated reproducible analysis notebook pack for replay/comparative, matrix, and ablation walkthrough workflows.
 - `artifacts/` — Generated run outputs, metrics, figures, and reports.
 - `docker/` — Containerized execution assets (Dockerfile + compose profiles).
 
@@ -51,3 +51,4 @@ This document defines the canonical directory layout for MARBTS. It is designed 
 - Phase 3: `agents/adaptive/`, `experiments/`
 - Phase 4: `observability/`, `metrics/`, `visualization/`
 - Phase 5: `scenarios/library/`, `experiments/`, `docker/`, `docs/research/`
+- Phase 6: `marbts_cli/`, `utils/`, `configs/`, `docker/`, `notebooks/`, release/readiness docs and validation scripts

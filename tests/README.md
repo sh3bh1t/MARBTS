@@ -51,6 +51,8 @@ If you have not set up the environment yet:
 	- `python -m pytest tests/unit/test_agents_adaptive.py -q`
 - Ablation report package coverage:
 	- `python -m pytest tests/unit/test_ablation_report.py -q`
+- Notebook asset validation coverage:
+	- `python -m pytest tests/unit/test_notebook_assets.py -q`
 
 ## Current Status
 
@@ -75,6 +77,7 @@ If you have not set up the environment yet:
 	- stress-suite profile orchestration for scale/noise/observability experiments
 	- ablation report package generation with research manifest and optional container profile output
 	- phase 6 docker runtime asset/spec validation and container-profile command dispatch dry-run execution
+	- phase 6 notebook asset validation and scaffold-removal coverage
 
 ## Contributor Notes
 
@@ -87,4 +90,4 @@ If you have not set up the environment yet:
 	- `python scripts/run_stress_test_suite.py --config configs/experiments/stress_test_suite_baseline.json`
 	- `python scripts/run_ablation_report.py --config configs/experiments/ablation_report_baseline.json`
 	- `python scripts/run_container_profile.py --spec multi_seed_baseline --dry-run`
-
+	- `python scripts/run_notebook_smoke.py`
