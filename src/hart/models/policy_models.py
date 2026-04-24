@@ -82,6 +82,7 @@ class AdaptivePolicyConfig:
     enable_decoy: bool = False
     enable_bluff: bool = False
     deception_bias: float = 1.0
+    decision_noise: float = 0.0
     model_routing: ModelRoutingConfig = field(default_factory=ModelRoutingConfig)
 
     def __post_init__(self) -> None:
@@ -95,6 +96,8 @@ class AdaptivePolicyConfig:
             raise ValueError("max_compromised_projection must be >= 1")
         if self.deception_bias < 0.0:
             raise ValueError("deception_bias must be >= 0.0")
+        if self.decision_noise < 0.0:
+            raise ValueError("decision_noise must be >= 0.0")
 
 
 @dataclass(frozen=True)

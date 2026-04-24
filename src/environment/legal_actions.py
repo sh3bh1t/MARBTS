@@ -28,6 +28,7 @@ def get_legal_actions(graph: nx.Graph, actor: ActorType | str) -> tuple[LegalAct
             attrs = graph.nodes[node_id]
             if attrs.get("isolation_state"):
                 continue
+            sec_level = int(attrs.get("security_level", 1))
 
             actions.append(
                 LegalAction(
@@ -35,6 +36,7 @@ def get_legal_actions(graph: nx.Graph, actor: ActorType | str) -> tuple[LegalAct
                     action_type=ActionType.SCAN,
                     targets=(node_id,),
                     rationale_hint="discover node exposure and service surface",
+                    node_security_level=sec_level,
                 )
             )
 
@@ -45,6 +47,7 @@ def get_legal_actions(graph: nx.Graph, actor: ActorType | str) -> tuple[LegalAct
                         action_type=ActionType.EXPLOIT,
                         targets=(node_id,),
                         rationale_hint="advance compromise level on vulnerable target",
+                        node_security_level=sec_level,
                     )
                 )
 
@@ -55,6 +58,7 @@ def get_legal_actions(graph: nx.Graph, actor: ActorType | str) -> tuple[LegalAct
                         action_type=ActionType.ESCALATE,
                         targets=(node_id,),
                         rationale_hint="escalate local privileges from user to privileged",
+                        node_security_level=sec_level,
                     )
                 )
 
@@ -75,18 +79,21 @@ def get_legal_actions(graph: nx.Graph, actor: ActorType | str) -> tuple[LegalAct
                         action_type=ActionType.LATERAL_MOVE,
                         targets=(source, target),
                         rationale_hint="expand foothold through reachable neighbor",
+                        node_security_level=int(target_attrs.get("security_level", 1)),
                     )
                 )
 
     if normalized_actor == ActorType.BLUE:
         for node_id in sorted(graph.nodes()):
             attrs = graph.nodes[node_id]
+            sec_level = int(attrs.get("security_level", 1))
             actions.append(
                 LegalAction(
                     actor=ActorType.BLUE,
                     action_type=ActionType.MONITOR,
                     targets=(node_id,),
                     rationale_hint="observe node state and detect compromise indicators",
+                    node_security_level=sec_level,
                 )
             )
 
@@ -98,6 +105,7 @@ def get_legal_actions(graph: nx.Graph, actor: ActorType | str) -> tuple[LegalAct
                         action_type=ActionType.PATCH,
                         targets=(node_id,),
                         rationale_hint="reduce vulnerability and compromise exposure",
+                        node_security_level=sec_level,
                     )
                 )
 
@@ -108,16 +116,19 @@ def get_legal_actions(graph: nx.Graph, actor: ActorType | str) -> tuple[LegalAct
                         action_type=ActionType.ISOLATE,
                         targets=(node_id,),
                         rationale_hint="contain possible lateral movement from/to node",
+                        node_security_level=sec_level,
                     )
                 )
 
         for source, target in _sorted_edges(graph):
+            target_sec = int(graph.nodes[target].get("security_level", 1))
             actions.append(
                 LegalAction(
                     actor=ActorType.BLUE,
                     action_type=ActionType.BLOCK,
                     targets=(source, target),
                     rationale_hint="remove network path to reduce attack propagation",
+                    node_security_level=target_sec,
                 )
             )
 

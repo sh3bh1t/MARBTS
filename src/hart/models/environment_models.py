@@ -28,6 +28,7 @@ class LegalAction:
     action_type: ActionType
     targets: tuple[str, ...]
     rationale_hint: str
+    node_security_level: int = 0
 
 
 @dataclass(frozen=True)

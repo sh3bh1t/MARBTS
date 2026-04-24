@@ -42,3 +42,4 @@ class SimulationRunResult:
     metadata: RunMetadata
     final_graph: nx.Graph
     timesteps: tuple[TimestepLogEntry, ...]
+    graph_snapshots: tuple[nx.Graph, ...] = ()

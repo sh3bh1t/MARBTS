@@ -1,0 +1,238 @@
+{
+  "metadata": {
+    "scenario_id": "enterprise-medium",
+    "version": "2.0.0"
+  },
+  "nodes": [
+    {
+      "node_id": "01-ext",
+      "node_type": "endpoint",
+      "services": ["rdp"],
+      "vulnerabilities": ["cve-sim-501"],
+      "security_level": 1,
+      "compromised_state": "user",
+      "detection_state": "suspected",
+      "isolation_state": false
+    },
+    {
+      "node_id": "02-iot1",
+      "node_type": "iot",
+      "services": ["mqtt"],
+      "vulnerabilities": ["cve-sim-502"],
+      "security_level": 2,
+      "compromised_state": "none",
+      "detection_state": "undetected",
+      "isolation_state": false
+    },
+    {
+      "node_id": "02-iot2",
+      "node_type": "iot",
+      "services": ["mqtt"],
+      "vulnerabilities": ["cve-sim-503"],
+      "security_level": 2,
+      "compromised_state": "none",
+      "detection_state": "undetected",
+      "isolation_state": false
+    },
+    {
+      "node_id": "02-web1",
+      "node_type": "server",
+      "services": ["https", "ssh"],
+      "vulnerabilities": ["cve-sim-504"],
+      "security_level": 2,
+      "compromised_state": "none",
+      "detection_state": "undetected",
+      "isolation_state": false
+    },
+    {
+      "node_id": "02-web2",
+      "node_type": "server",
+      "services": ["https"],
+      "vulnerabilities": ["cve-sim-505"],
+      "security_level": 2,
+      "compromised_state": "none",
+      "detection_state": "undetected",
+      "isolation_state": false
+    },
+    {
+      "node_id": "03-mail",
+      "node_type": "server",
+      "services": ["smtp", "imap"],
+      "vulnerabilities": ["cve-sim-506"],
+      "security_level": 3,
+      "compromised_state": "none",
+      "detection_state": "undetected",
+      "isolation_state": false
+    },
+    {
+      "node_id": "03-proxy",
+      "node_type": "server",
+      "services": ["https"],
+      "vulnerabilities": ["cve-sim-507"],
+      "security_level": 3,
+      "compromised_state": "none",
+      "detection_state": "undetected",
+      "isolation_state": false
+    },
+    {
+      "node_id": "04-app1",
+      "node_type": "server",
+      "services": ["https", "ssh"],
+      "vulnerabilities": ["cve-sim-508"],
+      "security_level": 4,
+      "compromised_state": "none",
+      "detection_state": "undetected",
+      "isolation_state": false
+    },
+    {
+      "node_id": "04-app2",
+      "node_type": "server",
+      "services": ["https"],
+      "vulnerabilities": ["cve-sim-509"],
+      "security_level": 4,
+      "compromised_state": "none",
+      "detection_state": "undetected",
+      "isolation_state": false
+    },
+    {
+      "node_id": "04-cache",
+      "node_type": "server",
+      "services": ["redis"],
+      "vulnerabilities": ["cve-sim-510"],
+      "security_level": 4,
+      "compromised_state": "none",
+      "detection_state": "undetected",
+      "isolation_state": false
+    },
+    {
+      "node_id": "04-ci",
+      "node_type": "server",
+      "services": ["https"],
+      "vulnerabilities": ["cve-sim-511"],
+      "security_level": 4,
+      "compromised_state": "none",
+      "detection_state": "undetected",
+      "isolation_state": false
+    },
+    {
+      "node_id": "04-log",
+      "node_type": "server",
+      "services": ["syslog"],
+      "vulnerabilities": ["cve-sim-512"],
+      "security_level": 4,
+      "compromised_state": "none",
+      "detection_state": "undetected",
+      "isolation_state": false
+    },
+    {
+      "node_id": "05-apigw",
+      "node_type": "server",
+      "services": ["https"],
+      "vulnerabilities": ["cve-sim-513"],
+      "security_level": 5,
+      "compromised_state": "none",
+      "detection_state": "undetected",
+      "isolation_state": false
+    },
+    {
+      "node_id": "05-cloud",
+      "node_type": "server",
+      "services": ["https", "ssh"],
+      "vulnerabilities": ["cve-sim-514"],
+      "security_level": 5,
+      "compromised_state": "none",
+      "detection_state": "undetected",
+      "isolation_state": false
+    },
+    {
+      "node_id": "06-admin",
+      "node_type": "endpoint",
+      "services": ["rdp", "ssh"],
+      "vulnerabilities": ["cve-sim-515"],
+      "security_level": 6,
+      "compromised_state": "none",
+      "detection_state": "undetected",
+      "isolation_state": false
+    },
+    {
+      "node_id": "06-auth",
+      "node_type": "server",
+      "services": ["https", "ldap"],
+      "vulnerabilities": ["cve-sim-516"],
+      "security_level": 6,
+      "compromised_state": "none",
+      "detection_state": "undetected",
+      "isolation_state": false
+    },
+    {
+      "node_id": "06-config",
+      "node_type": "server",
+      "services": ["https"],
+      "vulnerabilities": ["cve-sim-517"],
+      "security_level": 6,
+      "compromised_state": "none",
+      "detection_state": "undetected",
+      "isolation_state": false
+    },
+    {
+      "node_id": "07-dbback",
+      "node_type": "database",
+      "services": ["postgres"],
+      "vulnerabilities": ["cve-sim-518"],
+      "security_level": 7,
+      "compromised_state": "none",
+      "detection_state": "undetected",
+      "isolation_state": false
+    },
+    {
+      "node_id": "08-dbmain",
+      "node_type": "database",
+      "services": ["postgres"],
+      "vulnerabilities": ["cve-sim-519"],
+      "security_level": 8,
+      "compromised_state": "none",
+      "detection_state": "undetected",
+      "isolation_state": false
+    },
+    {
+      "node_id": "09-bastion",
+      "node_type": "server",
+      "services": ["ssh"],
+      "vulnerabilities": ["cve-sim-520"],
+      "security_level": 9,
+      "compromised_state": "none",
+      "detection_state": "undetected",
+      "isolation_state": false
+    }
+  ],
+  "edges": [
+    {"source": "01-ext",    "target": "02-web1"},
+    {"source": "01-ext",    "target": "02-web2"},
+    {"source": "02-web1",   "target": "03-proxy"},
+    {"source": "02-web1",   "target": "04-app1"},
+    {"source": "02-web2",   "target": "03-proxy"},
+    {"source": "02-web2",   "target": "04-app2"},
+    {"source": "02-web2",   "target": "03-mail"},
+    {"source": "02-iot1",   "target": "04-log"},
+    {"source": "02-iot2",   "target": "04-log"},
+    {"source": "03-proxy",  "target": "05-apigw"},
+    {"source": "03-mail",   "target": "06-admin"},
+    {"source": "04-app1",   "target": "04-cache"},
+    {"source": "04-app1",   "target": "04-log"},
+    {"source": "04-app2",   "target": "02-iot1"},
+    {"source": "04-app2",   "target": "02-iot2"},
+    {"source": "04-app2",   "target": "04-log"},
+    {"source": "04-cache",  "target": "08-dbmain"},
+    {"source": "04-ci",     "target": "07-dbback"},
+    {"source": "05-apigw",  "target": "06-auth"},
+    {"source": "05-apigw",  "target": "05-cloud"},
+    {"source": "04-log",    "target": "06-auth"},
+    {"source": "05-cloud",  "target": "06-config"},
+    {"source": "06-config", "target": "04-ci"},
+    {"source": "06-auth",   "target": "08-dbmain"},
+    {"source": "06-auth",   "target": "07-dbback"},
+    {"source": "06-auth",   "target": "06-admin"},
+    {"source": "06-admin",  "target": "09-bastion"},
+    {"source": "08-dbmain", "target": "07-dbback"}
+  ]
+}

@@ -36,15 +36,15 @@ def _count_compromised(graph: nx.Graph) -> int:
     return total
 
 
-def _apply_red_action(graph: nx.Graph, action: LegalAction) -> tuple[nx.Graph, TransitionResult]:
+def _apply_red_action(graph: nx.Graph, action: LegalAction, rng=None) -> tuple[nx.Graph, TransitionResult]:
     if action.action_type == ActionType.EXPLOIT:
-        return apply_exploit(graph, action.targets[0])
+        return apply_exploit(graph, action.targets[0], rng=rng)
 
     if action.action_type == ActionType.ESCALATE:
-        return apply_exploit(graph, action.targets[0])
+        return apply_exploit(graph, action.targets[0], rng=rng)
 
     if action.action_type == ActionType.LATERAL_MOVE:
-        return apply_exploit(graph, action.targets[1])
+        return apply_exploit(graph, action.targets[1], rng=rng)
 
     return graph, TransitionResult(
         action=action.action_type,
@@ -131,6 +131,7 @@ def run_turn_based_simulation(
     scenario_id: str,
     selector: ActionSelector | None = None,
     policy_registry: PolicyRegistry | None = None,
+    exploit_resistance: bool = False,
 ) -> SimulationRunResult:
     if horizon < 1:
         raise ValueError("horizon must be >= 1")
@@ -141,6 +142,7 @@ def run_turn_based_simulation(
 
     current_graph = initial_graph.copy()
     timestep_logs: list[TimestepLogEntry] = []
+    turn_graphs: list[nx.Graph] = []
 
     run_id_input = f"{scenario_id}:{seed}:{horizon}:{snapshot_ref(current_graph)}"
     run_id = hashlib.sha256(run_id_input.encode("utf-8")).hexdigest()[:16]
@@ -173,7 +175,8 @@ def run_turn_based_simulation(
         else:
             red_action = policy_selector("red", red_legal_actions, rng, timestep)
 
-        after_red_graph, red_result = _apply_red_action(current_graph, red_action)
+        resistance_rng = rng if exploit_resistance else None
+        after_red_graph, red_result = _apply_red_action(current_graph, red_action, rng=resistance_rng)
 
         blue_legal_actions = get_legal_actions(after_red_graph, "blue")
         if not blue_legal_actions:
@@ -226,6 +229,7 @@ def run_turn_based_simulation(
         )
         timestep_logs.append(log_entry)
         current_graph = after_blue_graph
+        turn_graphs.append(after_blue_graph.copy())
 
     metadata = RunMetadata(
         run_id=run_id,
@@ -239,4 +243,5 @@ def run_turn_based_simulation(
         metadata=metadata,
         final_graph=current_graph,
         timesteps=tuple(timestep_logs),
+        graph_snapshots=tuple(turn_graphs),
     )

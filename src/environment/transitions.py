@@ -32,7 +32,13 @@ def _ensure_node_exists(graph: nx.Graph, node_id: str, action_name: str) -> None
         raise ValueError(f"{action_name}: unknown node '{node_id}'")
 
 
-def apply_exploit(graph: nx.Graph, node_id: str) -> tuple[nx.Graph, TransitionResult]:
+def apply_exploit(graph: nx.Graph, node_id: str, rng=None) -> tuple[nx.Graph, TransitionResult]:
+    """Apply an exploit action.
+
+    When *rng* is provided, exploit success is probabilistic and resisted by
+    the node's security_level:  prob = max(0.10, 1.0 - (sec_level - 1) / 10.0).
+    When *rng* is None (default), the exploit always succeeds as before.
+    """
     _ensure_node_exists(graph, node_id, "exploit")
     next_graph = _clone_graph(graph)
 
@@ -43,6 +49,17 @@ def apply_exploit(graph: nx.Graph, node_id: str) -> tuple[nx.Graph, TransitionRe
             changed=False,
             reason="node is isolated",
         )
+
+    if rng is not None:
+        security_level = int(next_graph.nodes[node_id].get("security_level", 1))
+        success_prob = max(0.25, 1.0 - (security_level - 1) / 10.0)
+        if rng.random() > success_prob:
+            return next_graph, TransitionResult(
+                action="exploit",
+                target=node_id,
+                changed=False,
+                reason=f"exploit resisted by security controls (sec_level={security_level}, threshold={success_prob:.2f})",
+            )
 
     current_state = next_graph.nodes[node_id]["compromised_state"]
     current_idx = _COMPROMISE_LEVELS.index(current_state)

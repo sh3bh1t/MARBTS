@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from collections import defaultdict
+import hashlib
 
 from agents.adaptive.deception import evaluate_deception_hook
 from agents.adaptive.model_routing import ModelRoutingError, build_model_router
@@ -73,16 +74,16 @@ class AdaptivePlanningPolicy:
             red_utility = {
                 ActionType.SCAN: 3.2,
                 ActionType.EXPLOIT: 7.8,
-                ActionType.LATERAL_MOVE: 6.9,
-                ActionType.ESCALATE: 6.1,
+                ActionType.LATERAL_MOVE: 7.2,  # lateral movement is high value — spreads foothold through adjacency
+                ActionType.ESCALATE: 7.6,       # escalating to privileged costs Blue 2x patches to recover
             }
             return red_utility.get(action.action_type, 0.0)
 
         blue_utility = {
             ActionType.MONITOR: 2.8,
-            ActionType.PATCH: 6.4,
-            ActionType.BLOCK: 7.2,
-            ActionType.ISOLATE: 7.5,
+            ActionType.PATCH: 7.8,   # prefer active remediation over quarantine
+            ActionType.BLOCK: 5.8,
+            ActionType.ISOLATE: 5.2,  # last-resort containment; threat_pressure still escalates it under high load
         }
         return blue_utility.get(action.action_type, 0.0)
 
@@ -150,6 +151,35 @@ class AdaptivePlanningPolicy:
     def _exploration_bonus(self, action: LegalAction) -> float:
         prior_selections = self._action_type_counts[action.action_type.value]
         return round(self.config.exploration_bias / (1 + prior_selections), 3)
+
+    def _target_affinity(self, action: LegalAction) -> float:
+        """Per-target score modifier based on node security level.
+
+        For Red: lower-security nodes are more attractive (higher exploit success rate).
+        For Blue: higher-security nodes are higher priority to protect/remediate.
+        """
+        sec = action.node_security_level
+        if sec <= 0:
+            return 0.0
+        if self.actor == ActorType.RED:
+            return round((10 - sec) * 0.15, 3)
+        return round(sec * 0.10, 3)
+
+    def _decision_noise(self, action: LegalAction, context: PolicyContext) -> float:
+        """Seed-deterministic noise that varies per (seed, timestep, action) triple.
+
+        Produces symmetric noise in [-decision_noise, +decision_noise] so that
+        different run seeds yield genuinely different action selections while
+        the same seed always replays identically.  Returns 0.0 when the config
+        amplitude is zero (default), leaving all existing tests unaffected.
+        """
+        if self.config.decision_noise <= 0.0:
+            return 0.0
+        key = f"{context.seed}:{context.timestep}:{action.action_type.value}:{':'.join(action.targets)}"
+        digest = int(hashlib.sha256(key.encode()).hexdigest()[:8], 16)
+        # Map to [-1, +1] then scale by amplitude
+        noise = ((digest % 10000) / 5000.0 - 1.0) * self.config.decision_noise
+        return round(noise, 3)
 
     def _predict_effect(self, action: LegalAction, deception_event: DeceptionEvent | None = None) -> str:
         predictions = {
@@ -258,16 +288,23 @@ class AdaptivePlanningPolicy:
         for action in safe_actions:
             planning_trace = self._project_plan(action, context)
             exploration_bonus = self._exploration_bonus(action)
+            target_affinity = self._target_affinity(action)
+            noise = self._decision_noise(action, context)
             deception_bonus, deception_event = evaluate_deception_hook(
                 actor=self.actor,
                 action=action,
                 context=context,
                 config=self.config,
             )
-            total_score = round(planning_trace.cumulative_utility + exploration_bonus + deception_bonus, 3)
+            total_score = round(
+                planning_trace.cumulative_utility + exploration_bonus + target_affinity + noise + deception_bonus,
+                3,
+            )
             components = {
                 "planning_utility": planning_trace.cumulative_utility,
                 "exploration_bonus": exploration_bonus,
+                "target_affinity": target_affinity,
+                "decision_noise": noise,
                 "deception_bonus": deception_bonus,
                 "horizon": float(self.config.planning_horizon),
                 "safety_passed": 1.0,
@@ -276,10 +313,11 @@ class AdaptivePlanningPolicy:
                 "bluff_enabled": 1.0 if self.config.enable_bluff else 0.0,
                 "deception_triggered": 1.0 if deception_event is not None else 0.0,
             }
+            deterministic = self.config.decision_noise <= 0.0
             inference_record = ModelInferenceRecord(
                 model_family="heuristic_planner",
                 model_name=self.name,
-                deterministic=True,
+                deterministic=deterministic,
                 input_features={
                     "actor": self.actor.value,
                     "timestep": context.timestep,

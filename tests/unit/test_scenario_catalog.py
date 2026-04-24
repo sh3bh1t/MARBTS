@@ -55,7 +55,7 @@ def test_build_scenario_catalog_loads_current_library_and_taxonomy() -> None:
     assert all(not Path(entry.scenario_path).name.startswith("invalid_") for entry in entries)
 
     for entry in entries:
-        assert entry.version == "1.0.0"
+        assert entry.version in {"1.0.0", "2.0.0"}
         assert isinstance(entry.node_count, int)
         assert isinstance(entry.edge_count, int)
         assert isinstance(entry.vulnerabilities_count, int)
