@@ -1,0 +1,61 @@
+{
+  "aggregate": {
+    "blue_containment_mean": 0.0,
+    "blue_containment_stddev": 0.0,
+    "deterministic_consistency_ratio": 1.0,
+    "final_compromised_max": 0,
+    "final_compromised_mean": 0.0,
+    "final_compromised_min": 0,
+    "final_compromised_stddev": 0.0,
+    "first_containment_mean": -1,
+    "first_containment_stddev": -1,
+    "generated_at_utc": "2026-05-09T09:46:21.614008+00:00",
+    "hash_frequency": {
+      "7012ba553c213ecb022817158aff42542c4cb423ad2f447fb092d395b0b68219": 3
+    },
+    "horizon": 8,
+    "scenario_id": "rule-baseline",
+    "scenario_version": "1.0.0",
+    "seed_count": 3,
+    "seeds": [
+      20260329,
+      20260330,
+      20260331
+    ],
+    "sequence_hashes": [
+      "7012ba553c213ecb022817158aff42542c4cb423ad2f447fb092d395b0b68219"
+    ]
+  },
+  "runs": [
+    {
+      "baseline_metrics_file": "artifacts/metrics/51294a7f8178aefd.json",
+      "blue_containment_actions": 0,
+      "final_compromised_nodes": 0,
+      "first_containment_timestep": -1,
+      "run_dir": "artifacts/runs/51294a7f8178aefd",
+      "run_id": "51294a7f8178aefd",
+      "seed": 20260329,
+      "sequence_hash": "7012ba553c213ecb022817158aff42542c4cb423ad2f447fb092d395b0b68219"
+    },
+    {
+      "baseline_metrics_file": "artifacts/metrics/6ca3b69360f393ec.json",
+      "blue_containment_actions": 0,
+      "final_compromised_nodes": 0,
+      "first_containment_timestep": -1,
+      "run_dir": "artifacts/runs/6ca3b69360f393ec",
+      "run_id": "6ca3b69360f393ec",
+      "seed": 20260330,
+      "sequence_hash": "7012ba553c213ecb022817158aff42542c4cb423ad2f447fb092d395b0b68219"
+    },
+    {
+      "baseline_metrics_file": "artifacts/metrics/40321b553fddb6f5.json",
+      "blue_containment_actions": 0,
+      "final_compromised_nodes": 0,
+      "first_containment_timestep": -1,
+      "run_dir": "artifacts/runs/40321b553fddb6f5",
+      "run_id": "40321b553fddb6f5",
+      "seed": 20260331,
+      "sequence_hash": "7012ba553c213ecb022817158aff42542c4cb423ad2f447fb092d395b0b68219"
+    }
+  ]
+}

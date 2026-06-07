@@ -1,0 +1,3433 @@
+{
+  "comparison_to_baseline": [
+    {
+      "condition_id": "rule_red_vs_rule_blue",
+      "condition_label": "Rule Red vs Rule Blue",
+      "delta_blue_containment_mean_vs_rule_rule": 0.0,
+      "delta_final_compromised_mean_vs_rule_rule": 0.0
+    },
+    {
+      "condition_id": "adaptive_red_vs_rule_blue",
+      "condition_label": "Adaptive Red vs Rule Blue",
+      "delta_blue_containment_mean_vs_rule_rule": 2.0,
+      "delta_final_compromised_mean_vs_rule_rule": 1.0
+    },
+    {
+      "condition_id": "rule_red_vs_adaptive_blue",
+      "condition_label": "Rule Red vs Adaptive Blue",
+      "delta_blue_containment_mean_vs_rule_rule": 0.0,
+      "delta_final_compromised_mean_vs_rule_rule": 0.0
+    },
+    {
+      "condition_id": "adaptive_red_vs_adaptive_blue",
+      "condition_label": "Adaptive Red vs Adaptive Blue",
+      "delta_blue_containment_mean_vs_rule_rule": 0.0,
+      "delta_final_compromised_mean_vs_rule_rule": 1.0
+    },
+    {
+      "condition_id": "adaptive_red_no_planning_vs_rule_blue",
+      "condition_label": "Adaptive Red (No Planning) vs Rule Blue",
+      "delta_blue_containment_mean_vs_rule_rule": 2.0,
+      "delta_final_compromised_mean_vs_rule_rule": 1.0
+    },
+    {
+      "condition_id": "adaptive_red_reduced_observability_vs_rule_blue",
+      "condition_label": "Adaptive Red (Reduced Observability) vs Rule Blue",
+      "delta_blue_containment_mean_vs_rule_rule": 2.0,
+      "delta_final_compromised_mean_vs_rule_rule": 1.0
+    },
+    {
+      "condition_id": "rule_red_vs_adaptive_blue_no_planning",
+      "condition_label": "Rule Red vs Adaptive Blue (No Planning)",
+      "delta_blue_containment_mean_vs_rule_rule": 0.0,
+      "delta_final_compromised_mean_vs_rule_rule": 0.0
+    },
+    {
+      "condition_id": "rule_red_vs_adaptive_blue_reduced_observability",
+      "condition_label": "Rule Red vs Adaptive Blue (Reduced Observability)",
+      "delta_blue_containment_mean_vs_rule_rule": 0.0,
+      "delta_final_compromised_mean_vs_rule_rule": 0.0
+    },
+    {
+      "condition_id": "adaptive_red_reduced_observability_vs_adaptive_blue",
+      "condition_label": "Adaptive Red (Reduced Observability) vs Adaptive Blue",
+      "delta_blue_containment_mean_vs_rule_rule": 0.0,
+      "delta_final_compromised_mean_vs_rule_rule": 1.0
+    },
+    {
+      "condition_id": "adaptive_red_vs_adaptive_blue_reduced_observability",
+      "condition_label": "Adaptive Red vs Adaptive Blue (Reduced Observability)",
+      "delta_blue_containment_mean_vs_rule_rule": 0.0,
+      "delta_final_compromised_mean_vs_rule_rule": 1.0
+    },
+    {
+      "condition_id": "adaptive_red_decoy_bluff_vs_rule_blue",
+      "condition_label": "Adaptive Red (Decoy/Bluff) vs Rule Blue",
+      "delta_blue_containment_mean_vs_rule_rule": 2.0,
+      "delta_final_compromised_mean_vs_rule_rule": 1.0
+    },
+    {
+      "condition_id": "rule_red_vs_adaptive_blue_decoy_bluff",
+      "condition_label": "Rule Red vs Adaptive Blue (Decoy/Bluff)",
+      "delta_blue_containment_mean_vs_rule_rule": 0.0,
+      "delta_final_compromised_mean_vs_rule_rule": 0.0
+    },
+    {
+      "condition_id": "adaptive_red_decoy_bluff_vs_adaptive_blue",
+      "condition_label": "Adaptive Red (Decoy/Bluff) vs Adaptive Blue",
+      "delta_blue_containment_mean_vs_rule_rule": 0.0,
+      "delta_final_compromised_mean_vs_rule_rule": 1.0
+    },
+    {
+      "condition_id": "adaptive_red_vs_adaptive_blue_decoy_bluff",
+      "condition_label": "Adaptive Red vs Adaptive Blue (Decoy/Bluff)",
+      "delta_blue_containment_mean_vs_rule_rule": 0.0,
+      "delta_final_compromised_mean_vs_rule_rule": 1.0
+    }
+  ],
+  "condition_aggregates": [
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": null,
+      "blue_ablation": null,
+      "blue_adaptive_config": null,
+      "blue_policy": "rule",
+      "condition_id": "rule_red_vs_rule_blue",
+      "condition_label": "Rule Red vs Rule Blue",
+      "first_containment_mean": -1,
+      "first_containment_stddev": -1,
+      "hash_frequency": {
+        "a3dce930d0099446a0da6259f1b6aec4f692cdb2c4ba939dc276acf81914b07d": 2
+      },
+      "metric_bundle": {
+        "blue_containment_mean": 0.0,
+        "blue_containment_stddev": 0.0,
+        "condition_id": "rule_red_vs_rule_blue",
+        "condition_label": "Rule Red vs Rule Blue",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 0.0,
+        "final_compromised_stddev": 0.0
+      },
+      "red_ablation": null,
+      "red_adaptive_config": null,
+      "red_policy": "rule",
+      "run_count": 2,
+      "sequence_hashes": [
+        "a3dce930d0099446a0da6259f1b6aec4f692cdb2c4ba939dc276acf81914b07d"
+      ]
+    },
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": false,
+        "enable_decoy": false,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": false
+      },
+      "blue_ablation": null,
+      "blue_adaptive_config": null,
+      "blue_policy": "rule",
+      "condition_id": "adaptive_red_vs_rule_blue",
+      "condition_label": "Adaptive Red vs Rule Blue",
+      "first_containment_mean": 0.0,
+      "first_containment_stddev": 0.0,
+      "hash_frequency": {
+        "2a33586ffb6c227c6a3e00cc7a099ccd50343589e58c5996830a932abece7e22": 2
+      },
+      "metric_bundle": {
+        "blue_containment_mean": 2.0,
+        "blue_containment_stddev": 0.0,
+        "condition_id": "adaptive_red_vs_rule_blue",
+        "condition_label": "Adaptive Red vs Rule Blue",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 1.0,
+        "final_compromised_stddev": 0.0
+      },
+      "red_ablation": null,
+      "red_adaptive_config": null,
+      "red_policy": "adaptive",
+      "run_count": 2,
+      "sequence_hashes": [
+        "2a33586ffb6c227c6a3e00cc7a099ccd50343589e58c5996830a932abece7e22"
+      ]
+    },
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": false,
+        "enable_decoy": false,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": false
+      },
+      "blue_ablation": null,
+      "blue_adaptive_config": null,
+      "blue_policy": "adaptive",
+      "condition_id": "rule_red_vs_adaptive_blue",
+      "condition_label": "Rule Red vs Adaptive Blue",
+      "first_containment_mean": -1,
+      "first_containment_stddev": -1,
+      "hash_frequency": {
+        "a2a3e9d679cdf24b2b78f94bb1e7575476290446652cd7dd3265c0bffe4352de": 2
+      },
+      "metric_bundle": {
+        "blue_containment_mean": 0.0,
+        "blue_containment_stddev": 0.0,
+        "condition_id": "rule_red_vs_adaptive_blue",
+        "condition_label": "Rule Red vs Adaptive Blue",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 0.0,
+        "final_compromised_stddev": 0.0
+      },
+      "red_ablation": null,
+      "red_adaptive_config": null,
+      "red_policy": "rule",
+      "run_count": 2,
+      "sequence_hashes": [
+        "a2a3e9d679cdf24b2b78f94bb1e7575476290446652cd7dd3265c0bffe4352de"
+      ]
+    },
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": false,
+        "enable_decoy": false,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": false
+      },
+      "blue_ablation": null,
+      "blue_adaptive_config": null,
+      "blue_policy": "adaptive",
+      "condition_id": "adaptive_red_vs_adaptive_blue",
+      "condition_label": "Adaptive Red vs Adaptive Blue",
+      "first_containment_mean": -1,
+      "first_containment_stddev": -1,
+      "hash_frequency": {
+        "81cd49c7d39ec0c8c199b46defc1c780604edd3c8ea1ddd83466a2b23546c383": 2
+      },
+      "metric_bundle": {
+        "blue_containment_mean": 0.0,
+        "blue_containment_stddev": 0.0,
+        "condition_id": "adaptive_red_vs_adaptive_blue",
+        "condition_label": "Adaptive Red vs Adaptive Blue",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 1.0,
+        "final_compromised_stddev": 0.0
+      },
+      "red_ablation": null,
+      "red_adaptive_config": null,
+      "red_policy": "adaptive",
+      "run_count": 2,
+      "sequence_hashes": [
+        "81cd49c7d39ec0c8c199b46defc1c780604edd3c8ea1ddd83466a2b23546c383"
+      ]
+    },
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": null,
+      "blue_ablation": null,
+      "blue_adaptive_config": null,
+      "blue_policy": "rule",
+      "condition_id": "adaptive_red_no_planning_vs_rule_blue",
+      "condition_label": "Adaptive Red (No Planning) vs Rule Blue",
+      "first_containment_mean": 0.0,
+      "first_containment_stddev": 0.0,
+      "hash_frequency": {
+        "2a33586ffb6c227c6a3e00cc7a099ccd50343589e58c5996830a932abece7e22": 2
+      },
+      "metric_bundle": {
+        "blue_containment_mean": 2.0,
+        "blue_containment_stddev": 0.0,
+        "condition_id": "adaptive_red_no_planning_vs_rule_blue",
+        "condition_label": "Adaptive Red (No Planning) vs Rule Blue",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 1.0,
+        "final_compromised_stddev": 0.0
+      },
+      "red_ablation": {
+        "no_planning": true,
+        "reduced_observability": false
+      },
+      "red_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": false,
+        "enable_decoy": false,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 1,
+        "reduced_observability": false
+      },
+      "red_policy": "adaptive",
+      "run_count": 2,
+      "sequence_hashes": [
+        "2a33586ffb6c227c6a3e00cc7a099ccd50343589e58c5996830a932abece7e22"
+      ]
+    },
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": null,
+      "blue_ablation": null,
+      "blue_adaptive_config": null,
+      "blue_policy": "rule",
+      "condition_id": "adaptive_red_reduced_observability_vs_rule_blue",
+      "condition_label": "Adaptive Red (Reduced Observability) vs Rule Blue",
+      "first_containment_mean": 0.0,
+      "first_containment_stddev": 0.0,
+      "hash_frequency": {
+        "2a33586ffb6c227c6a3e00cc7a099ccd50343589e58c5996830a932abece7e22": 2
+      },
+      "metric_bundle": {
+        "blue_containment_mean": 2.0,
+        "blue_containment_stddev": 0.0,
+        "condition_id": "adaptive_red_reduced_observability_vs_rule_blue",
+        "condition_label": "Adaptive Red (Reduced Observability) vs Rule Blue",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 1.0,
+        "final_compromised_stddev": 0.0
+      },
+      "red_ablation": {
+        "no_planning": false,
+        "reduced_observability": true
+      },
+      "red_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": false,
+        "enable_decoy": false,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": true
+      },
+      "red_policy": "adaptive",
+      "run_count": 2,
+      "sequence_hashes": [
+        "2a33586ffb6c227c6a3e00cc7a099ccd50343589e58c5996830a932abece7e22"
+      ]
+    },
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": null,
+      "blue_ablation": {
+        "no_planning": true,
+        "reduced_observability": false
+      },
+      "blue_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": false,
+        "enable_decoy": false,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 1,
+        "reduced_observability": false
+      },
+      "blue_policy": "adaptive",
+      "condition_id": "rule_red_vs_adaptive_blue_no_planning",
+      "condition_label": "Rule Red vs Adaptive Blue (No Planning)",
+      "first_containment_mean": -1,
+      "first_containment_stddev": -1,
+      "hash_frequency": {
+        "a2a3e9d679cdf24b2b78f94bb1e7575476290446652cd7dd3265c0bffe4352de": 2
+      },
+      "metric_bundle": {
+        "blue_containment_mean": 0.0,
+        "blue_containment_stddev": 0.0,
+        "condition_id": "rule_red_vs_adaptive_blue_no_planning",
+        "condition_label": "Rule Red vs Adaptive Blue (No Planning)",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 0.0,
+        "final_compromised_stddev": 0.0
+      },
+      "red_ablation": null,
+      "red_adaptive_config": null,
+      "red_policy": "rule",
+      "run_count": 2,
+      "sequence_hashes": [
+        "a2a3e9d679cdf24b2b78f94bb1e7575476290446652cd7dd3265c0bffe4352de"
+      ]
+    },
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": null,
+      "blue_ablation": {
+        "no_planning": false,
+        "reduced_observability": true
+      },
+      "blue_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": false,
+        "enable_decoy": false,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": true
+      },
+      "blue_policy": "adaptive",
+      "condition_id": "rule_red_vs_adaptive_blue_reduced_observability",
+      "condition_label": "Rule Red vs Adaptive Blue (Reduced Observability)",
+      "first_containment_mean": -1,
+      "first_containment_stddev": -1,
+      "hash_frequency": {
+        "a2a3e9d679cdf24b2b78f94bb1e7575476290446652cd7dd3265c0bffe4352de": 2
+      },
+      "metric_bundle": {
+        "blue_containment_mean": 0.0,
+        "blue_containment_stddev": 0.0,
+        "condition_id": "rule_red_vs_adaptive_blue_reduced_observability",
+        "condition_label": "Rule Red vs Adaptive Blue (Reduced Observability)",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 0.0,
+        "final_compromised_stddev": 0.0
+      },
+      "red_ablation": null,
+      "red_adaptive_config": null,
+      "red_policy": "rule",
+      "run_count": 2,
+      "sequence_hashes": [
+        "a2a3e9d679cdf24b2b78f94bb1e7575476290446652cd7dd3265c0bffe4352de"
+      ]
+    },
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": null,
+      "blue_ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "blue_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": false,
+        "enable_decoy": false,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": false
+      },
+      "blue_policy": "adaptive",
+      "condition_id": "adaptive_red_reduced_observability_vs_adaptive_blue",
+      "condition_label": "Adaptive Red (Reduced Observability) vs Adaptive Blue",
+      "first_containment_mean": -1,
+      "first_containment_stddev": -1,
+      "hash_frequency": {
+        "81cd49c7d39ec0c8c199b46defc1c780604edd3c8ea1ddd83466a2b23546c383": 2
+      },
+      "metric_bundle": {
+        "blue_containment_mean": 0.0,
+        "blue_containment_stddev": 0.0,
+        "condition_id": "adaptive_red_reduced_observability_vs_adaptive_blue",
+        "condition_label": "Adaptive Red (Reduced Observability) vs Adaptive Blue",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 1.0,
+        "final_compromised_stddev": 0.0
+      },
+      "red_ablation": {
+        "no_planning": false,
+        "reduced_observability": true
+      },
+      "red_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": false,
+        "enable_decoy": false,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": true
+      },
+      "red_policy": "adaptive",
+      "run_count": 2,
+      "sequence_hashes": [
+        "81cd49c7d39ec0c8c199b46defc1c780604edd3c8ea1ddd83466a2b23546c383"
+      ]
+    },
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": null,
+      "blue_ablation": {
+        "no_planning": false,
+        "reduced_observability": true
+      },
+      "blue_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": false,
+        "enable_decoy": false,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": true
+      },
+      "blue_policy": "adaptive",
+      "condition_id": "adaptive_red_vs_adaptive_blue_reduced_observability",
+      "condition_label": "Adaptive Red vs Adaptive Blue (Reduced Observability)",
+      "first_containment_mean": -1,
+      "first_containment_stddev": -1,
+      "hash_frequency": {
+        "81cd49c7d39ec0c8c199b46defc1c780604edd3c8ea1ddd83466a2b23546c383": 2
+      },
+      "metric_bundle": {
+        "blue_containment_mean": 0.0,
+        "blue_containment_stddev": 0.0,
+        "condition_id": "adaptive_red_vs_adaptive_blue_reduced_observability",
+        "condition_label": "Adaptive Red vs Adaptive Blue (Reduced Observability)",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 1.0,
+        "final_compromised_stddev": 0.0
+      },
+      "red_ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "red_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": false,
+        "enable_decoy": false,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": false
+      },
+      "red_policy": "adaptive",
+      "run_count": 2,
+      "sequence_hashes": [
+        "81cd49c7d39ec0c8c199b46defc1c780604edd3c8ea1ddd83466a2b23546c383"
+      ]
+    },
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": null,
+      "blue_ablation": null,
+      "blue_adaptive_config": null,
+      "blue_policy": "rule",
+      "condition_id": "adaptive_red_decoy_bluff_vs_rule_blue",
+      "condition_label": "Adaptive Red (Decoy/Bluff) vs Rule Blue",
+      "first_containment_mean": 0.0,
+      "first_containment_stddev": 0.0,
+      "hash_frequency": {
+        "2a33586ffb6c227c6a3e00cc7a099ccd50343589e58c5996830a932abece7e22": 2
+      },
+      "metric_bundle": {
+        "blue_containment_mean": 2.0,
+        "blue_containment_stddev": 0.0,
+        "condition_id": "adaptive_red_decoy_bluff_vs_rule_blue",
+        "condition_label": "Adaptive Red (Decoy/Bluff) vs Rule Blue",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 1.0,
+        "final_compromised_stddev": 0.0
+      },
+      "red_ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "red_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": true,
+        "enable_decoy": true,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": false
+      },
+      "red_policy": "adaptive",
+      "run_count": 2,
+      "sequence_hashes": [
+        "2a33586ffb6c227c6a3e00cc7a099ccd50343589e58c5996830a932abece7e22"
+      ]
+    },
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": null,
+      "blue_ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "blue_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": true,
+        "enable_decoy": true,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": false
+      },
+      "blue_policy": "adaptive",
+      "condition_id": "rule_red_vs_adaptive_blue_decoy_bluff",
+      "condition_label": "Rule Red vs Adaptive Blue (Decoy/Bluff)",
+      "first_containment_mean": -1,
+      "first_containment_stddev": -1,
+      "hash_frequency": {
+        "a2a3e9d679cdf24b2b78f94bb1e7575476290446652cd7dd3265c0bffe4352de": 2
+      },
+      "metric_bundle": {
+        "blue_containment_mean": 0.0,
+        "blue_containment_stddev": 0.0,
+        "condition_id": "rule_red_vs_adaptive_blue_decoy_bluff",
+        "condition_label": "Rule Red vs Adaptive Blue (Decoy/Bluff)",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 0.0,
+        "final_compromised_stddev": 0.0
+      },
+      "red_ablation": null,
+      "red_adaptive_config": null,
+      "red_policy": "rule",
+      "run_count": 2,
+      "sequence_hashes": [
+        "a2a3e9d679cdf24b2b78f94bb1e7575476290446652cd7dd3265c0bffe4352de"
+      ]
+    },
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": null,
+      "blue_ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "blue_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": false,
+        "enable_decoy": false,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": false
+      },
+      "blue_policy": "adaptive",
+      "condition_id": "adaptive_red_decoy_bluff_vs_adaptive_blue",
+      "condition_label": "Adaptive Red (Decoy/Bluff) vs Adaptive Blue",
+      "first_containment_mean": -1,
+      "first_containment_stddev": -1,
+      "hash_frequency": {
+        "81cd49c7d39ec0c8c199b46defc1c780604edd3c8ea1ddd83466a2b23546c383": 2
+      },
+      "metric_bundle": {
+        "blue_containment_mean": 0.0,
+        "blue_containment_stddev": 0.0,
+        "condition_id": "adaptive_red_decoy_bluff_vs_adaptive_blue",
+        "condition_label": "Adaptive Red (Decoy/Bluff) vs Adaptive Blue",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 1.0,
+        "final_compromised_stddev": 0.0
+      },
+      "red_ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "red_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": true,
+        "enable_decoy": true,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": false
+      },
+      "red_policy": "adaptive",
+      "run_count": 2,
+      "sequence_hashes": [
+        "81cd49c7d39ec0c8c199b46defc1c780604edd3c8ea1ddd83466a2b23546c383"
+      ]
+    },
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": null,
+      "blue_ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "blue_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": true,
+        "enable_decoy": true,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": false
+      },
+      "blue_policy": "adaptive",
+      "condition_id": "adaptive_red_vs_adaptive_blue_decoy_bluff",
+      "condition_label": "Adaptive Red vs Adaptive Blue (Decoy/Bluff)",
+      "first_containment_mean": -1,
+      "first_containment_stddev": -1,
+      "hash_frequency": {
+        "81cd49c7d39ec0c8c199b46defc1c780604edd3c8ea1ddd83466a2b23546c383": 2
+      },
+      "metric_bundle": {
+        "blue_containment_mean": 0.0,
+        "blue_containment_stddev": 0.0,
+        "condition_id": "adaptive_red_vs_adaptive_blue_decoy_bluff",
+        "condition_label": "Adaptive Red vs Adaptive Blue (Decoy/Bluff)",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 1.0,
+        "final_compromised_stddev": 0.0
+      },
+      "red_ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "red_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": false,
+        "enable_decoy": false,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": false
+      },
+      "red_policy": "adaptive",
+      "run_count": 2,
+      "sequence_hashes": [
+        "81cd49c7d39ec0c8c199b46defc1c780604edd3c8ea1ddd83466a2b23546c383"
+      ]
+    }
+  ],
+  "conditions": [
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": null,
+      "blue_ablation": null,
+      "blue_adaptive_config": null,
+      "blue_policy": "rule",
+      "condition_id": "rule_red_vs_rule_blue",
+      "horizon": 2,
+      "label": "Rule Red vs Rule Blue",
+      "red_ablation": null,
+      "red_adaptive_config": null,
+      "red_policy": "rule",
+      "seeds": [
+        20260423,
+        20260424
+      ]
+    },
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": false,
+        "enable_decoy": false,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": false
+      },
+      "blue_ablation": null,
+      "blue_adaptive_config": null,
+      "blue_policy": "rule",
+      "condition_id": "adaptive_red_vs_rule_blue",
+      "horizon": 2,
+      "label": "Adaptive Red vs Rule Blue",
+      "red_ablation": null,
+      "red_adaptive_config": null,
+      "red_policy": "adaptive",
+      "seeds": [
+        20260423,
+        20260424
+      ]
+    },
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": false,
+        "enable_decoy": false,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": false
+      },
+      "blue_ablation": null,
+      "blue_adaptive_config": null,
+      "blue_policy": "adaptive",
+      "condition_id": "rule_red_vs_adaptive_blue",
+      "horizon": 2,
+      "label": "Rule Red vs Adaptive Blue",
+      "red_ablation": null,
+      "red_adaptive_config": null,
+      "red_policy": "rule",
+      "seeds": [
+        20260423,
+        20260424
+      ]
+    },
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": false,
+        "enable_decoy": false,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": false
+      },
+      "blue_ablation": null,
+      "blue_adaptive_config": null,
+      "blue_policy": "adaptive",
+      "condition_id": "adaptive_red_vs_adaptive_blue",
+      "horizon": 2,
+      "label": "Adaptive Red vs Adaptive Blue",
+      "red_ablation": null,
+      "red_adaptive_config": null,
+      "red_policy": "adaptive",
+      "seeds": [
+        20260423,
+        20260424
+      ]
+    },
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": null,
+      "blue_ablation": null,
+      "blue_adaptive_config": null,
+      "blue_policy": "rule",
+      "condition_id": "adaptive_red_no_planning_vs_rule_blue",
+      "horizon": 2,
+      "label": "Adaptive Red (No Planning) vs Rule Blue",
+      "red_ablation": {
+        "no_planning": true,
+        "reduced_observability": false
+      },
+      "red_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": false,
+        "enable_decoy": false,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 1,
+        "reduced_observability": false
+      },
+      "red_policy": "adaptive",
+      "seeds": [
+        20260423,
+        20260424
+      ]
+    },
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": null,
+      "blue_ablation": null,
+      "blue_adaptive_config": null,
+      "blue_policy": "rule",
+      "condition_id": "adaptive_red_reduced_observability_vs_rule_blue",
+      "horizon": 2,
+      "label": "Adaptive Red (Reduced Observability) vs Rule Blue",
+      "red_ablation": {
+        "no_planning": false,
+        "reduced_observability": true
+      },
+      "red_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": false,
+        "enable_decoy": false,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": true
+      },
+      "red_policy": "adaptive",
+      "seeds": [
+        20260423,
+        20260424
+      ]
+    },
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": null,
+      "blue_ablation": {
+        "no_planning": true,
+        "reduced_observability": false
+      },
+      "blue_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": false,
+        "enable_decoy": false,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 1,
+        "reduced_observability": false
+      },
+      "blue_policy": "adaptive",
+      "condition_id": "rule_red_vs_adaptive_blue_no_planning",
+      "horizon": 2,
+      "label": "Rule Red vs Adaptive Blue (No Planning)",
+      "red_ablation": null,
+      "red_adaptive_config": null,
+      "red_policy": "rule",
+      "seeds": [
+        20260423,
+        20260424
+      ]
+    },
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": null,
+      "blue_ablation": {
+        "no_planning": false,
+        "reduced_observability": true
+      },
+      "blue_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": false,
+        "enable_decoy": false,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": true
+      },
+      "blue_policy": "adaptive",
+      "condition_id": "rule_red_vs_adaptive_blue_reduced_observability",
+      "horizon": 2,
+      "label": "Rule Red vs Adaptive Blue (Reduced Observability)",
+      "red_ablation": null,
+      "red_adaptive_config": null,
+      "red_policy": "rule",
+      "seeds": [
+        20260423,
+        20260424
+      ]
+    },
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": null,
+      "blue_ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "blue_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": false,
+        "enable_decoy": false,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": false
+      },
+      "blue_policy": "adaptive",
+      "condition_id": "adaptive_red_reduced_observability_vs_adaptive_blue",
+      "horizon": 2,
+      "label": "Adaptive Red (Reduced Observability) vs Adaptive Blue",
+      "red_ablation": {
+        "no_planning": false,
+        "reduced_observability": true
+      },
+      "red_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": false,
+        "enable_decoy": false,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": true
+      },
+      "red_policy": "adaptive",
+      "seeds": [
+        20260423,
+        20260424
+      ]
+    },
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": null,
+      "blue_ablation": {
+        "no_planning": false,
+        "reduced_observability": true
+      },
+      "blue_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": false,
+        "enable_decoy": false,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": true
+      },
+      "blue_policy": "adaptive",
+      "condition_id": "adaptive_red_vs_adaptive_blue_reduced_observability",
+      "horizon": 2,
+      "label": "Adaptive Red vs Adaptive Blue (Reduced Observability)",
+      "red_ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "red_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": false,
+        "enable_decoy": false,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": false
+      },
+      "red_policy": "adaptive",
+      "seeds": [
+        20260423,
+        20260424
+      ]
+    },
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": null,
+      "blue_ablation": null,
+      "blue_adaptive_config": null,
+      "blue_policy": "rule",
+      "condition_id": "adaptive_red_decoy_bluff_vs_rule_blue",
+      "horizon": 2,
+      "label": "Adaptive Red (Decoy/Bluff) vs Rule Blue",
+      "red_ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "red_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": true,
+        "enable_decoy": true,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": false
+      },
+      "red_policy": "adaptive",
+      "seeds": [
+        20260423,
+        20260424
+      ]
+    },
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": null,
+      "blue_ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "blue_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": true,
+        "enable_decoy": true,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": false
+      },
+      "blue_policy": "adaptive",
+      "condition_id": "rule_red_vs_adaptive_blue_decoy_bluff",
+      "horizon": 2,
+      "label": "Rule Red vs Adaptive Blue (Decoy/Bluff)",
+      "red_ablation": null,
+      "red_adaptive_config": null,
+      "red_policy": "rule",
+      "seeds": [
+        20260423,
+        20260424
+      ]
+    },
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": null,
+      "blue_ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "blue_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": false,
+        "enable_decoy": false,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": false
+      },
+      "blue_policy": "adaptive",
+      "condition_id": "adaptive_red_decoy_bluff_vs_adaptive_blue",
+      "horizon": 2,
+      "label": "Adaptive Red (Decoy/Bluff) vs Adaptive Blue",
+      "red_ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "red_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": true,
+        "enable_decoy": true,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": false
+      },
+      "red_policy": "adaptive",
+      "seeds": [
+        20260423,
+        20260424
+      ]
+    },
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": null,
+      "blue_ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "blue_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": true,
+        "enable_decoy": true,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": false
+      },
+      "blue_policy": "adaptive",
+      "condition_id": "adaptive_red_vs_adaptive_blue_decoy_bluff",
+      "horizon": 2,
+      "label": "Adaptive Red vs Adaptive Blue (Decoy/Bluff)",
+      "red_ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "red_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": false,
+        "enable_decoy": false,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": false
+      },
+      "red_policy": "adaptive",
+      "seeds": [
+        20260423,
+        20260424
+      ]
+    }
+  ],
+  "matrix_metadata": {
+    "condition_count": 14,
+    "generated_at_utc": "2026-05-09T09:46:59.963522+00:00",
+    "horizon": 2,
+    "include_ablations": true,
+    "scenario_id": "rule-baseline",
+    "scenario_version": "1.0.0",
+    "seed_count": 2,
+    "seeds": [
+      20260423,
+      20260424
+    ]
+  },
+  "runs": [
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": null,
+      "baseline_metrics_file": "artifacts/metrics/c16f1aae9fb145be.json",
+      "blue_ablation": null,
+      "blue_adaptive_config": null,
+      "blue_containment_actions": 0,
+      "blue_policy": "rule",
+      "condition_id": "rule_red_vs_rule_blue",
+      "condition_label": "Rule Red vs Rule Blue",
+      "final_compromised_nodes": 0,
+      "first_containment_timestep": -1,
+      "red_ablation": null,
+      "red_adaptive_config": null,
+      "red_policy": "rule",
+      "run_dir": "artifacts/runs/c16f1aae9fb145be",
+      "run_id": "c16f1aae9fb145be",
+      "seed": 20260423,
+      "sequence_hash": "a3dce930d0099446a0da6259f1b6aec4f692cdb2c4ba939dc276acf81914b07d"
+    },
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": null,
+      "baseline_metrics_file": "artifacts/metrics/df9e1bee29210053.json",
+      "blue_ablation": null,
+      "blue_adaptive_config": null,
+      "blue_containment_actions": 0,
+      "blue_policy": "rule",
+      "condition_id": "rule_red_vs_rule_blue",
+      "condition_label": "Rule Red vs Rule Blue",
+      "final_compromised_nodes": 0,
+      "first_containment_timestep": -1,
+      "red_ablation": null,
+      "red_adaptive_config": null,
+      "red_policy": "rule",
+      "run_dir": "artifacts/runs/df9e1bee29210053",
+      "run_id": "df9e1bee29210053",
+      "seed": 20260424,
+      "sequence_hash": "a3dce930d0099446a0da6259f1b6aec4f692cdb2c4ba939dc276acf81914b07d"
+    },
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": false,
+        "enable_decoy": false,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": false
+      },
+      "baseline_metrics_file": "artifacts/metrics/49b9e1e81edc1061.json",
+      "blue_ablation": null,
+      "blue_adaptive_config": null,
+      "blue_containment_actions": 2,
+      "blue_policy": "rule",
+      "condition_id": "adaptive_red_vs_rule_blue",
+      "condition_label": "Adaptive Red vs Rule Blue",
+      "final_compromised_nodes": 1,
+      "first_containment_timestep": 0,
+      "red_ablation": null,
+      "red_adaptive_config": null,
+      "red_policy": "adaptive",
+      "run_dir": "artifacts/runs/49b9e1e81edc1061",
+      "run_id": "49b9e1e81edc1061",
+      "seed": 20260423,
+      "sequence_hash": "2a33586ffb6c227c6a3e00cc7a099ccd50343589e58c5996830a932abece7e22"
+    },
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": false,
+        "enable_decoy": false,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": false
+      },
+      "baseline_metrics_file": "artifacts/metrics/2d6c80d2a9e2043f.json",
+      "blue_ablation": null,
+      "blue_adaptive_config": null,
+      "blue_containment_actions": 2,
+      "blue_policy": "rule",
+      "condition_id": "adaptive_red_vs_rule_blue",
+      "condition_label": "Adaptive Red vs Rule Blue",
+      "final_compromised_nodes": 1,
+      "first_containment_timestep": 0,
+      "red_ablation": null,
+      "red_adaptive_config": null,
+      "red_policy": "adaptive",
+      "run_dir": "artifacts/runs/2d6c80d2a9e2043f",
+      "run_id": "2d6c80d2a9e2043f",
+      "seed": 20260424,
+      "sequence_hash": "2a33586ffb6c227c6a3e00cc7a099ccd50343589e58c5996830a932abece7e22"
+    },
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": false,
+        "enable_decoy": false,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": false
+      },
+      "baseline_metrics_file": "artifacts/metrics/2b5cda783f47b371.json",
+      "blue_ablation": null,
+      "blue_adaptive_config": null,
+      "blue_containment_actions": 0,
+      "blue_policy": "adaptive",
+      "condition_id": "rule_red_vs_adaptive_blue",
+      "condition_label": "Rule Red vs Adaptive Blue",
+      "final_compromised_nodes": 0,
+      "first_containment_timestep": -1,
+      "red_ablation": null,
+      "red_adaptive_config": null,
+      "red_policy": "rule",
+      "run_dir": "artifacts/runs/2b5cda783f47b371",
+      "run_id": "2b5cda783f47b371",
+      "seed": 20260423,
+      "sequence_hash": "a2a3e9d679cdf24b2b78f94bb1e7575476290446652cd7dd3265c0bffe4352de"
+    },
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": false,
+        "enable_decoy": false,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": false
+      },
+      "baseline_metrics_file": "artifacts/metrics/866cd0322deb3541.json",
+      "blue_ablation": null,
+      "blue_adaptive_config": null,
+      "blue_containment_actions": 0,
+      "blue_policy": "adaptive",
+      "condition_id": "rule_red_vs_adaptive_blue",
+      "condition_label": "Rule Red vs Adaptive Blue",
+      "final_compromised_nodes": 0,
+      "first_containment_timestep": -1,
+      "red_ablation": null,
+      "red_adaptive_config": null,
+      "red_policy": "rule",
+      "run_dir": "artifacts/runs/866cd0322deb3541",
+      "run_id": "866cd0322deb3541",
+      "seed": 20260424,
+      "sequence_hash": "a2a3e9d679cdf24b2b78f94bb1e7575476290446652cd7dd3265c0bffe4352de"
+    },
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": false,
+        "enable_decoy": false,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": false
+      },
+      "baseline_metrics_file": "artifacts/metrics/52a18a43504b2eb6.json",
+      "blue_ablation": null,
+      "blue_adaptive_config": null,
+      "blue_containment_actions": 0,
+      "blue_policy": "adaptive",
+      "condition_id": "adaptive_red_vs_adaptive_blue",
+      "condition_label": "Adaptive Red vs Adaptive Blue",
+      "final_compromised_nodes": 1,
+      "first_containment_timestep": -1,
+      "red_ablation": null,
+      "red_adaptive_config": null,
+      "red_policy": "adaptive",
+      "run_dir": "artifacts/runs/52a18a43504b2eb6",
+      "run_id": "52a18a43504b2eb6",
+      "seed": 20260423,
+      "sequence_hash": "81cd49c7d39ec0c8c199b46defc1c780604edd3c8ea1ddd83466a2b23546c383"
+    },
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": false,
+        "enable_decoy": false,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": false
+      },
+      "baseline_metrics_file": "artifacts/metrics/a871b1869b8c91e1.json",
+      "blue_ablation": null,
+      "blue_adaptive_config": null,
+      "blue_containment_actions": 0,
+      "blue_policy": "adaptive",
+      "condition_id": "adaptive_red_vs_adaptive_blue",
+      "condition_label": "Adaptive Red vs Adaptive Blue",
+      "final_compromised_nodes": 1,
+      "first_containment_timestep": -1,
+      "red_ablation": null,
+      "red_adaptive_config": null,
+      "red_policy": "adaptive",
+      "run_dir": "artifacts/runs/a871b1869b8c91e1",
+      "run_id": "a871b1869b8c91e1",
+      "seed": 20260424,
+      "sequence_hash": "81cd49c7d39ec0c8c199b46defc1c780604edd3c8ea1ddd83466a2b23546c383"
+    },
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": null,
+      "baseline_metrics_file": "artifacts/metrics/8ec5640517b6a938.json",
+      "blue_ablation": null,
+      "blue_adaptive_config": null,
+      "blue_containment_actions": 2,
+      "blue_policy": "rule",
+      "condition_id": "adaptive_red_no_planning_vs_rule_blue",
+      "condition_label": "Adaptive Red (No Planning) vs Rule Blue",
+      "final_compromised_nodes": 1,
+      "first_containment_timestep": 0,
+      "red_ablation": {
+        "no_planning": true,
+        "reduced_observability": false
+      },
+      "red_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": false,
+        "enable_decoy": false,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 1,
+        "reduced_observability": false
+      },
+      "red_policy": "adaptive",
+      "run_dir": "artifacts/runs/8ec5640517b6a938",
+      "run_id": "8ec5640517b6a938",
+      "seed": 20260423,
+      "sequence_hash": "2a33586ffb6c227c6a3e00cc7a099ccd50343589e58c5996830a932abece7e22"
+    },
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": null,
+      "baseline_metrics_file": "artifacts/metrics/54e07ad85fb2d694.json",
+      "blue_ablation": null,
+      "blue_adaptive_config": null,
+      "blue_containment_actions": 2,
+      "blue_policy": "rule",
+      "condition_id": "adaptive_red_no_planning_vs_rule_blue",
+      "condition_label": "Adaptive Red (No Planning) vs Rule Blue",
+      "final_compromised_nodes": 1,
+      "first_containment_timestep": 0,
+      "red_ablation": {
+        "no_planning": true,
+        "reduced_observability": false
+      },
+      "red_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": false,
+        "enable_decoy": false,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 1,
+        "reduced_observability": false
+      },
+      "red_policy": "adaptive",
+      "run_dir": "artifacts/runs/54e07ad85fb2d694",
+      "run_id": "54e07ad85fb2d694",
+      "seed": 20260424,
+      "sequence_hash": "2a33586ffb6c227c6a3e00cc7a099ccd50343589e58c5996830a932abece7e22"
+    },
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": null,
+      "baseline_metrics_file": "artifacts/metrics/e2c0d1e99c4ba307.json",
+      "blue_ablation": null,
+      "blue_adaptive_config": null,
+      "blue_containment_actions": 2,
+      "blue_policy": "rule",
+      "condition_id": "adaptive_red_reduced_observability_vs_rule_blue",
+      "condition_label": "Adaptive Red (Reduced Observability) vs Rule Blue",
+      "final_compromised_nodes": 1,
+      "first_containment_timestep": 0,
+      "red_ablation": {
+        "no_planning": false,
+        "reduced_observability": true
+      },
+      "red_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": false,
+        "enable_decoy": false,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": true
+      },
+      "red_policy": "adaptive",
+      "run_dir": "artifacts/runs/e2c0d1e99c4ba307",
+      "run_id": "e2c0d1e99c4ba307",
+      "seed": 20260423,
+      "sequence_hash": "2a33586ffb6c227c6a3e00cc7a099ccd50343589e58c5996830a932abece7e22"
+    },
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": null,
+      "baseline_metrics_file": "artifacts/metrics/32a9ba7265ce4a3b.json",
+      "blue_ablation": null,
+      "blue_adaptive_config": null,
+      "blue_containment_actions": 2,
+      "blue_policy": "rule",
+      "condition_id": "adaptive_red_reduced_observability_vs_rule_blue",
+      "condition_label": "Adaptive Red (Reduced Observability) vs Rule Blue",
+      "final_compromised_nodes": 1,
+      "first_containment_timestep": 0,
+      "red_ablation": {
+        "no_planning": false,
+        "reduced_observability": true
+      },
+      "red_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": false,
+        "enable_decoy": false,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": true
+      },
+      "red_policy": "adaptive",
+      "run_dir": "artifacts/runs/32a9ba7265ce4a3b",
+      "run_id": "32a9ba7265ce4a3b",
+      "seed": 20260424,
+      "sequence_hash": "2a33586ffb6c227c6a3e00cc7a099ccd50343589e58c5996830a932abece7e22"
+    },
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": null,
+      "baseline_metrics_file": "artifacts/metrics/08cd65efbc855081.json",
+      "blue_ablation": {
+        "no_planning": true,
+        "reduced_observability": false
+      },
+      "blue_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": false,
+        "enable_decoy": false,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 1,
+        "reduced_observability": false
+      },
+      "blue_containment_actions": 0,
+      "blue_policy": "adaptive",
+      "condition_id": "rule_red_vs_adaptive_blue_no_planning",
+      "condition_label": "Rule Red vs Adaptive Blue (No Planning)",
+      "final_compromised_nodes": 0,
+      "first_containment_timestep": -1,
+      "red_ablation": null,
+      "red_adaptive_config": null,
+      "red_policy": "rule",
+      "run_dir": "artifacts/runs/08cd65efbc855081",
+      "run_id": "08cd65efbc855081",
+      "seed": 20260423,
+      "sequence_hash": "a2a3e9d679cdf24b2b78f94bb1e7575476290446652cd7dd3265c0bffe4352de"
+    },
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": null,
+      "baseline_metrics_file": "artifacts/metrics/21dd5c4f89bf20b9.json",
+      "blue_ablation": {
+        "no_planning": true,
+        "reduced_observability": false
+      },
+      "blue_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": false,
+        "enable_decoy": false,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 1,
+        "reduced_observability": false
+      },
+      "blue_containment_actions": 0,
+      "blue_policy": "adaptive",
+      "condition_id": "rule_red_vs_adaptive_blue_no_planning",
+      "condition_label": "Rule Red vs Adaptive Blue (No Planning)",
+      "final_compromised_nodes": 0,
+      "first_containment_timestep": -1,
+      "red_ablation": null,
+      "red_adaptive_config": null,
+      "red_policy": "rule",
+      "run_dir": "artifacts/runs/21dd5c4f89bf20b9",
+      "run_id": "21dd5c4f89bf20b9",
+      "seed": 20260424,
+      "sequence_hash": "a2a3e9d679cdf24b2b78f94bb1e7575476290446652cd7dd3265c0bffe4352de"
+    },
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": null,
+      "baseline_metrics_file": "artifacts/metrics/79e7d6bd2f58d6d0.json",
+      "blue_ablation": {
+        "no_planning": false,
+        "reduced_observability": true
+      },
+      "blue_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": false,
+        "enable_decoy": false,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": true
+      },
+      "blue_containment_actions": 0,
+      "blue_policy": "adaptive",
+      "condition_id": "rule_red_vs_adaptive_blue_reduced_observability",
+      "condition_label": "Rule Red vs Adaptive Blue (Reduced Observability)",
+      "final_compromised_nodes": 0,
+      "first_containment_timestep": -1,
+      "red_ablation": null,
+      "red_adaptive_config": null,
+      "red_policy": "rule",
+      "run_dir": "artifacts/runs/79e7d6bd2f58d6d0",
+      "run_id": "79e7d6bd2f58d6d0",
+      "seed": 20260423,
+      "sequence_hash": "a2a3e9d679cdf24b2b78f94bb1e7575476290446652cd7dd3265c0bffe4352de"
+    },
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": null,
+      "baseline_metrics_file": "artifacts/metrics/86de7a872bde1309.json",
+      "blue_ablation": {
+        "no_planning": false,
+        "reduced_observability": true
+      },
+      "blue_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": false,
+        "enable_decoy": false,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": true
+      },
+      "blue_containment_actions": 0,
+      "blue_policy": "adaptive",
+      "condition_id": "rule_red_vs_adaptive_blue_reduced_observability",
+      "condition_label": "Rule Red vs Adaptive Blue (Reduced Observability)",
+      "final_compromised_nodes": 0,
+      "first_containment_timestep": -1,
+      "red_ablation": null,
+      "red_adaptive_config": null,
+      "red_policy": "rule",
+      "run_dir": "artifacts/runs/86de7a872bde1309",
+      "run_id": "86de7a872bde1309",
+      "seed": 20260424,
+      "sequence_hash": "a2a3e9d679cdf24b2b78f94bb1e7575476290446652cd7dd3265c0bffe4352de"
+    },
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": null,
+      "baseline_metrics_file": "artifacts/metrics/67ea84a240a2e9f3.json",
+      "blue_ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "blue_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": false,
+        "enable_decoy": false,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": false
+      },
+      "blue_containment_actions": 0,
+      "blue_policy": "adaptive",
+      "condition_id": "adaptive_red_reduced_observability_vs_adaptive_blue",
+      "condition_label": "Adaptive Red (Reduced Observability) vs Adaptive Blue",
+      "final_compromised_nodes": 1,
+      "first_containment_timestep": -1,
+      "red_ablation": {
+        "no_planning": false,
+        "reduced_observability": true
+      },
+      "red_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": false,
+        "enable_decoy": false,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": true
+      },
+      "red_policy": "adaptive",
+      "run_dir": "artifacts/runs/67ea84a240a2e9f3",
+      "run_id": "67ea84a240a2e9f3",
+      "seed": 20260423,
+      "sequence_hash": "81cd49c7d39ec0c8c199b46defc1c780604edd3c8ea1ddd83466a2b23546c383"
+    },
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": null,
+      "baseline_metrics_file": "artifacts/metrics/0e0f705c70db6b48.json",
+      "blue_ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "blue_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": false,
+        "enable_decoy": false,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": false
+      },
+      "blue_containment_actions": 0,
+      "blue_policy": "adaptive",
+      "condition_id": "adaptive_red_reduced_observability_vs_adaptive_blue",
+      "condition_label": "Adaptive Red (Reduced Observability) vs Adaptive Blue",
+      "final_compromised_nodes": 1,
+      "first_containment_timestep": -1,
+      "red_ablation": {
+        "no_planning": false,
+        "reduced_observability": true
+      },
+      "red_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": false,
+        "enable_decoy": false,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": true
+      },
+      "red_policy": "adaptive",
+      "run_dir": "artifacts/runs/0e0f705c70db6b48",
+      "run_id": "0e0f705c70db6b48",
+      "seed": 20260424,
+      "sequence_hash": "81cd49c7d39ec0c8c199b46defc1c780604edd3c8ea1ddd83466a2b23546c383"
+    },
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": null,
+      "baseline_metrics_file": "artifacts/metrics/8ba1d906cf0e54b2.json",
+      "blue_ablation": {
+        "no_planning": false,
+        "reduced_observability": true
+      },
+      "blue_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": false,
+        "enable_decoy": false,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": true
+      },
+      "blue_containment_actions": 0,
+      "blue_policy": "adaptive",
+      "condition_id": "adaptive_red_vs_adaptive_blue_reduced_observability",
+      "condition_label": "Adaptive Red vs Adaptive Blue (Reduced Observability)",
+      "final_compromised_nodes": 1,
+      "first_containment_timestep": -1,
+      "red_ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "red_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": false,
+        "enable_decoy": false,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": false
+      },
+      "red_policy": "adaptive",
+      "run_dir": "artifacts/runs/8ba1d906cf0e54b2",
+      "run_id": "8ba1d906cf0e54b2",
+      "seed": 20260423,
+      "sequence_hash": "81cd49c7d39ec0c8c199b46defc1c780604edd3c8ea1ddd83466a2b23546c383"
+    },
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": null,
+      "baseline_metrics_file": "artifacts/metrics/3a54d3ffb482b307.json",
+      "blue_ablation": {
+        "no_planning": false,
+        "reduced_observability": true
+      },
+      "blue_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": false,
+        "enable_decoy": false,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": true
+      },
+      "blue_containment_actions": 0,
+      "blue_policy": "adaptive",
+      "condition_id": "adaptive_red_vs_adaptive_blue_reduced_observability",
+      "condition_label": "Adaptive Red vs Adaptive Blue (Reduced Observability)",
+      "final_compromised_nodes": 1,
+      "first_containment_timestep": -1,
+      "red_ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "red_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": false,
+        "enable_decoy": false,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": false
+      },
+      "red_policy": "adaptive",
+      "run_dir": "artifacts/runs/3a54d3ffb482b307",
+      "run_id": "3a54d3ffb482b307",
+      "seed": 20260424,
+      "sequence_hash": "81cd49c7d39ec0c8c199b46defc1c780604edd3c8ea1ddd83466a2b23546c383"
+    },
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": null,
+      "baseline_metrics_file": "artifacts/metrics/ce7b69c580d66566.json",
+      "blue_ablation": null,
+      "blue_adaptive_config": null,
+      "blue_containment_actions": 2,
+      "blue_policy": "rule",
+      "condition_id": "adaptive_red_decoy_bluff_vs_rule_blue",
+      "condition_label": "Adaptive Red (Decoy/Bluff) vs Rule Blue",
+      "final_compromised_nodes": 1,
+      "first_containment_timestep": 0,
+      "red_ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "red_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": true,
+        "enable_decoy": true,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": false
+      },
+      "red_policy": "adaptive",
+      "run_dir": "artifacts/runs/ce7b69c580d66566",
+      "run_id": "ce7b69c580d66566",
+      "seed": 20260423,
+      "sequence_hash": "2a33586ffb6c227c6a3e00cc7a099ccd50343589e58c5996830a932abece7e22"
+    },
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": null,
+      "baseline_metrics_file": "artifacts/metrics/19319a525e22215d.json",
+      "blue_ablation": null,
+      "blue_adaptive_config": null,
+      "blue_containment_actions": 2,
+      "blue_policy": "rule",
+      "condition_id": "adaptive_red_decoy_bluff_vs_rule_blue",
+      "condition_label": "Adaptive Red (Decoy/Bluff) vs Rule Blue",
+      "final_compromised_nodes": 1,
+      "first_containment_timestep": 0,
+      "red_ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "red_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": true,
+        "enable_decoy": true,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": false
+      },
+      "red_policy": "adaptive",
+      "run_dir": "artifacts/runs/19319a525e22215d",
+      "run_id": "19319a525e22215d",
+      "seed": 20260424,
+      "sequence_hash": "2a33586ffb6c227c6a3e00cc7a099ccd50343589e58c5996830a932abece7e22"
+    },
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": null,
+      "baseline_metrics_file": "artifacts/metrics/03293827cb401bc8.json",
+      "blue_ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "blue_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": true,
+        "enable_decoy": true,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": false
+      },
+      "blue_containment_actions": 0,
+      "blue_policy": "adaptive",
+      "condition_id": "rule_red_vs_adaptive_blue_decoy_bluff",
+      "condition_label": "Rule Red vs Adaptive Blue (Decoy/Bluff)",
+      "final_compromised_nodes": 0,
+      "first_containment_timestep": -1,
+      "red_ablation": null,
+      "red_adaptive_config": null,
+      "red_policy": "rule",
+      "run_dir": "artifacts/runs/03293827cb401bc8",
+      "run_id": "03293827cb401bc8",
+      "seed": 20260423,
+      "sequence_hash": "a2a3e9d679cdf24b2b78f94bb1e7575476290446652cd7dd3265c0bffe4352de"
+    },
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": null,
+      "baseline_metrics_file": "artifacts/metrics/a8af1f0293b864ea.json",
+      "blue_ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "blue_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": true,
+        "enable_decoy": true,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": false
+      },
+      "blue_containment_actions": 0,
+      "blue_policy": "adaptive",
+      "condition_id": "rule_red_vs_adaptive_blue_decoy_bluff",
+      "condition_label": "Rule Red vs Adaptive Blue (Decoy/Bluff)",
+      "final_compromised_nodes": 0,
+      "first_containment_timestep": -1,
+      "red_ablation": null,
+      "red_adaptive_config": null,
+      "red_policy": "rule",
+      "run_dir": "artifacts/runs/a8af1f0293b864ea",
+      "run_id": "a8af1f0293b864ea",
+      "seed": 20260424,
+      "sequence_hash": "a2a3e9d679cdf24b2b78f94bb1e7575476290446652cd7dd3265c0bffe4352de"
+    },
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": null,
+      "baseline_metrics_file": "artifacts/metrics/4e372b96640cc3f1.json",
+      "blue_ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "blue_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": false,
+        "enable_decoy": false,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": false
+      },
+      "blue_containment_actions": 0,
+      "blue_policy": "adaptive",
+      "condition_id": "adaptive_red_decoy_bluff_vs_adaptive_blue",
+      "condition_label": "Adaptive Red (Decoy/Bluff) vs Adaptive Blue",
+      "final_compromised_nodes": 1,
+      "first_containment_timestep": -1,
+      "red_ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "red_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": true,
+        "enable_decoy": true,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": false
+      },
+      "red_policy": "adaptive",
+      "run_dir": "artifacts/runs/4e372b96640cc3f1",
+      "run_id": "4e372b96640cc3f1",
+      "seed": 20260423,
+      "sequence_hash": "81cd49c7d39ec0c8c199b46defc1c780604edd3c8ea1ddd83466a2b23546c383"
+    },
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": null,
+      "baseline_metrics_file": "artifacts/metrics/41983b5cae4d3f30.json",
+      "blue_ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "blue_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": false,
+        "enable_decoy": false,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": false
+      },
+      "blue_containment_actions": 0,
+      "blue_policy": "adaptive",
+      "condition_id": "adaptive_red_decoy_bluff_vs_adaptive_blue",
+      "condition_label": "Adaptive Red (Decoy/Bluff) vs Adaptive Blue",
+      "final_compromised_nodes": 1,
+      "first_containment_timestep": -1,
+      "red_ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "red_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": true,
+        "enable_decoy": true,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": false
+      },
+      "red_policy": "adaptive",
+      "run_dir": "artifacts/runs/41983b5cae4d3f30",
+      "run_id": "41983b5cae4d3f30",
+      "seed": 20260424,
+      "sequence_hash": "81cd49c7d39ec0c8c199b46defc1c780604edd3c8ea1ddd83466a2b23546c383"
+    },
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": null,
+      "baseline_metrics_file": "artifacts/metrics/34779c0e63fb9da3.json",
+      "blue_ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "blue_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": true,
+        "enable_decoy": true,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": false
+      },
+      "blue_containment_actions": 0,
+      "blue_policy": "adaptive",
+      "condition_id": "adaptive_red_vs_adaptive_blue_decoy_bluff",
+      "condition_label": "Adaptive Red vs Adaptive Blue (Decoy/Bluff)",
+      "final_compromised_nodes": 1,
+      "first_containment_timestep": -1,
+      "red_ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "red_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": false,
+        "enable_decoy": false,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": false
+      },
+      "red_policy": "adaptive",
+      "run_dir": "artifacts/runs/34779c0e63fb9da3",
+      "run_id": "34779c0e63fb9da3",
+      "seed": 20260423,
+      "sequence_hash": "81cd49c7d39ec0c8c199b46defc1c780604edd3c8ea1ddd83466a2b23546c383"
+    },
+    {
+      "ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "adaptive_config": null,
+      "baseline_metrics_file": "artifacts/metrics/de7cc42130747034.json",
+      "blue_ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "blue_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": true,
+        "enable_decoy": true,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": false
+      },
+      "blue_containment_actions": 0,
+      "blue_policy": "adaptive",
+      "condition_id": "adaptive_red_vs_adaptive_blue_decoy_bluff",
+      "condition_label": "Adaptive Red vs Adaptive Blue (Decoy/Bluff)",
+      "final_compromised_nodes": 1,
+      "first_containment_timestep": -1,
+      "red_ablation": {
+        "no_planning": false,
+        "reduced_observability": false
+      },
+      "red_adaptive_config": {
+        "deception_bias": 1.0,
+        "decision_noise": 0.0,
+        "discount_factor": 0.9,
+        "enable_bluff": false,
+        "enable_decoy": false,
+        "exploration_bias": 0.0,
+        "max_compromised_projection": 128,
+        "model_routing": {
+          "api_base_url": "",
+          "api_key_env_var": "",
+          "enabled": false,
+          "fallback_to_heuristic": true,
+          "max_retries": 0,
+          "model_name": "",
+          "provider": "heuristic",
+          "temperature": 0.0,
+          "timeout_seconds": 30.0
+        },
+        "planning_horizon": 3,
+        "reduced_observability": false
+      },
+      "red_policy": "adaptive",
+      "run_dir": "artifacts/runs/de7cc42130747034",
+      "run_id": "de7cc42130747034",
+      "seed": 20260424,
+      "sequence_hash": "81cd49c7d39ec0c8c199b46defc1c780604edd3c8ea1ddd83466a2b23546c383"
+    }
+  ],
+  "summary_rankings": {
+    "highest_blue_containment": [
+      {
+        "blue_containment_mean": 2.0,
+        "condition_id": "adaptive_red_decoy_bluff_vs_rule_blue",
+        "condition_label": "Adaptive Red (Decoy/Bluff) vs Rule Blue",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 1.0,
+        "rank": 1
+      },
+      {
+        "blue_containment_mean": 2.0,
+        "condition_id": "adaptive_red_no_planning_vs_rule_blue",
+        "condition_label": "Adaptive Red (No Planning) vs Rule Blue",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 1.0,
+        "rank": 2
+      },
+      {
+        "blue_containment_mean": 2.0,
+        "condition_id": "adaptive_red_reduced_observability_vs_rule_blue",
+        "condition_label": "Adaptive Red (Reduced Observability) vs Rule Blue",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 1.0,
+        "rank": 3
+      },
+      {
+        "blue_containment_mean": 2.0,
+        "condition_id": "adaptive_red_vs_rule_blue",
+        "condition_label": "Adaptive Red vs Rule Blue",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 1.0,
+        "rank": 4
+      },
+      {
+        "blue_containment_mean": 0.0,
+        "condition_id": "rule_red_vs_adaptive_blue",
+        "condition_label": "Rule Red vs Adaptive Blue",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 0.0,
+        "rank": 5
+      },
+      {
+        "blue_containment_mean": 0.0,
+        "condition_id": "rule_red_vs_adaptive_blue_decoy_bluff",
+        "condition_label": "Rule Red vs Adaptive Blue (Decoy/Bluff)",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 0.0,
+        "rank": 6
+      },
+      {
+        "blue_containment_mean": 0.0,
+        "condition_id": "rule_red_vs_adaptive_blue_no_planning",
+        "condition_label": "Rule Red vs Adaptive Blue (No Planning)",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 0.0,
+        "rank": 7
+      },
+      {
+        "blue_containment_mean": 0.0,
+        "condition_id": "rule_red_vs_adaptive_blue_reduced_observability",
+        "condition_label": "Rule Red vs Adaptive Blue (Reduced Observability)",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 0.0,
+        "rank": 8
+      },
+      {
+        "blue_containment_mean": 0.0,
+        "condition_id": "rule_red_vs_rule_blue",
+        "condition_label": "Rule Red vs Rule Blue",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 0.0,
+        "rank": 9
+      },
+      {
+        "blue_containment_mean": 0.0,
+        "condition_id": "adaptive_red_decoy_bluff_vs_adaptive_blue",
+        "condition_label": "Adaptive Red (Decoy/Bluff) vs Adaptive Blue",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 1.0,
+        "rank": 10
+      },
+      {
+        "blue_containment_mean": 0.0,
+        "condition_id": "adaptive_red_reduced_observability_vs_adaptive_blue",
+        "condition_label": "Adaptive Red (Reduced Observability) vs Adaptive Blue",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 1.0,
+        "rank": 11
+      },
+      {
+        "blue_containment_mean": 0.0,
+        "condition_id": "adaptive_red_vs_adaptive_blue",
+        "condition_label": "Adaptive Red vs Adaptive Blue",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 1.0,
+        "rank": 12
+      },
+      {
+        "blue_containment_mean": 0.0,
+        "condition_id": "adaptive_red_vs_adaptive_blue_decoy_bluff",
+        "condition_label": "Adaptive Red vs Adaptive Blue (Decoy/Bluff)",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 1.0,
+        "rank": 13
+      },
+      {
+        "blue_containment_mean": 0.0,
+        "condition_id": "adaptive_red_vs_adaptive_blue_reduced_observability",
+        "condition_label": "Adaptive Red vs Adaptive Blue (Reduced Observability)",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 1.0,
+        "rank": 14
+      }
+    ],
+    "lowest_final_compromised": [
+      {
+        "blue_containment_mean": 0.0,
+        "condition_id": "rule_red_vs_adaptive_blue",
+        "condition_label": "Rule Red vs Adaptive Blue",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 0.0,
+        "rank": 1
+      },
+      {
+        "blue_containment_mean": 0.0,
+        "condition_id": "rule_red_vs_adaptive_blue_decoy_bluff",
+        "condition_label": "Rule Red vs Adaptive Blue (Decoy/Bluff)",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 0.0,
+        "rank": 2
+      },
+      {
+        "blue_containment_mean": 0.0,
+        "condition_id": "rule_red_vs_adaptive_blue_no_planning",
+        "condition_label": "Rule Red vs Adaptive Blue (No Planning)",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 0.0,
+        "rank": 3
+      },
+      {
+        "blue_containment_mean": 0.0,
+        "condition_id": "rule_red_vs_adaptive_blue_reduced_observability",
+        "condition_label": "Rule Red vs Adaptive Blue (Reduced Observability)",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 0.0,
+        "rank": 4
+      },
+      {
+        "blue_containment_mean": 0.0,
+        "condition_id": "rule_red_vs_rule_blue",
+        "condition_label": "Rule Red vs Rule Blue",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 0.0,
+        "rank": 5
+      },
+      {
+        "blue_containment_mean": 2.0,
+        "condition_id": "adaptive_red_decoy_bluff_vs_rule_blue",
+        "condition_label": "Adaptive Red (Decoy/Bluff) vs Rule Blue",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 1.0,
+        "rank": 6
+      },
+      {
+        "blue_containment_mean": 2.0,
+        "condition_id": "adaptive_red_no_planning_vs_rule_blue",
+        "condition_label": "Adaptive Red (No Planning) vs Rule Blue",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 1.0,
+        "rank": 7
+      },
+      {
+        "blue_containment_mean": 2.0,
+        "condition_id": "adaptive_red_reduced_observability_vs_rule_blue",
+        "condition_label": "Adaptive Red (Reduced Observability) vs Rule Blue",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 1.0,
+        "rank": 8
+      },
+      {
+        "blue_containment_mean": 2.0,
+        "condition_id": "adaptive_red_vs_rule_blue",
+        "condition_label": "Adaptive Red vs Rule Blue",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 1.0,
+        "rank": 9
+      },
+      {
+        "blue_containment_mean": 0.0,
+        "condition_id": "adaptive_red_decoy_bluff_vs_adaptive_blue",
+        "condition_label": "Adaptive Red (Decoy/Bluff) vs Adaptive Blue",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 1.0,
+        "rank": 10
+      },
+      {
+        "blue_containment_mean": 0.0,
+        "condition_id": "adaptive_red_reduced_observability_vs_adaptive_blue",
+        "condition_label": "Adaptive Red (Reduced Observability) vs Adaptive Blue",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 1.0,
+        "rank": 11
+      },
+      {
+        "blue_containment_mean": 0.0,
+        "condition_id": "adaptive_red_vs_adaptive_blue",
+        "condition_label": "Adaptive Red vs Adaptive Blue",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 1.0,
+        "rank": 12
+      },
+      {
+        "blue_containment_mean": 0.0,
+        "condition_id": "adaptive_red_vs_adaptive_blue_decoy_bluff",
+        "condition_label": "Adaptive Red vs Adaptive Blue (Decoy/Bluff)",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 1.0,
+        "rank": 13
+      },
+      {
+        "blue_containment_mean": 0.0,
+        "condition_id": "adaptive_red_vs_adaptive_blue_reduced_observability",
+        "condition_label": "Adaptive Red vs Adaptive Blue (Reduced Observability)",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 1.0,
+        "rank": 14
+      }
+    ],
+    "most_deterministic": [
+      {
+        "blue_containment_mean": 0.0,
+        "condition_id": "rule_red_vs_adaptive_blue",
+        "condition_label": "Rule Red vs Adaptive Blue",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 0.0,
+        "rank": 1
+      },
+      {
+        "blue_containment_mean": 0.0,
+        "condition_id": "rule_red_vs_adaptive_blue_decoy_bluff",
+        "condition_label": "Rule Red vs Adaptive Blue (Decoy/Bluff)",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 0.0,
+        "rank": 2
+      },
+      {
+        "blue_containment_mean": 0.0,
+        "condition_id": "rule_red_vs_adaptive_blue_no_planning",
+        "condition_label": "Rule Red vs Adaptive Blue (No Planning)",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 0.0,
+        "rank": 3
+      },
+      {
+        "blue_containment_mean": 0.0,
+        "condition_id": "rule_red_vs_adaptive_blue_reduced_observability",
+        "condition_label": "Rule Red vs Adaptive Blue (Reduced Observability)",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 0.0,
+        "rank": 4
+      },
+      {
+        "blue_containment_mean": 0.0,
+        "condition_id": "rule_red_vs_rule_blue",
+        "condition_label": "Rule Red vs Rule Blue",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 0.0,
+        "rank": 5
+      },
+      {
+        "blue_containment_mean": 2.0,
+        "condition_id": "adaptive_red_decoy_bluff_vs_rule_blue",
+        "condition_label": "Adaptive Red (Decoy/Bluff) vs Rule Blue",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 1.0,
+        "rank": 6
+      },
+      {
+        "blue_containment_mean": 2.0,
+        "condition_id": "adaptive_red_no_planning_vs_rule_blue",
+        "condition_label": "Adaptive Red (No Planning) vs Rule Blue",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 1.0,
+        "rank": 7
+      },
+      {
+        "blue_containment_mean": 2.0,
+        "condition_id": "adaptive_red_reduced_observability_vs_rule_blue",
+        "condition_label": "Adaptive Red (Reduced Observability) vs Rule Blue",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 1.0,
+        "rank": 8
+      },
+      {
+        "blue_containment_mean": 2.0,
+        "condition_id": "adaptive_red_vs_rule_blue",
+        "condition_label": "Adaptive Red vs Rule Blue",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 1.0,
+        "rank": 9
+      },
+      {
+        "blue_containment_mean": 0.0,
+        "condition_id": "adaptive_red_decoy_bluff_vs_adaptive_blue",
+        "condition_label": "Adaptive Red (Decoy/Bluff) vs Adaptive Blue",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 1.0,
+        "rank": 10
+      },
+      {
+        "blue_containment_mean": 0.0,
+        "condition_id": "adaptive_red_reduced_observability_vs_adaptive_blue",
+        "condition_label": "Adaptive Red (Reduced Observability) vs Adaptive Blue",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 1.0,
+        "rank": 11
+      },
+      {
+        "blue_containment_mean": 0.0,
+        "condition_id": "adaptive_red_vs_adaptive_blue",
+        "condition_label": "Adaptive Red vs Adaptive Blue",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 1.0,
+        "rank": 12
+      },
+      {
+        "blue_containment_mean": 0.0,
+        "condition_id": "adaptive_red_vs_adaptive_blue_decoy_bluff",
+        "condition_label": "Adaptive Red vs Adaptive Blue (Decoy/Bluff)",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 1.0,
+        "rank": 13
+      },
+      {
+        "blue_containment_mean": 0.0,
+        "condition_id": "adaptive_red_vs_adaptive_blue_reduced_observability",
+        "condition_label": "Adaptive Red vs Adaptive Blue (Reduced Observability)",
+        "deterministic_consistency_ratio": 1.0,
+        "final_compromised_mean": 1.0,
+        "rank": 14
+      }
+    ]
+  }
+}

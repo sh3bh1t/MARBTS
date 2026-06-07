@@ -1,0 +1,236 @@
+{
+  "analysis": {
+    "comparison_rows": [
+      [
+        "Final compromised nodes",
+        "0",
+        "1",
+        "1"
+      ],
+      [
+        "Blue containment actions",
+        "0",
+        "2",
+        "2"
+      ],
+      [
+        "First containment timestep",
+        "-1",
+        "0",
+        "1"
+      ],
+      [
+        "Response latency",
+        "-1",
+        "0",
+        "1"
+      ],
+      [
+        "Containment-to-compromise ratio",
+        "0",
+        "2",
+        "2"
+      ]
+    ],
+    "left_run": {
+      "compromise_trend": {
+        "compromised_nodes": [
+          0,
+          0
+        ],
+        "timestep": [
+          0,
+          1
+        ]
+      },
+      "defense_efficiency": {
+        "blue_containment_actions": 0,
+        "containment_to_compromise_ratio": 0.0,
+        "final_compromised_nodes": 0
+      },
+      "first_compromise_timestep": -1,
+      "first_containment_timestep": -1,
+      "response_latency": -1,
+      "run_id": "c16f1aae9fb145be",
+      "scenario_id": "rule-baseline:rule_red_vs_rule_blue",
+      "timestep_count": 2
+    },
+    "right_run": {
+      "compromise_trend": {
+        "compromised_nodes": [
+          1,
+          1
+        ],
+        "timestep": [
+          0,
+          1
+        ]
+      },
+      "defense_efficiency": {
+        "blue_containment_actions": 2,
+        "containment_to_compromise_ratio": 2.0,
+        "final_compromised_nodes": 1
+      },
+      "first_compromise_timestep": 0,
+      "first_containment_timestep": 0,
+      "response_latency": 0,
+      "run_id": "49b9e1e81edc1061",
+      "scenario_id": "rule-baseline:adaptive_red_vs_rule_blue",
+      "timestep_count": 2
+    }
+  },
+  "comparisons": {
+    "blue_containment_actions_delta": 2,
+    "containment_to_compromise_ratio_delta": 2.0,
+    "final_compromised_nodes_delta": 1,
+    "first_containment_timestep_delta": 1,
+    "replay_sequence_hash_match": false,
+    "response_latency_delta": 1,
+    "sequence_hash_integrity": true,
+    "sequence_hash_match": false,
+    "timesteps_count_delta": 0
+  },
+  "left_run": {
+    "action_counts": {
+      "blue": {
+        "monitor": 2
+      },
+      "red": {
+        "scan": 2
+      }
+    },
+    "blue_containment_actions": 0,
+    "final_compromised_nodes": 0,
+    "final_state_ref": "6c6bb39cc38db1c944538f8d612e05e1a30910cb23f725e505a8954003aa3f77",
+    "first_containment_timestep": -1,
+    "horizon": 2,
+    "policy_metrics": {
+      "blue": {
+        "action_type_counts": {
+          "monitor": 2
+        },
+        "actions_selected": 2,
+        "policy_name": "rule_based_blue_v1"
+      },
+      "red": {
+        "action_type_counts": {
+          "scan": 2
+        },
+        "actions_selected": 2,
+        "policy_name": "rule_based_red_v1"
+      }
+    },
+    "provenance": {
+      "commit_hash": "a4e6f1682922ec583bbca8f9ca6f5a07a874c5a6",
+      "config_hash": "38063b0c3332a27f",
+      "horizon": 2,
+      "run_id": "c16f1aae9fb145be",
+      "scenario_id": "rule-baseline:rule_red_vs_rule_blue",
+      "schema_version": "2026-04-23.observability.v1",
+      "seed": 20260423,
+      "timestamp_utc": "2026-05-09T09:46:24.925966+00:00"
+    },
+    "replay_sequence_hash": "a3dce930d0099446a0da6259f1b6aec4f692cdb2c4ba939dc276acf81914b07d",
+    "run_id": "c16f1aae9fb145be",
+    "scenario_id": "rule-baseline:rule_red_vs_rule_blue",
+    "seed": 20260423,
+    "sequence_hash": "a3dce930d0099446a0da6259f1b6aec4f692cdb2c4ba939dc276acf81914b07d",
+    "sequence_hash_matches": true,
+    "timestamp_utc": "2026-05-09T09:46:24.925966+00:00",
+    "timesteps_count": 2
+  },
+  "report_summary": {
+    "generated_at_utc": "2026-05-09T09:46:51.579881+00:00",
+    "metric_names": [
+      "compromise_trend",
+      "defense_efficiency",
+      "response_latency",
+      "sequence_hash_match"
+    ],
+    "report_file": "artifacts/reports/comparative_report_c16f1aae9fb145be_vs_49b9e1e81edc1061.json",
+    "scenario_id": "rule-baseline:rule_red_vs_rule_blue__vs__rule-baseline:adaptive_red_vs_rule_blue"
+  },
+  "right_run": {
+    "action_counts": {
+      "blue": {
+        "block": 2
+      },
+      "red": {
+        "exploit": 2
+      }
+    },
+    "blue_containment_actions": 2,
+    "final_compromised_nodes": 1,
+    "final_state_ref": "d3cefba8f7b873a73895c30b11e31a2b5bea3f3a77320726891cdfa7b8430d82",
+    "first_containment_timestep": 0,
+    "horizon": 2,
+    "policy_metrics": {
+      "blue": {
+        "action_type_counts": {
+          "block": 2
+        },
+        "actions_selected": 2,
+        "policy_name": "rule_based_blue_v1"
+      },
+      "red": {
+        "action_type_counts": {
+          "escalate": 0,
+          "exploit": 2,
+          "lateral_move": 0,
+          "scan": 0
+        },
+        "actions_selected": 2,
+        "policy_name": "adaptive_planning_red_v1"
+      }
+    },
+    "provenance": {
+      "commit_hash": "a4e6f1682922ec583bbca8f9ca6f5a07a874c5a6",
+      "config_hash": "b455f94324f2d98b",
+      "horizon": 2,
+      "run_id": "49b9e1e81edc1061",
+      "scenario_id": "rule-baseline:adaptive_red_vs_rule_blue",
+      "schema_version": "2026-04-23.observability.v1",
+      "seed": 20260423,
+      "timestamp_utc": "2026-05-09T09:46:24.933444+00:00"
+    },
+    "replay_sequence_hash": "2a33586ffb6c227c6a3e00cc7a099ccd50343589e58c5996830a932abece7e22",
+    "run_id": "49b9e1e81edc1061",
+    "scenario_id": "rule-baseline:adaptive_red_vs_rule_blue",
+    "seed": 20260423,
+    "sequence_hash": "2a33586ffb6c227c6a3e00cc7a099ccd50343589e58c5996830a932abece7e22",
+    "sequence_hash_matches": true,
+    "timestamp_utc": "2026-05-09T09:46:24.933444+00:00",
+    "timesteps_count": 2
+  },
+  "visualizations": {
+    "compromise_trend": {
+      "figure_file": "artifacts/figures/comparative_report_c16f1aae9fb145be_vs_49b9e1e81edc1061_compromise_trend.svg",
+      "series": {
+        "49b9e1e81edc1061": [
+          1,
+          1
+        ],
+        "c16f1aae9fb145be": [
+          0,
+          0
+        ]
+      }
+    },
+    "defense_efficiency": {
+      "figure_file": "artifacts/figures/comparative_report_c16f1aae9fb145be_vs_49b9e1e81edc1061_defense_efficiency.svg",
+      "metric": "containment_to_compromise_ratio",
+      "values": {
+        "49b9e1e81edc1061": 2.0,
+        "c16f1aae9fb145be": 0.0
+      }
+    },
+    "response_latency": {
+      "figure_file": "artifacts/figures/comparative_report_c16f1aae9fb145be_vs_49b9e1e81edc1061_response_latency.svg",
+      "metric": "response_latency",
+      "values": {
+        "49b9e1e81edc1061": 0,
+        "c16f1aae9fb145be": -1
+      }
+    }
+  }
+}

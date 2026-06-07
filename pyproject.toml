@@ -25,9 +25,13 @@ marbts-stress-test-suite = "marbts_cli.experiment_commands:run_stress_test_suite
 marbts-ablation-report = "marbts_cli.experiment_commands:run_ablation_report_main"
 marbts-container-profile = "marbts_cli.container_commands:run_container_profile_main"
 marbts-release-validation = "marbts_cli.release_commands:run_release_validation_main"
+marbts-ui = "marbts_ui.server:main"
 
 [tool.setuptools]
 package-dir = {"" = "src"}
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.package-data]
+marbts_ui = ["static/*"]

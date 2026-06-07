@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MARBTS Console</title>
+    <script>
+      try {
+        const storedTheme = localStorage.getItem("marbts.theme");
+        document.documentElement.dataset.theme = storedTheme === "light" || storedTheme === "dark" ? storedTheme : "dark";
+      } catch {
+        document.documentElement.dataset.theme = "dark";
+      }
+    </script>
+    <link rel="stylesheet" href="/static/styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand">
+          <span class="brand-mark">M</span>
+          <div>
+            <h1>MARBTS Console</h1>
+            <p id="projectRoot">Loading project</p>
+          </div>
+        </div>
+        <div class="topbar-actions">
+          <div id="overviewStats" class="overview-stats"></div>
+          <label class="theme-toggle" title="Toggle color theme">
+            <input id="themeToggle" type="checkbox" aria-label="Toggle dark mode">
+            <span class="theme-track"><span class="theme-thumb"></span></span>
+            <span id="themeLabel">Dark</span>
+          </label>
+        </div>
+      </header>
+
+      <div class="workspace">
+        <nav class="side-nav" aria-label="Primary">
+          <button class="nav-button active" data-view="scenarios"><span class="nav-icon">S</span><span>Scenarios</span></button>
+          <button class="nav-button" data-view="run"><span class="nav-icon">R</span><span>Run</span></button>
+          <button class="nav-button" data-view="replay"><span class="nav-icon">T</span><span>Replay</span></button>
+          <button class="nav-button" data-view="reports"><span class="nav-icon">P</span><span>Reports</span></button>
+          <button class="nav-button" data-view="operations"><span class="nav-icon">O</span><span>Ops</span></button>
+        </nav>
+
+        <main class="content">
+          <section id="view-scenarios" class="view active" aria-label="Scenarios">
+            <div class="section-header">
+              <div>
+                <h2>Scenario Catalog</h2>
+                <p id="scenarioCount">0 scenarios</p>
+              </div>
+              <div class="toolbar">
+                <input id="scenarioSearch" type="search" placeholder="Filter scenarios">
+                <button id="refreshScenarios" class="button secondary"><span class="button-icon">R</span>Refresh</button>
+              </div>
+            </div>
+
+            <div class="explain-panel">
+              <div>
+                <span class="eyebrow">What This Screen Shows</span>
+                <p>The catalog is the starting point for the whole system. Each scenario is a synthetic network definition: nodes, edges, services, vulnerabilities, security levels, and initial compromise or isolation state.</p>
+              </div>
+              <div>
+                <span class="eyebrow">How To Explain It</span>
+                <p>“Before running any Red vs Blue experiment, we choose the network world. This table tells us the size and risk profile of each world, and the graph shows how attack paths can move through it.”</p>
+              </div>
+              <div>
+                <span class="eyebrow">Point Out</span>
+                <ul>
+                  <li>Tags summarize topology complexity, vulnerability density, and defense posture.</li>
+                  <li>The graph is the attack-defense surface the policies will act on.</li>
+                  <li>The validator proves a scenario follows the project schema before it is used.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="two-column wide-left">
+              <div class="panel">
+                <div class="table-wrap">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Scenario</th>
+                        <th>Group</th>
+                        <th>Nodes</th>
+                        <th>Edges</th>
+                        <th>Tags</th>
+                      </tr>
+                    </thead>
+                    <tbody id="scenarioRows"></tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="panel">
+                <div class="panel-header">
+                  <h3 id="scenarioTitle">Select a scenario</h3>
+                  <span id="scenarioVersion" class="status-pill">Version</span>
+                </div>
+                <div id="scenarioMetrics" class="metric-grid"></div>
+                <svg id="scenarioGraph" class="graph-canvas" role="img" aria-label="Scenario topology"></svg>
+              </div>
+            </div>
+
+            <div class="panel editor-panel">
+              <div class="panel-header">
+                <h3>Scenario Validator</h3>
+                <div class="toolbar">
+                  <button id="loadSelectedScenarioJson" class="button secondary">Load Selected</button>
+                  <button id="validateScenarioJson" class="button primary">Validate JSON</button>
+                </div>
+              </div>
+              <textarea id="scenarioJsonEditor" spellcheck="false"></textarea>
+              <pre id="scenarioValidationResult" class="result-box"></pre>
+            </div>
+          </section>
+
+          <section id="view-run" class="view" aria-label="Run">
+            <div class="section-header">
+              <div>
+                <h2>Simulation Run</h2>
+                <p>Rule and adaptive policy execution</p>
+              </div>
+              <button id="runSimulation" class="button primary"><span class="button-icon">></span>Run</button>
+            </div>
+
+            <div class="explain-panel">
+              <div>
+                <span class="eyebrow">What This Screen Does</span>
+                <p>This page runs one seeded simulation. Red chooses offensive actions, Blue chooses defensive actions, the environment applies legal state transitions, and the UI shows the resulting graph and timeline.</p>
+              </div>
+              <div>
+                <span class="eyebrow">How To Explain It</span>
+                <p>“A run is deterministic for the same scenario, seed, horizon, and policy settings. That means we can replay and compare behavior instead of relying on one-off demonstrations.”</p>
+              </div>
+              <div>
+                <span class="eyebrow">Point Out</span>
+                <ul>
+                  <li>Rule policies are fixed heuristics; adaptive policies score legal actions using planning, observability, and optional deception settings.</li>
+                  <li>The turn slider shows how the network changes after each Red and Blue action pair.</li>
+                  <li>The timeline includes rationale, targets, state changes, and compromise deltas.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="panel">
+              <form id="runForm" class="form-grid">
+                <label>
+                  Scenario
+                  <select id="runScenario"></select>
+                </label>
+                <label>
+                  Seed
+                  <input id="runSeed" type="number" min="0" value="20260329">
+                </label>
+                <label>
+                  Horizon
+                  <input id="runHorizon" type="number" min="1" max="500" value="8">
+                </label>
+                <label>
+                  Red Policy
+                  <select id="redPolicy">
+                    <option value="rule">Rule</option>
+                    <option value="adaptive">Adaptive</option>
+                  </select>
+                </label>
+                <label>
+                  Blue Policy
+                  <select id="bluePolicy">
+                    <option value="rule">Rule</option>
+                    <option value="adaptive">Adaptive</option>
+                  </select>
+                </label>
+                <label>
+                  Planning Horizon
+                  <input id="planningHorizon" type="number" min="1" value="3">
+                </label>
+                <label>
+                  Exploration
+                  <input id="explorationBias" type="number" min="0" step="0.05" value="0.15">
+                </label>
+                <label>
+                  Decision Noise
+                  <input id="decisionNoise" type="number" min="0" step="0.1" value="0">
+                </label>
+                <label class="checkbox-row">
+                  <input id="reducedObservability" type="checkbox">
+                  <span>Reduced Observability</span>
+                </label>
+                <label class="checkbox-row">
+                  <input id="enableDecoy" type="checkbox">
+                  <span>Decoy</span>
+                </label>
+                <label class="checkbox-row">
+                  <input id="enableBluff" type="checkbox">
+                  <span>Bluff</span>
+                </label>
+              </form>
+            </div>
+
+            <div class="two-column">
+              <div class="panel">
+                <div class="panel-header">
+                  <h3>Run Summary</h3>
+                  <span id="runStatus" class="status-pill">Idle</span>
+                </div>
+                <div id="runMetrics" class="metric-grid"></div>
+                <div class="slider-row">
+                  <label for="snapshotSlider">Turn</label>
+                  <input id="snapshotSlider" type="range" min="0" max="0" value="0">
+                  <span id="snapshotLabel">Initial</span>
+                </div>
+                <svg id="runGraph" class="graph-canvas" role="img" aria-label="Simulation topology"></svg>
+              </div>
+              <div class="panel">
+                <div class="panel-header">
+                  <h3>Action Timeline</h3>
+                  <button id="copyRunArtifactPath" class="button secondary">Artifact Path</button>
+                </div>
+                <div id="runTimeline" class="timeline"></div>
+              </div>
+            </div>
+          </section>
+
+          <section id="view-replay" class="view" aria-label="Replay">
+            <div class="section-header">
+              <div>
+                <h2>Replay Artifacts</h2>
+                <p>Run metadata, policy metrics, and timestep events</p>
+              </div>
+              <button id="refreshRuns" class="button secondary">Refresh Runs</button>
+            </div>
+
+            <div class="explain-panel">
+              <div>
+                <span class="eyebrow">What This Screen Shows</span>
+                <p>Replay reads the artifacts written by a run: metadata, timestep logs, policy metrics, provenance, and sequence hashes. It is the audit trail for what happened.</p>
+              </div>
+              <div>
+                <span class="eyebrow">How To Explain It</span>
+                <p>“The simulator is not just drawing a final answer. Every decision is stored as an event, so we can inspect the exact sequence and verify that replay matches the recorded policy metrics.”</p>
+              </div>
+              <div>
+                <span class="eyebrow">Point Out</span>
+                <ul>
+                  <li>Run IDs are deterministic hashes of configuration and initial state.</li>
+                  <li>Integrity OK means the replayed action sequence matches the stored metrics artifact.</li>
+                  <li>The timeline is useful for explaining why a metric changed, not just that it changed.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="two-column wide-left">
+              <div class="panel">
+                <div class="table-wrap">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Run</th>
+                        <th>Scenario</th>
+                        <th>Seed</th>
+                        <th>Horizon</th>
+                        <th>Final</th>
+                      </tr>
+                    </thead>
+                    <tbody id="runRows"></tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="panel">
+                <div class="panel-header">
+                  <h3 id="replayTitle">Select a run</h3>
+                  <span id="replayIntegrity" class="status-pill">Replay</span>
+                </div>
+                <div id="replayMetrics" class="metric-grid"></div>
+                <div id="replayTimeline" class="timeline"></div>
+              </div>
+            </div>
+          </section>
+
+          <section id="view-reports" class="view" aria-label="Reports">
+            <div class="section-header">
+              <div>
+                <h2>Reports</h2>
+                <p>Experiment packages and comparative outputs</p>
+              </div>
+              <button id="refreshReports" class="button secondary">Refresh Reports</button>
+            </div>
+
+            <div class="explain-panel">
+              <div>
+                <span class="eyebrow">What This Screen Produces</span>
+                <p>Reports turn individual simulations into research artifacts. They aggregate multiple seeds, compare policy families, package ablation results, stress scenarios, and compare two run directories.</p>
+              </div>
+              <div>
+                <span class="eyebrow">How To Explain It</span>
+                <p>“A single run tells a story; reports tell whether the story is stable. This is where we move from a demonstration to repeatable evaluation.”</p>
+              </div>
+              <div>
+                <span class="eyebrow">Point Out</span>
+                <ul>
+                  <li>Multi-seed reports measure reproducibility and outcome spread.</li>
+                  <li>Policy matrices compare rule and adaptive Red/Blue combinations plus ablations.</li>
+                  <li>The artifact viewer lets you inspect generated JSON and Markdown without leaving the UI.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="tool-grid">
+              <div class="panel">
+                <div class="panel-header"><h3>Multi Seed</h3></div>
+                <div class="compact-form">
+                  <label>Scenario<select id="multiSeedScenario"></select></label>
+                  <label>Seeds<input id="multiSeedSeeds" value="20260329,20260330,20260331"></label>
+                  <label>Horizon<input id="multiSeedHorizon" type="number" min="1" value="8"></label>
+                  <button id="runMultiSeed" class="button primary">Generate</button>
+                </div>
+              </div>
+
+              <div class="panel">
+                <div class="panel-header"><h3>Policy Matrix</h3></div>
+                <div class="compact-form">
+                  <label>Scenario<select id="matrixScenario"></select></label>
+                  <label>Scenario Batch<input id="matrixBatch" placeholder="Optional comma-separated paths"></label>
+                  <label>Seeds<input id="matrixSeeds" value="20260423,20260424"></label>
+                  <label>Horizon<input id="matrixHorizon" type="number" min="1" value="2"></label>
+                  <label class="checkbox-row"><input id="matrixAblations" type="checkbox" checked><span>Ablations</span></label>
+                  <button id="runMatrix" class="button primary">Generate</button>
+                </div>
+              </div>
+
+              <div class="panel">
+                <div class="panel-header"><h3>Stress Suite</h3></div>
+                <div class="compact-form">
+                  <label>Seeds<input id="stressSeeds" value="20260423,20260424"></label>
+                  <label>Horizon<input id="stressHorizon" type="number" min="1" value="3"></label>
+                  <button id="runStress" class="button primary">Generate</button>
+                </div>
+              </div>
+
+              <div class="panel">
+                <div class="panel-header"><h3>Ablation Package</h3></div>
+                <div class="compact-form">
+                  <label>Scenario<select id="ablationScenario"></select></label>
+                  <label>Seeds<input id="ablationSeeds" value="20260423,20260424"></label>
+                  <label>Horizon<input id="ablationHorizon" type="number" min="1" value="2"></label>
+                  <label class="checkbox-row"><input id="ablationAblations" type="checkbox" checked><span>Ablations</span></label>
+                  <label class="checkbox-row"><input id="ablationContainerized" type="checkbox"><span>Container Profile</span></label>
+                  <button id="runAblation" class="button primary">Generate</button>
+                </div>
+              </div>
+
+              <div class="panel span-two">
+                <div class="panel-header"><h3>Comparative Report</h3></div>
+                <div class="compact-form compare-form">
+                  <label>Left Run<select id="compareLeft"></select></label>
+                  <label>Right Run<select id="compareRight"></select></label>
+                  <button id="runCompare" class="button primary">Compare</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="two-column wide-left">
+              <div class="panel">
+                <div class="table-wrap">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Artifact</th>
+                        <th>Type</th>
+                        <th>Summary</th>
+                      </tr>
+                    </thead>
+                    <tbody id="reportRows"></tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="panel">
+                <div class="panel-header">
+                  <h3 id="artifactTitle">Artifact Viewer</h3>
+                  <span id="artifactKind" class="status-pill">None</span>
+                </div>
+                <pre id="artifactViewer" class="artifact-viewer"></pre>
+              </div>
+            </div>
+          </section>
+
+          <section id="view-operations" class="view" aria-label="Operations">
+            <div class="section-header">
+              <div>
+                <h2>Operations</h2>
+                <p>Release gates and container execution profiles</p>
+              </div>
+            </div>
+
+            <div class="explain-panel">
+              <div>
+                <span class="eyebrow">What This Screen Checks</span>
+                <p>Operations focuses on delivery readiness. Release validation checks expected project assets and configuration, while container profiles resolve reproducible Docker Compose commands.</p>
+              </div>
+              <div>
+                <span class="eyebrow">How To Explain It</span>
+                <p>“This is the handoff surface. It shows whether the repo is packaged, documented, configured, and runnable in the expected ways.”</p>
+              </div>
+              <div>
+                <span class="eyebrow">Point Out</span>
+                <ul>
+                  <li>Release gates are concrete pass/fail checks tied to files, scripts, presets, notebooks, and docs.</li>
+                  <li>Container profiles show exactly which compose service and command would run.</li>
+                  <li>Dry-run resolution is safer for demos; execute only when Docker is available and intended.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="two-column">
+              <div class="panel">
+                <div class="panel-header">
+                  <h3>Release Validation</h3>
+                  <button id="runReleaseValidation" class="button primary">Run Gates</button>
+                </div>
+                <div id="releaseMetrics" class="metric-grid"></div>
+                <div id="releaseGates" class="gate-list"></div>
+              </div>
+
+              <div class="panel">
+                <div class="panel-header">
+                  <h3>Container Profile</h3>
+                  <button id="resolveContainerProfile" class="button primary">Resolve</button>
+                </div>
+                <div class="compact-form">
+                  <label>Spec<select id="containerSpec"></select></label>
+                  <label class="checkbox-row"><input id="containerBuild" type="checkbox"><span>Build Image</span></label>
+                  <label class="checkbox-row"><input id="containerNoRm" type="checkbox"><span>No RM</span></label>
+                  <label class="checkbox-row"><input id="containerExecute" type="checkbox"><span>Execute</span></label>
+                </div>
+                <pre id="containerCommand" class="result-box"></pre>
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script src="/static/app.js"></script>
+  </body>
+</html>

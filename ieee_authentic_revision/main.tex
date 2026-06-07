@@ -1,0 +1,323 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{url}
+\usepackage{array}
+
+\graphicspath{{figures/}}
+\urlstyle{same}
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+\begin{document}
+
+\title{MARBTS: A Sandboxed Multi-Agent Red/Blue Team Simulator for Reproducible Cyber-Defense Experiments}
+
+\author{
+    \IEEEauthorblockN{Sargam Nema\IEEEauthorrefmark{1},
+                      Shobhit Srivastava\IEEEauthorrefmark{2},
+                      Aryaman Prakash\IEEEauthorrefmark{3},
+                      Suryansh Prajapati\IEEEauthorrefmark{4}}
+    \IEEEauthorblockA{
+        \textit{Department of Computer Science and Engineering (Cyber Security)} \\
+        \textit{Ramaiah Institute of Technology}, Bangalore, India \\
+        \IEEEauthorrefmark{1}sargamnema1612@gmail.com,
+        \IEEEauthorrefmark{2}shobhits200@gmail.com,
+        \IEEEauthorrefmark{3}aryaman.career@gmail.com,
+        \IEEEauthorrefmark{4}hi@suryansh.one
+    }
+}
+\maketitle
+
+\begin{abstract}
+Autonomous cyber-defense mechanisms are difficult to evaluate on live infrastructure because repeated attack-defense trials can be unsafe, expensive, and hard to reproduce. MARBTS addresses this issue through a sandboxed Red/Blue simulation environment in which network assets are represented as graph nodes and all attacker and defender operations are restricted to abstract state transitions. Each node maintains attributes such as exposed services, vulnerabilities, security level, compromise state, detection state, and isolation status. Red agents operate through actions such as \texttt{scan}, \texttt{exploit}, \texttt{lateral\_move}, and \texttt{escalate}, while Blue agents respond using \texttt{monitor}, \texttt{patch}, \texttt{block}, and \texttt{isolate}.
+
+The system integrates scenario validation, NetworkX-based graph construction, legal-action generation, deterministic baseline policies, bounded adaptive planning, seeded execution, decision rationales, timestep logs, metric summaries, and comparative visual reports. Experiments on the \texttt{rule-baseline} scenario show that the rule-based baseline remains deterministic and produces no final compromise, whereas introducing the adaptive Red planner changes the trajectory by producing one final compromised node and two Blue containment actions under the same two-step horizon. MARBTS therefore provides a compact and reproducible testbed for studying policy-level cyber-defense behavior without executing real exploits or interacting with operational systems.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Autonomous cyber defense, Red team simulation, Blue team simulation, multi-agent systems, graph-based network modeling, explainable agents, cyber range, reproducible experimentation.
+\end{IEEEkeywords}
+
+\section{Introduction}
+Cyber-defense research benefits from controlled environments where offensive and defensive strategies can be repeated, inspected, and compared from identical starting conditions. Live cyber ranges provide operational realism, but they also introduce cost, reset complexity, and safety concerns. These limitations become especially important when the goal is to evaluate policy behavior rather than to execute real attack chains. MARBTS is designed for this safer experimental setting: it studies Red/Blue interaction over a synthetic graph instead of interacting with production systems.
+
+The simulator is intentionally abstract. Red actions modify symbolic state only through the transition engine, and Blue actions update graph attributes or connectivity using the same controlled mechanism. For example, \texttt{exploit} can move a target from \texttt{none} to \texttt{user}, \texttt{patch} can improve the target's security level and remove vulnerability exposure, and \texttt{block} can remove an edge from the graph. This design preserves the structure of an attacker-defender exercise while avoiding unsafe operational behavior.
+
+Reproducibility is treated as a core design requirement. Each run is associated with a scenario identifier, seed, horizon, run metadata, timestep records, state-diff payloads, policy rationale payloads, and metric summaries. As a result, an experiment can be studied not only through its final compromise count but also through the exact sequence of Red and Blue decisions that produced the outcome.
+
+\section{Related Work}
+MARBTS is positioned between adversary emulation systems and learning-oriented cyber simulation environments. MITRE ATT\&CK provides a shared vocabulary for adversary tactics and techniques \cite{attack}. CALDERA operationalizes adversary emulation and automated response workflows around ATT\&CK concepts \cite{caldera}, and Miller et al. discuss planning-based adversary emulation when the environment contains unknowns \cite{miller}. MARBTS draws from this planning-oriented perspective, but keeps execution at the graph-state level rather than launching agents, command-and-control infrastructure, or real procedures.
+
+CyberBattleSim and CybORG are closer to MARBTS in their use of abstract cyber environments for autonomous-agent research. Microsoft CyberBattleSim describes simulated enterprise networks using high-level computer-network and cybersecurity abstractions for reinforcement-learning experiments \cite{cyberbattle}. CybORG similarly frames autonomous cyber operations as a gym-style environment for Red and Blue decision-making research \cite{cyborg}. MARBTS differs in emphasis by prioritizing deterministic baselines, explainable heuristic/adaptive decisions, structured experiment artifacts, and lightweight repeatability over trained reinforcement-learning agents.
+
+The implementation uses standard scientific Python infrastructure. NetworkX represents the mutable graph state \cite{networkx}, Matplotlib renders report figures \cite{matplotlib}, and pytest supports automated validation \cite{pytest}.
+
+\section{Objectives}
+The project was developed around the following objectives:
+
+\begin{itemize}
+    \item Represent synthetic networks as validated JSON scenarios with typed nodes, edges, services, vulnerabilities, and security attributes.
+    \item Build a NetworkX graph from validated scenarios and use it as the central runtime representation for legal actions, transitions, metrics, and reports.
+    \item Provide a constrained action vocabulary for Red and Blue agents so that all behavior remains abstract and sandboxed.
+    \item Support deterministic rule-based policies and bounded adaptive-planning policies for both actors.
+    \item Attach rationale summaries, score breakdowns, predicted effects, planning traces, and policy metric snapshots to decisions when policy objects are used.
+    \item Execute seeded experiments and produce reproducible run artifacts, aggregate reports, comparison reports, and figures.
+    \item Expose researcher workflows through Python scripts, packaged CLI commands, notebooks, Docker Compose profiles, and release-readiness validation assets.
+\end{itemize}
+
+\section{Methodology}
+MARBTS separates scenario validation, graph construction, legal-action generation, policy selection, state transition, logging, and reporting. This separation reduces coupling between experimental setup and policy logic, and it makes individual components replaceable.
+
+\subsection{System Architecture}
+Fig.~\ref{fig:marbts_architecture} summarizes the system architecture. Scenario and runtime inputs are validated before graph construction. The action surface is generated from the current graph state. Policy objects choose among legal actions. The simulation kernel applies state transitions and records artifacts for post-run analysis.
+
+\begin{figure*}[htbp]
+\centering
+\includegraphics[width=0.95\textwidth]{marbts_modular_architecture.png}
+\caption{MARBTS modular architecture showing validation, environment, policy, simulation, observability, and reporting layers.}
+\label{fig:marbts_architecture}
+\end{figure*}
+
+\subsection{Scenario Validation and Graph Construction}
+Scenario files are JSON documents containing metadata, nodes, and edges. The validator in \path{src/schemas/scenario.py} requires each node to define \texttt{node\_id}, \texttt{node\_type}, \texttt{services}, \texttt{vulnerabilities}, \texttt{security\_level}, \texttt{compromised\_state}, \texttt{detection\_state}, and \texttt{isolation\_state}. Node types currently include server, database, IoT, and endpoint. Compromise states are \texttt{none}, \texttt{user}, and \texttt{privileged}; detection states are \texttt{undetected}, \texttt{suspected}, and \texttt{confirmed}.
+
+After validation, \path{src/environment/graph_builder.py} creates a \texttt{networkx.Graph} and attaches node attributes as mutable graph data. The graph is then used by the legal-action generator, transition engine, simulation kernel, and metrics layer. This design gives all components a consistent state representation.
+
+\subsection{Legal Actions and Transition Semantics}
+The current action vocabulary is defined in \path{src/hart/enums/agent_enums.py}. Red actions are \texttt{scan}, \texttt{exploit}, \texttt{lateral\_move}, and \texttt{escalate}. Blue actions are \texttt{monitor}, \texttt{patch}, \texttt{block}, and \texttt{isolate}. The generator in \path{src/environment/legal_actions.py} emits only actions compatible with the current graph. For example, isolated nodes are skipped for Red actions, lateral movement requires an already compromised source node, and Blue block actions are created from existing edges.
+
+The transition engine in \path{src/environment/transitions.py} implements the state-changing parts of this vocabulary. Exploit-like Red actions advance compromise one level when allowed. Patch raises security level by one up to a maximum, removes one vulnerability when present, and can reduce compromise by one level. Isolate sets a node's isolation flag and removes its connected edges. Block removes a selected graph edge. Scan and monitor are informational no-op actions in the current kernel, which is important when interpreting baseline results.
+
+\subsection{Policy Layer}
+The rule-based policies in \path{src/agents/red/rule_based.py} and \path{src/agents/blue/rule_based.py} use deterministic heuristic scores and stable tie-breaking. This makes them useful for regression and reproducibility testing because the same scenario, seed, and horizon should produce the same action sequence.
+
+The adaptive policy in \path{src/agents/adaptive/planning.py} uses bounded planning over candidate actions. It computes base utility, projected compromise deltas, discounted horizon utility, target affinity from node security level, optional exploration terms, optional reduced-observability behavior, and optional deception hooks. The model-routing path is heuristic by default; remote-routing fields are present in the configuration models, but the baseline experiments do not require an external LLM or cloud service.
+
+\subsection{Seeded Simulation Workflow}
+The simulation kernel in \path{src/simulation/kernel.py} coordinates a turn-based loop. At each timestep it captures a pre-state reference, generates Red legal actions, obtains a Red decision, applies the Red transition, generates Blue legal actions from the resulting graph, obtains a Blue decision, applies the Blue transition, computes a post-state diff, and records metrics. Fig.~\ref{fig:marbts_workflow} shows this workflow.
+
+\begin{figure*}[htbp]
+\centering
+\includegraphics[width=0.95\textwidth]{marbts_simulation_workflow.png}
+\caption{Seeded simulation workflow used by the MARBTS kernel.}
+\label{fig:marbts_workflow}
+\end{figure*}
+
+\subsection{Artifacts and Interfaces}
+Run artifacts include \path{run_metadata.json}, \path{timesteps.jsonl}, and \path{policy_metrics.json}. Aggregate experiment workflows produce reports under \path{artifacts/reports/}, metrics under \path{artifacts/metrics/}, and figures under \path{artifacts/figures/}. The command-line interface supports multi-seed reports, policy matrices, stress suites, ablation packages, comparative reports, container profiles, and release validation. Notebook workflows provide replay, comparative, policy-matrix, and ablation walkthroughs.
+
+\section{Requirements}
+The software implementation targets Python 3.11 or later. Runtime dependencies are NetworkX, Matplotlib, and packaging. Pytest is used as a development and validation dependency. Notebook files and container profiles are included for analysis and repeatable execution, but the core simulator remains a Python command-line system.
+
+\begin{table}[H]
+\centering
+\caption{Software Requirements}
+\label{tab:software_requirements}
+\begin{tabular}{|p{0.35\columnwidth}|p{0.54\columnwidth}|}
+\hline
+\textbf{Component} & \textbf{Verified Role} \\
+\hline
+Python $\geq$ 3.11 & Core runtime for the simulator and experiment scripts. \\
+\hline
+NetworkX & Graph construction and graph-state mutation. \\
+\hline
+Matplotlib & Non-interactive report figure rendering. \\
+\hline
+packaging & Runtime utility dependency. \\
+\hline
+pytest & Unit, integration, regression, simulation, and reproducibility tests. \\
+\hline
+Docker Compose & Optional local execution profiles under \path{docker/}. \\
+\hline
+\end{tabular}
+\end{table}
+
+The rule-based and heuristic planning implementation does not require a GPU. A standard development machine is sufficient for the reported scenarios and experiments. Larger future experiments, trained reinforcement-learning agents, or model-backed policies may require additional compute, but those are not prerequisites for the present system.
+
+\section{Implementation}
+\subsection{Package Structure}
+The codebase is organized around clear package boundaries. The \path{src/hart/} layer stores shared enums and dataclass contracts. The \path{src/schemas/} package validates scenarios. The \path{src/environment/} package builds graphs, generates legal actions, and applies transitions. The \path{src/agents/} package implements Red, Blue, and adaptive policies. The \path{src/simulation/} package runs the turn loop and writes state diffs. Observability, metrics, experiments, visualization, CLI, and utility modules are isolated in their own packages.
+
+\subsection{Observability and Reproducibility}
+The logging path records both actions and outcomes. A timestep entry contains Red and Blue action intents, rationale payloads, change flags, transition reasons, post-state diffs, compromised-node deltas, and policy metric snapshots when available. Sequence hashes allow repeated runs to be compared for deterministic consistency. The multi-seed and policy-matrix reports aggregate these hashes into deterministic consistency ratios.
+
+\subsection{Experiment Tooling}
+The experiment layer provides presets for the multi-seed baseline, policy experiment matrix, stress-test suite, and ablation package. The same workflows are exposed through scripts such as \path{scripts/run_multi_seed_report.py} and packaged commands such as \texttt{marbts-multi-seed-report}. Container profiles invoke the canonical experiment commands inside a project image. Notebook walkthroughs support replay, comparative analysis, policy-matrix inspection, and ablation review.
+
+\section{Results}
+The evaluation focuses on repeatability and policy contrast. The baseline experiment measures whether the deterministic rule policies produce stable behavior across seeds. The policy matrix then compares rule-based and adaptive policies under the same scenario and horizon. A pairwise comparison is included to show how the recorded traces explain the aggregate numbers.
+
+\subsection{Rule-Based Multi-Seed Baseline}
+The canonical multi-seed baseline report uses scenario \texttt{rule-baseline}, horizon 8, and seeds 20260329, 20260330, and 20260331. Table~\ref{tab:baseline_results} summarizes the aggregate report.
+
+\begin{table}[H]
+\centering
+\caption{Rule-Based Baseline Aggregate}
+\label{tab:baseline_results}
+\begin{tabular}{|l|c|}
+\hline
+\textbf{Metric} & \textbf{Value} \\
+\hline
+Scenario & rule-baseline \\
+\hline
+Seeds & 3 \\
+\hline
+Horizon & 8 \\
+\hline
+Final compromised nodes, mean & 0.0 \\
+\hline
+Blue containment actions, mean & 0.0 \\
+\hline
+First containment timestep, mean & -1 \\
+\hline
+Deterministic consistency ratio & 1.0 \\
+\hline
+\end{tabular}
+\end{table}
+
+The zero-containment result is consistent with the implementation: in the baseline run, deterministic Red selects scan actions and deterministic Blue selects monitor actions. Both are informational no-op transitions in the current kernel, so the graph state remains unchanged.
+
+\subsection{Policy Matrix}
+The canonical policy experiment matrix uses scenario \texttt{rule-baseline}, horizon 2, seeds 20260423 and 20260424, and 14 total conditions because ablation variants are enabled. Table~\ref{tab:policy_results_comparison} lists the four primary policy combinations.
+
+\begin{table*}[htbp]
+\centering
+\caption{Primary Policy Matrix Results}
+\label{tab:policy_results_comparison}
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+\textbf{Condition} & \textbf{Run Count} & \textbf{Final Compromised Mean} & \textbf{Blue Containment Mean} & \textbf{Deterministic Consistency} \\
+\hline
+Rule Red vs. Rule Blue & 2 & 0.0 & 0.0 & 1.0 \\
+\hline
+Adaptive Red vs. Rule Blue & 2 & 1.0 & 2.0 & 1.0 \\
+\hline
+Rule Red vs. Adaptive Blue & 2 & 0.0 & 0.0 & 1.0 \\
+\hline
+Adaptive Red vs. Adaptive Blue & 2 & 1.0 & 0.0 & 1.0 \\
+\hline
+\end{tabular}
+\end{table*}
+
+Adaptive Red vs. Rule Blue produced one final compromised node on average and two Blue containment actions on average. In contrast, the rule-only baseline produced no compromise and no containment. This indicates that the adaptive Red planner changes the trajectory even under the small rule-baseline scenario. Rule Red vs. Adaptive Blue remains at zero final compromise because the Red rule policy still selects no-op scans in this scenario.
+
+The enabled ablation variants did not change the aggregate outcomes in this small baseline case. Adaptive Red variants against Rule Blue produced the same means as Adaptive Red vs. Rule Blue, and Rule Red against Adaptive Blue variants remained at zero final compromise. This does not prove the ablations are unimportant in general; it only reflects the current baseline scenario, horizon, and seeds.
+
+\subsection{Pairwise Comparative Run}
+The pairwise comparison uses run \texttt{c16f1aae9fb145be} and run \texttt{49b9e1e81edc1061}, both with seed 20260423 and horizon 2. The left run is Rule Red vs. Rule Blue. The right run is Adaptive Red vs. Rule Blue. Table~\ref{tab:comparative_results} summarizes the difference between the two trajectories.
+
+\begin{table}[H]
+\centering
+\caption{Pairwise Comparative Report}
+\label{tab:comparative_results}
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Metric} & \textbf{Rule/Rule} & \textbf{Adaptive Red/Rule} & \textbf{Delta} \\
+\hline
+Final compromised nodes & 0 & 1 & 1 \\
+\hline
+Blue containment actions & 0 & 2 & 2 \\
+\hline
+First containment timestep & -1 & 0 & 1 \\
+\hline
+Response latency & -1 & 0 & 1 \\
+\hline
+Containment/compromise ratio & 0 & 2 & 2 \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{figure*}[htbp]
+\centering
+\includegraphics[width=0.92\textwidth]{comparativereportsnapshot.png}
+\caption{Comparative report snapshot for the baseline and adaptive Red runs.}
+\label{fig:comparative_snapshot}
+\end{figure*}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\columnwidth]{compromisetrend.png}
+\caption{Compromise trend for the pairwise comparative run.}
+\label{fig:compromise_trend}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\columnwidth]{defenseefficiency.png}
+\caption{Containment-to-compromise ratio for the pairwise comparative run.}
+\label{fig:defense_efficiency}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\columnwidth]{responselatency.png}
+\caption{Response latency for the pairwise comparative run. A value of -1 in the baseline denotes no containment event.}
+\label{fig:response_latency}
+\end{figure}
+
+\subsection{Stress-Test Suite}
+The stress-test suite contains two profile groups: \texttt{scale\_scenarios}, which runs the rule baseline, containment-stress, and scale-chain-6 scenarios without ablations, and \texttt{noise\_observability\_constraints}, which runs containment-stress and scale-chain-6 with observability/noise proxy conditions. The baseline final compromised mean is 0.667 for the scale-scenarios profile and 1.0 for the noise/observability profile. These values indicate that topology and scenario choice affect outcomes even before more complex learning policies are introduced.
+
+\section{Discussion}
+The results show that MARBTS can generate reproducible baselines and distinguish policy behavior under controlled conditions. The most important observation is not that one policy is universally better than another, but that the simulator makes the difference inspectable. The adaptive Red run produces different action records, state diffs, containment actions, and comparative figures; the rule baseline produces a stable scan/monitor sequence. This traceability is useful for teaching, debugging, and incremental research.
+
+The results also reveal limitations. \texttt{scan} and \texttt{monitor} do not yet mutate detection or knowledge state. The adaptive layer is a bounded heuristic planner rather than a trained reinforcement-learning or LLM-driven agent. Remote model-routing configuration exists, but the baseline path falls back to heuristic behavior unless extended. The scenario set is intentionally small, so the reported numbers should not be interpreted as operational security performance.
+
+\section{Contributions}
+This work contributes:
+
+\begin{itemize}
+    \item A sandboxed Red/Blue simulation environment that models cyber behavior as abstract graph-state transitions.
+    \item A validated scenario pipeline and NetworkX graph state used consistently by actions, transitions, metrics, and reports.
+    \item Deterministic rule-based policies and bounded adaptive-planning policies for both Red and Blue actors.
+    \item Explainable decision records with rationales, score components, planning traces, predicted effects, and policy metric snapshots.
+    \item Seeded experiment tooling for multi-seed baselines, policy matrices, stress suites, ablations, comparative reports, notebooks, and container profiles.
+    \item Reproducible figures and artifacts that support experiment inspection and comparison.
+\end{itemize}
+
+\section{Conclusion}
+MARBTS demonstrates that a lightweight cyber-defense simulator can support safe, repeatable, and explainable policy experimentation without relying on live infrastructure or real exploit execution. The system validates scenario inputs, constructs graph-based environments, generates legal actions from state, applies controlled transitions, and emits structured artifacts for replay and comparison.
+
+The experiments confirm deterministic baseline replay and show that the adaptive Red planner changes compromise and containment outcomes in the canonical policy matrix. These results are intentionally narrow, but they validate the research workflow: policy changes can be run, compared, visualized, and audited through local artifacts.
+
+\section{Future Work}
+Future development should focus on richer state semantics and stronger evaluation. Useful extensions include mutating scan/monitor knowledge state, improving detection dynamics, expanding scenario libraries, adding partial observability, strengthening deception and noise models, introducing trained RL agents, integrating optional model-backed planners safely, and building dashboards for replay and trajectory comparison. Larger benchmark suites would also help separate scenario-specific behavior from policy-level effects.
+
+\begin{thebibliography}{00}
+
+\bibitem{attack}
+MITRE, ``MITRE ATT\&CK,'' 2026. [Online]. Available: \url{https://attack.mitre.org/}. Accessed: May 20, 2026.
+
+\bibitem{caldera}
+MITRE, ``CALDERA,'' 2026. [Online]. Available: \url{https://www.mitre.org/our-impact/intellectual-property/caldera}. Accessed: May 20, 2026.
+
+\bibitem{miller}
+D. Miller, R. Alford, A. Applebaum, H. Foster, C. Little, and B. Strom, ``Automated Adversary Emulation: A Case for Planning and Acting with Unknowns,'' MITRE, Jun. 2018. [Online]. Available: \url{https://www.mitre.org/sites/default/files/2021-11/prs-18-0944-1-automated-adversary-emulation-planning-acting.pdf}.
+
+\bibitem{cyberbattle}
+Microsoft Research, ``CyberBattleSim,'' 2020. [Online]. Available: \url{https://www.microsoft.com/en-us/research/project/cyberbattlesim/}. Accessed: May 20, 2026.
+
+\bibitem{cyborg}
+C. Baillie, M. Standen, J. Schwartz, M. Docking, D. Bowman, and J. Kim, ``CybORG: An Autonomous Cyber Operations Research Gym,'' \textit{arXiv preprint arXiv:2002.10667}, 2020.
+
+\bibitem{networkx}
+A. A. Hagberg, D. A. Schult, and P. J. Swart, ``Exploring Network Structure, Dynamics, and Function using NetworkX,'' in \textit{Proc. 7th Python in Science Conf.}, Pasadena, CA, USA, 2008, pp. 11--15.
+
+\bibitem{matplotlib}
+J. D. Hunter, ``Matplotlib: A 2D Graphics Environment,'' \textit{Computing in Science \& Engineering}, vol. 9, no. 3, pp. 90--95, 2007, doi: 10.1109/MCSE.2007.55.
+
+\bibitem{pytest}
+pytest, ``pytest Documentation,'' 2026. [Online]. Available: \url{https://docs.pytest.org/en/stable/}. Accessed: May 20, 2026.
+
+
+\end{thebibliography}
+
+\end{document}

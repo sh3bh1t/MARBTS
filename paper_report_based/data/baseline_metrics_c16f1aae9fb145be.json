@@ -1,0 +1,24 @@
+{
+  "horizon": 2,
+  "policy_performance": {
+    "blue_action_change_rate": 0.0,
+    "blue_changed_actions": 0,
+    "blue_containment_actions": 0,
+    "first_containment_timestep": -1,
+    "red_action_change_rate": 0.0,
+    "red_changed_actions": 0,
+    "red_offensive_actions": 2
+  },
+  "run_id": "c16f1aae9fb145be",
+  "scenario_id": "rule-baseline:rule_red_vs_rule_blue",
+  "security_outcomes": {
+    "compromise_delta": 0,
+    "final_compromised_nodes": 0,
+    "initial_compromised_nodes": 0,
+    "max_compromised_nodes": 0,
+    "mean_compromised_nodes": 0.0
+  },
+  "seed": 20260423,
+  "sequence_hash": "a3dce930d0099446a0da6259f1b6aec4f692cdb2c4ba939dc276acf81914b07d",
+  "timesteps_count": 2
+}
